@@ -13,18 +13,18 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
-class MrpProduction(models.Model):
-    _inherit = 'mrp.production'
+# class MrpProduction(models.Model):
+#     _inherit = 'mrp.production'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#         default=lambda self: self.env.user.branch_id)
 
-    branch_id = fields.Many2one('company.branch', string="Branch",
-        default=lambda self: self.env.user.branch_id)
 
-
-class MrpUnbuild(models.Model):
-    _inherit = 'mrp.unbuild'
-
-    branch_id = fields.Many2one('company.branch', string="Branch",
-        default=lambda self: self.env.user.branch_id)
+# class MrpUnbuild(models.Model):
+#     _inherit = 'mrp.unbuild'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#         default=lambda self: self.env.user.branch_id)
 
 
 class StockScrap(models.Model):
@@ -34,28 +34,28 @@ class StockScrap(models.Model):
         default=lambda self: self.env.user.branch_id)
 
 
-class MrpBom(models.Model):
-    _inherit = 'mrp.bom'
+# class MrpBom(models.Model):
+#     _inherit = 'mrp.bom'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#         default=lambda self: self.env.user.branch_id)
 
-    branch_id = fields.Many2one('company.branch', string="Branch",
-        default=lambda self: self.env.user.branch_id)
-
-class MrpWorkOrder(models.Model):
-    _inherit = 'mrp.workorder'
-
-    branch_id = fields.Many2one('company.branch', string="Branch",
-        default=lambda self: self.env.user.branch_id)
-
-
-class MrpWorkCenter(models.Model):
-    _inherit = 'mrp.workcenter'
-
-    branch_id = fields.Many2one('company.branch', string="Branch",
-        default=lambda self: self.env.user.branch_id)
+# class MrpWorkOrder(models.Model):
+#     _inherit = 'mrp.workorder'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#         default=lambda self: self.env.user.branch_id)
 
 
-class MrpRoutingWorkcenter(models.Model):
-    _inherit = 'mrp.routing.workcenter'
+# class MrpWorkCenter(models.Model):
+#     _inherit = 'mrp.workcenter'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#         default=lambda self: self.env.user.branch_id)
 
-    branch_id = fields.Many2one('company.branch', string="Branch",
-        default=lambda self: self.env.user.branch_id)
+
+# class MrpRoutingWorkcenter(models.Model):
+#     _inherit = 'mrp.routing.workcenter'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#         default=lambda self: self.env.user.branch_id)

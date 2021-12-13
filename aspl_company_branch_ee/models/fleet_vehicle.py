@@ -12,24 +12,24 @@
 from odoo import models, fields
 
 
-class FleetVehicle(models.Model):
-    _inherit = 'fleet.vehicle'
-
-    branch_id = fields.Many2one('company.branch', string="Branch",
-                                default=lambda self: self.env.user.branch_id)
-
-
-class FleetVehicleLogContract(models.Model):
-    _inherit = 'fleet.vehicle.log.contract'
-
-    branch_id = fields.Many2one('company.branch', string="Branch",
-                                default=lambda self: self.env.user.branch_id)
+# class FleetVehicle(models.Model):
+#     _inherit = 'fleet.vehicle'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#                                 default=lambda self: self.env.user.branch_id)
 
 
-class FleetVehicleLogServices(models.Model):
-    _inherit = 'fleet.vehicle.log.services'
+# class FleetVehicleLogContract(models.Model):
+#     _inherit = 'fleet.vehicle.log.contract'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#                                 default=lambda self: self.env.user.branch_id)
 
-    branch_id = fields.Many2one('company.branch', string="Branch",
-                                default=lambda self: self.env.user.branch_id)
+
+# class FleetVehicleLogServices(models.Model):
+#     _inherit = 'fleet.vehicle.log.services'
+#
+#     branch_id = fields.Many2one('company.branch', string="Branch",
+#                                 default=lambda self: self.env.user.branch_id)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
