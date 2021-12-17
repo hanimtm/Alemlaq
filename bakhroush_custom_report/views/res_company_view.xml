@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="inherit_view_res_company_form" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="header_img" filename="header_img_filename"/>
+                <field name="footer_img" filename="footer_img_filename"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="group_product_manager" model="res.groups">
+        <field name="name">Allow Product Creation</field>
+        <field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_contact_manager" model="res.groups">
+        <field name="name">Contact Manager</field>
+         <field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_contacts">
+      <field name="groups_id" eval="[(6,0,[ref('bakhroush_custom_report.group_contact_manager')])]"/>
+    </record>
+
+</odoo>
+
