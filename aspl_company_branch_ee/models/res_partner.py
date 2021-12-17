@@ -18,7 +18,7 @@ class ResPartner(models.Model):
     # branch_id = fields.Many2one('company.branch', string="Branch",
     #                             default=lambda self: self.env.user.branch_id)
 
-    branch_id = fields.Many2many('company.branch', 'branch_partner_rel', 'branch_id', 'partner_id', string="Branch", required=True)
+    branch_id = fields.Many2many('company.branch', 'branch_partner_rel', 'branch_id', 'partner_id', string="Branch")
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
