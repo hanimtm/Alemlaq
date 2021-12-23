@@ -17,7 +17,7 @@ class StockWarehouse(models.Model):
 class StockBackorderConfirmation(models.TransientModel):
     _inherit = 'stock.backorder.confirmation'
 
-    def _prepare_invoice_vals(self,picking):
+    def _prepare_invoice_vals(self, picking):
         self.ensure_one()
         vals = {
             'payment_reference': picking.name,
@@ -51,7 +51,7 @@ class StockBackorderConfirmation(models.TransientModel):
             'product_uom_id': pick_line.product_id.uom_id.id,
         }
 
-    def create_payment(self,invoice,picking):
+    def create_payment(self, invoice, picking):
         journal = picking.sale_id.payment_term_id.default_cash_payment
         payment = self.env['account.payment'].sudo().create({
             'payment_method_id': self.env.ref('account.account_payment_method_manual_in').id or False,
@@ -60,13 +60,13 @@ class StockBackorderConfirmation(models.TransientModel):
             'partner_type': 'customer',
             'journal_id': journal.id,
             'date': datetime.today(),
-            'currency_id': invoice.currency_id.id ,
+            'currency_id': invoice.currency_id.id,
             'amount': abs(invoice.amount_total),
             'ref': picking.name,
         })
         return payment
 
-    def force_create_invoice_payment(self,picking):
+    def force_create_invoice_payment(self, picking):
         account_inv_obj = self.env['account.move']
         account_move_line = self.env['account.move.line']
 
@@ -121,7 +121,7 @@ class StockBackorderConfirmation(models.TransientModel):
 class StockImmediateTransfer(models.TransientModel):
     _inherit = 'stock.immediate.transfer'
 
-    def _prepare_invoice_vals(self,picking):
+    def _prepare_invoice_vals(self, picking):
         self.ensure_one()
         vals = {
             'payment_reference': picking.name,
@@ -155,7 +155,7 @@ class StockImmediateTransfer(models.TransientModel):
             'product_uom_id': pick_line.product_id.uom_id.id,
         }
 
-    def create_payment(self,invoice,picking):
+    def create_payment(self, invoice, picking):
         journal = picking.sale_id.payment_term_id.default_cash_payment
         payment = self.env['account.payment'].sudo().create({
             'payment_method_id': self.env.ref('account.account_payment_method_manual_in').id or False,
@@ -170,7 +170,7 @@ class StockImmediateTransfer(models.TransientModel):
         })
         return payment
 
-    def force_create_invoice_payment(self,picking):
+    def force_create_invoice_payment(self, picking):
         account_inv_obj = self.env['account.move']
         account_move_line = self.env['account.move.line']
 
@@ -258,10 +258,10 @@ class StockPicking(models.Model):
     corresponding = fields.Char(
         'Corresponding'
     )
-    car_no = fields.Many2one(
-        'fleet.vehicle',
-        'Car No.'
-    )
+    # car_no = fields.Many2one(
+    #     'fleet.vehicle',
+    #     'Car No.'
+    # )
     # driver_name = fields.Many2one(
     #     'hr.employee',
     #     string='Driver Name',
@@ -370,11 +370,11 @@ class StockPicking(models.Model):
             'picking_type_id': [('warehouse_id.allowed_users', 'in', self.env.user.id)]
         }}
 
-    @api.model
-    def get_employee(self):
-        driver = self.env['fleet.vehicle'].search([('employee_driver', '!=', False)]).employee_driver.ids
-        res = [('id', 'in', driver)]
-        return res
+    # @api.model
+    # def get_employee(self):
+    #     driver = self.env['fleet.vehicle'].search([('employee_driver', '!=', False)]).employee_driver.ids
+    #     res = [('id', 'in', driver)]
+    #     return res
 
     @api.model
     def get_source(self):

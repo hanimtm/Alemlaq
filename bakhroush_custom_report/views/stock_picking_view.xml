@@ -56,7 +56,7 @@
                 <group>
                     <field name="method"/>
                     <field name="corresponding"/>
-                    <field name="car_no"/>
+<!--                    <field name="car_no"/>-->
 <!--                    <field name="driver_name"/>-->
 <!--                    <field name="dummy_driver_name" widget="many2many_tags"/>-->
                     <field name="balance_amount"/>
@@ -216,7 +216,7 @@
             <field name="name">Inventory Overview</field>
             <field name="res_model">stock.picking.type</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="domain">[('warehouse_id.allowed_users','in', uid)]</field>
+            <field name="domain">[('warehouse_id.allowed_users','in', [uid])]</field>
             <field name="view_mode">kanban,form</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">

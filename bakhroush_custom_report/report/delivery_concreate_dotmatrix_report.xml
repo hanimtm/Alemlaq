@@ -76,7 +76,7 @@
                             <td style="width:53mm;text-align:center;"><span t-field="o.load_time_mixer"/></td>
                             <td style="width:40mm;text-align:right;"/>
 <!--                            Car No.-->
-                            <td colspan="2" style="width:67mm;text-align:center;"><span t-field="o.car_no"/></td>
+<!--                            <td colspan="2" style="width:67mm;text-align:center;"><span t-field="o.car_no"/></td>-->
                             <td style="width:30mm;text-align:right;"/>
                         </tr>
 

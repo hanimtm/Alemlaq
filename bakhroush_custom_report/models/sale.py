@@ -26,7 +26,6 @@ class SaleOrder(models.Model):
                 record.balance_in_partner_currency = rate * record.partner_balance
 
     def _get_partner_balance(self):
-        print("\n\n\n\n>>>>>>>>>> _get_partner_balance <<<<<<<<<<", self)
         for record in self:
             record.partner_balance = record.partner_debit - record.partner_credit
 
@@ -41,12 +40,12 @@ class SaleOrder(models.Model):
         self._get_partner_balance()
         self._get_balance_in_partner_currency()
 
-    @api.onchange('partner_id','order_line','branch_id')
+    @api.onchange('partner_id', 'order_line', 'branch_id')
     def _onchange_for_warehouse(self):
         if self.branch_id:
-            self.warehouse_id = self.env['stock.warehouse'].search([('branch_id','=',self.branch_id.id)],limit=1).id
+            self.warehouse_id = self.env['stock.warehouse'].search([('branch_id', '=', self.branch_id.id)], limit=1).id
 
-    @api.depends('order_line','order_line.product_uom_qty','order_line.qty_delivered')
+    @api.depends('order_line', 'order_line.product_uom_qty', 'order_line.qty_delivered')
     def _compute_qty(self):
         for order in self:
             product_uom_qty = qty_delivered = 0.0

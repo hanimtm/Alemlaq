@@ -99,7 +99,7 @@
                             <td style="width:40mm;text-align:right;"/>
 <!--                            Car No.-->
                             <td style="width:40mm;text-align:center;font-size: 15px;font-weight:bold;"/>
-                            <td colspan="2" style="width:67mm;text-align:center;"><span t-field="o.car_no.license_plate"/></td>
+<!--                            <td colspan="2" style="width:67mm;text-align:center;"><span t-field="o.car_no.license_plate"/></td>-->
                             <td style="width:30mm;text-align:right;"/>
                         </tr>
 

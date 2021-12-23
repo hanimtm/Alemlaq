@@ -11,7 +11,7 @@
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="attributes">
                 <attribute name="required">1</attribute>
-                <attribute name="domain">[('allowed_users', 'in', uid)]</attribute>
+                <attribute name="domain">[('allowed_users', 'in', [uid])]</attribute>
             </xpath>
         </field>
     </record>

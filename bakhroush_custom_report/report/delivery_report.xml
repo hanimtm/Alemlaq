@@ -155,7 +155,7 @@
 
                         <tr style="height:6mm;">
                             <td style="width:30mm;text-align:left;">Time Out</td>
-                            <td style="width:47mm;border:1px solid black"></td>
+<!--                            <td style="width:47mm;border:1px solid black"></td>-->
                             <td style="width:35mm;text-align:right;">وقت المغادرة</td>
 
                             <td style="width:30mm;text-align:right;">Car No.</td>

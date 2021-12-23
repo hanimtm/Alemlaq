@@ -10,7 +10,6 @@ class PurchaseOrder(models.Model):
 
     @api.depends('order_line', 'order_line.product_qty', 'order_line.qty_received')
     def _compute_qty(self):
-        print("\n\n\n\n\n >>>>>>>>>>>> _compute_qty <<<<<<<<<<<<", self)
         for order in self:
             qty_received = product_qty = 0.0
             for line in order.order_line:

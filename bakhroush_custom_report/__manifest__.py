@@ -2,13 +2,13 @@
 
 {
     # Module Information
-    'name': 'Bakhroush Custom - Report',
-    'category': 'Fleet Custom',
+    'name': 'Allow User',
+    'category': '',
     'sequence': 1,
     'version': '15.0.1.0.0',
     'license': 'LGPL-3',
-    'summary': """Bakhroush Custom - Report""",
-    'description': """Bakhroush Custom - Report""",
+    'summary': """Allow User""",
+    'description': """Allow User""",
     # Website
     'author': 'AMCL',
     # Dependencies
@@ -21,6 +21,7 @@
         'report/delivery_report.xml',
         'report/delivery_dotmatrix_report.xml',
         'report/delivery_concreate_dotmatrix_report.xml',
+        'views/stock_picking_type_views.xml',
         'views/stock_picking_view.xml',
         'views/sale_view.xml',
         'views/purchase_view.xml',
@@ -28,7 +29,8 @@
         'views/res_partner_view.xml',
         'views/product_view.xml',
         'views/payment_terms.xml',
-        'views/branch.xml'
+        'views/branch.xml',
+
          ],
     'installable': True,
     'application': True,

@@ -52,11 +52,11 @@ class StockPicking(models.Model):
     branch_id = fields.Many2one('company.branch', string="Branch", default=lambda self: self.env.user.branch_id,
                                 states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
 
-    @api.model
-    def create(self, vals):
-        if not vals.get('branch_id'):
-            vals.update({'branch_id': self.env.user.branch_id.id})
-        return super(StockPicking, self).create(vals)
+    # @api.model
+    # def create(self, vals):
+    #     if not vals.get('branch_id'):
+    #         vals.update({'branch_id': self.env.user.branch_id.id})
+    #     return super(StockPicking, self).create(vals)
 
 
 class StockRule(models.Model):
