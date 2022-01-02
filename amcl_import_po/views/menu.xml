@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+<!--        <record id="car_company_tree" model="ir.ui.view">-->
+<!--            <field name="model">car.company</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Car Companies" editable='bottom'>-->
+<!--                    <field name="name"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record id="action_car_company" model="ir.actions.act_window">-->
+<!--            <field name="name">Car Companies</field>-->
+<!--            <field name="res_model">car.company</field>-->
+<!--            <field name="context">{}</field>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--        </record>-->
+
+<!--        <menuitem-->
+<!--            id="menu_car_company"-->
+<!--            sequence="32"-->
+<!--            parent="purchase.menu_purchase_config"-->
+<!--            action="action_car_company"-->
+<!--            groups="purchase.group_purchase_manager"/>-->
+<!--    </data>-->
+</odoo>

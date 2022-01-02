@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <record id="inherit_res_partner_form" model="ir.ui.view">
+            <field name="name">inherit.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_payable_id']" position="after">
+                    <field name="journal_id" readonly="True"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>
