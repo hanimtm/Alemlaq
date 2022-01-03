@@ -9,6 +9,6 @@ class AccountMove(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super(AccountMove, self).create(vals_list)
-        journal_id = res.journal_id
-        res.partner_id.journal_id = journal_id.id
+        journal_id = res.partner_id.journal_id
+        res.journal_id = journal_id.id
         return res
