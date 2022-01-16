@@ -56,6 +56,7 @@ class ImportPoWizard(models.TransientModel):
 
     def import_po_apply(self):
         picking = self.env['stock.picking'].browse(self.env.context['picking_id'])
+        not_found_records = []
         if self and self.file:
             # For Excel
             if self.import_type == 'excel':
@@ -77,7 +78,15 @@ class ImportPoWizard(models.TransientModel):
                             if picking.move_lines:
 
                                 move = picking.move_lines.filtered(
-                                    lambda p: p.product_id.default_code == sheet.cell(row, 3).value)
+                                    lambda p: p.product_id.default_code == sheet.cell(row, 3).value.strip('\n'))
+
+                                if not move:
+                                    not_found_records.append(sheet.cell(row, 3).value)
+                                    continue
+
+                                if not_found_records:
+                                    raise UserError(_('Not Found the Record %s.', not_found_records))
+
                                 if move:
                                     vals = {}
 
@@ -109,39 +118,46 @@ class ImportPoWizard(models.TransientModel):
                                         request_delivery_date = str(
                                             datetime.strptime(str(int(sheet.cell(row, 19).value)), '%Y%m%d').date())
 
-                                    search_product = self.env['stock.receipt.line'].create({
-                                        'picking_id': picking.id,
-                                        'brand': sheet.cell(row, 0).value,
-                                        'product_id': move.product_id.id,
-                                        'description': sheet.cell(row, 2).value,
-                                        'vin': sheet.cell(row, 3).value,
-                                        'exterior_color': str(int(sheet.cell(row, 4).value)) if isinstance(
-                                            sheet.cell(row, 4).value, (float, int)) else sheet.cell(row, 4).value,
-                                        'interior_color': str(int(sheet.cell(row, 5).value)) if isinstance(
-                                            sheet.cell(row, 5).value, (float, int)) else sheet.cell(row, 5).value,
-                                        'complete_engine_number': sheet.cell(row, 6).value,
-                                        'model_code': sheet.cell(row, 7).value,
-                                        'action': sheet.cell(row, 8).value,
-                                        'alj_suffix': sheet.cell(row, 9).value,
-                                        'model_year': str(int(sheet.cell(row, 10).value)) if isinstance(
-                                            sheet.cell(row, 10).value, (float, int)) else sheet.cell(row, 10).value,
-                                        'grade': sheet.cell(row, 11).value,
-                                        'transmission_type': type,
-                                        'sales_document': str(int(sheet.cell(row, 13).value)) if isinstance(
-                                            sheet.cell(row, 13).value, (float, int)) else sheet.cell(row, 13).value,
-                                        'request_delivery_date': request_delivery_date,
-                                        'billing_document': str(int(sheet.cell(row, 15).value)) if isinstance(
-                                            sheet.cell(row, 15).value, (float, int)) else sheet.cell(row, 15).value,
-                                        'bill_date': bill_date,
-                                        'vehicle_wholesale_price': sheet.cell(row, 17).value,
-                                        'broker_declaration_date': broker_declaration_date,
-                                        'declaration_date': declaration_date,
-                                        'netval': sheet.cell(row, 20).value,
-                                        'vat_amount': sheet.cell(row, 21).value,
-
-                                    })
-                                    created_po_list.append(search_product.id)
-                                    counter = counter + 1
+                                    search_product = self.env['stock.receipt.line'].search([('picking_id','=',picking.id),('vin','=',sheet.cell(row, 3).value.strip('\n'))])
+                                    if search_product:
+                                        search_product = self.update_receipt_line_data(search_product)
+                                        created_po_list.append(search_product.id)
+                                        counter = counter + 1
+                                    # if not search_product:
+                                    #     search_product = self.env['stock.receipt.line'].create({
+                                    #         'picking_id': picking.id,
+                                    #         'brand': sheet.cell(row, 0).value,
+                                    #         'product_id': move.product_id.id,
+                                    #         'description': sheet.cell(row, 2).value,
+                                    #         'vin': sheet.cell(row, 3).value,
+                                    #         'exterior_color': str(int(sheet.cell(row, 4).value)) if isinstance(
+                                    #             sheet.cell(row, 4).value, (float, int)) else sheet.cell(row, 4).value,
+                                    #         'interior_color': str(int(sheet.cell(row, 5).value)) if isinstance(
+                                    #             sheet.cell(row, 5).value, (float, int)) else sheet.cell(row, 5).value,
+                                    #         'complete_engine_number': sheet.cell(row, 6).value,
+                                    #         'model_code': sheet.cell(row, 7).value,
+                                    #         'action': sheet.cell(row, 8).value,
+                                    #         'alj_suffix': sheet.cell(row, 9).value,
+                                    #         'model_year': str(int(sheet.cell(row, 10).value)) if isinstance(
+                                    #             sheet.cell(row, 10).value, (float, int)) else sheet.cell(row, 10).value,
+                                    #         'grade': sheet.cell(row, 11).value,
+                                    #         'transmission_type': type,
+                                    #         'sales_document': str(int(sheet.cell(row, 13).value)) if isinstance(
+                                    #             sheet.cell(row, 13).value, (float, int)) else sheet.cell(row, 13).value,
+                                    #         'request_delivery_date': request_delivery_date,
+                                    #         'billing_document': str(int(sheet.cell(row, 15).value)) if isinstance(
+                                    #             sheet.cell(row, 15).value, (float, int)) else sheet.cell(row, 15).value,
+                                    #         'bill_date': bill_date,
+                                    #         'vehicle_wholesale_price': sheet.cell(row, 17).value,
+                                    #         'broker_declaration_date': broker_declaration_date,
+                                    #         'declaration_date': declaration_date,
+                                    #         'netval': sheet.cell(row, 20).value,
+                                    #         'vat_amount': sheet.cell(row, 21).value,
+                                    #     })
+                                    #     created_po_list.append(search_product.id)
+                                    #     counter = counter + 1
+                                    # else:
+                                    #     self.update_receipt_line_data(search_product)
                             else:
                                 skipped_line_no[str(counter)] = " - Move not created. "
                                 counter = counter + 1
@@ -160,3 +176,32 @@ class ImportPoWizard(models.TransientModel):
                     res = self.show_success_msg(completed_records, skipped_line_no)
                     picking.write({'product_imported': True})
                     return res
+
+
+    def update_receipt_line_data(self,search_product):
+        search_product.write({
+            'picking_id': search_product.picking_id.id,
+            'brand': search_product.product_id.brand or " ",
+            'product_id': search_product.product_id.id,
+            'description': search_product.product_id.description or " ",
+            'vin': search_product.product_id.default_code or "",
+            'exterior_color': search_product.product_id.exterior_color or " ",
+            'interior_color': search_product.product_id.interior_color or "",
+            'complete_engine_number': search_product.product_id.complete_engine_number or "",
+            'model_code': search_product.product_id.model_code or "",
+            'action': search_product.product_id.action or "",
+            'alj_suffix': search_product.product_id.alj_suffix or "",
+            'model_year': search_product.product_id.model_year or "",
+            'grade': search_product.product_id.grade or "",
+            'transmission_type': search_product.product_id.transmission_type or "",
+            'sales_document':search_product.product_id.sales_document or "",
+            'request_delivery_date': search_product.product_id.request_delivery_date or False,
+            'billing_document': search_product.product_id.billing_document or "",
+            'bill_date': search_product.product_id.bill_date or False,
+            'vehicle_wholesale_price': search_product.product_id.vehicle_wholesale_price or False,
+            'broker_declaration_date': search_product.product_id.broker_declaration_date or False,
+            'declaration_date': search_product.product_id.declaration_date or False,
+            'netval': search_product.product_id.netval or False,
+            'vat_amount': search_product.product_id.vat_amount or False,
+        })
+        return search_product
