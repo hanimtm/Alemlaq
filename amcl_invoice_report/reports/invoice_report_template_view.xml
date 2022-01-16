@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <template id="external_layout_standard_inv">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <table style="padding:2px;width:100%;"
+                       class="table-condensed mt-2">
+                    <tr>
+                        <td style="width:40%;padding:2px;">
+                            <div class="col-md-12 p-2">
+                                <!--                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"-->
+                                <!--                                     style="max-height: 50px;align:left;"/>-->
+                                <img src='/amcl_invoice_report/static/src/img/Toyota_1.png' width="320" height="60"/>
+                            </div>
+                            <div class="col-md-12 p-2">
+                                <!--                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"-->
+                                <!--                                     style="max-height: 50px;align:left;"/>-->
+                                <img src='/amcl_invoice_report/static/src/img/lexus_1.png' width="320" height="80"/>
+                            </div>
+                        </td>
+                        <td style="width:20%;">
+                            <center>
+                                <img t-att-src="'/report/barcode/?type=QR&amp;width=400&amp;height=400&amp;value=' +doc.generate_tlv_code()"
+                                         style="height:90px"/>
+                            </center>
+                        </td>
+                        <td style="width:40%;">
+                            <div class="row">
+                                <div class="col-8 p-2 mt-8" style="margin-top:15px;">
+                                    <center>
+                                        <!--<span t-if="company.arabic" t-field="company.arabic"></span>-->
+                                        <span>شركة اليمياق للتجار</span>
+                                        <br/>
+                                        <!--                                        <span t-if="company.name" t-field="company.name"></span>-->
+                                        <span>ALEMIAQ TRADING Co.</span>
+                                        <br/>
+                                        <span t-if="company.street_arabic" t-field="company.street_arabic">
+                                            <br/>
+                                        </span>
+                                        <br/>
+                                        <span t-if="company.street2_arabic" t-field="company.street2_arabic">
+                                            <br/>
+                                        </span>
+                                        <br/>
+                                        <span t-if="company.city_arabic" t-field="company.city_arabic"></span>
+                                        <span t-if="company.state_arabic" t-field="company.state_arabic"></span>
+                                        <span t-if="company.zip_arabic" t-field="company.zip_arabic"></span>
+                                        <br/>
+                                        <span t-if="company.country_arabic" t-field="company.country_arabic">
+                                            <br/>
+                                        </span>
+                                    </center>
+                                </div>
+                                <div class="col-3 p-3">
+                                    <center>
+                                        <!--<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"-->
+                                        <!--style="max-height: 90px;"/>-->
+                                        <img src='/amcl_invoice_report/static/src/img/letterpad_logo.png' width="150"
+                                             height="150"/>
+                                    </center>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <div class="pt-5">
+                    <!-- This div ensures that the address is not cropped by the header. -->
+                    <t t-call="web.address_layout"/>
+                </div>
+                <t t-raw="0"/>
+            </div>
+
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div class="text-center" style="border-top: 1px solid grey;color:#696969;">
+                    <div class="text-center">
+                        <ul class="list-inline">
+                            <li t-if="company.phone" class="list-inline-item">
+                                <i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/>
+                                <span class="o_force_ltr" t-field="company.phone"/>
+                            </li>
+                            <li t-if="company.email" class="list-inline-item">
+                                <i class="fa fa-at" role="img" aria-label="Email" title="Email"/>
+                                <span t-field="company.email"/>
+                            </li>
+                            <li t-if="company.website" class="list-inline-item">
+                                <i class="fa fa-globe" role="img" aria-label="Website" title="Website"/>
+                                <span t-field="company.website"/>
+                            </li>
+                            <li t-if="company.vat" class="list-inline-item">
+                                <i class="fa fa-building-o" role="img" aria-label="Fiscal number"/>
+                                <t t-esc="company.country_id.vat_label or 'VAT '"/>:
+                                <span t-field="company.vat"/>
+                            </li>
+                        </ul>
+                        <div t-field="company.report_footer"/>
+                        <div t-if="report_type == 'pdf'" class="text-muted">
+                            Page:
+                            <span class="page"/>
+                            of
+                            <span class="topage"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_inv_report">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="amcl_invoice_report.external_layout_standard_inv">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+        <template id="report_invoice_print">
+            <t t-call="web.html_container">
+                <t t-call="amcl_invoice_report.external_layout_inv_report">
+                    <div class="page" style="font-family: 'Cairo';font-size: 11px; !important">
+                        <table width="100%">
+                            <tr>
+                                <td width="40%"/>
+                                <td width="20%" class="text-center">
+                                    <b>
+                                        <h6>Tax Invoice فاتورة ضريبية</h6>
+                                    </b>
+                                </td>
+                                <td width="40%"/>
+                            </tr>
+                            <tr>
+                                <td width="40%" class="text-right p-2 pr-5">
+                                    <!-- Customer Name -->
+                                    <span t-field="doc.partner_id.name" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">إسم العميل</span>
+                                    <br/>
+                                    <!-- Address -->
+                                    <span style="font-size:100%;">العنوان</span>
+                                    <br/>
+                                    <!-- P.O Number -->
+                                    <span t-field="doc.ref" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">رقم أمر الشراء</span>
+                                    <br/>
+                                    <!-- P.O Date -->
+                                    <span t-field="doc.invoice_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">تاريخ أمر الشراء</span>
+                                    <br/>
+                                    <!-- Customer Code -->
+                                    <span t-field="doc.partner_id.customer_no" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">رقم العميل</span>
+                                    <br/>
+                                </td>
+                                <td width="20%" class="text-center">
+                                    <span class="pt-2 pb-2 pr-4 pl-4  border">
+                                        <b>
+                                            <t t-esc="doc.name" style="font-size:130%;"/>
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="40%" class="text-right p-2">
+                                    <span t-field="doc.invoice_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">التاريخ</span>
+                                    <br/>
+                                    <span t-field="doc.arebic_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">الموافق</span>
+                                    <br/>
+                                    <span t-field="doc.delivery_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span style="font-size:150%;">تاريخ التوريد</span>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                        <center>
+                            <h3>
+                                <span t-if="doc.state in ['open','paid']">
+                                    <u>
+                                        <strong>Tax Invoice فاتورة ضريبية</strong>
+                                    </u>
+                                </span>
+                            </h3>
+                        </center>
+                        <table class="table table-bordered" style="font-size:13px;">
+                            <thead>
+                                <tr style="height:3px; line-height:0px;">
+                                    <th class="text-center" style="border-bottom-color: white;">
+                                        <span>الصافي بعد الضريبة</span>
+                                    </th>
+                                    <th class="text-center" style="border-bottom-color: white;">
+                                        <span>الضريبة</span>
+                                    </th>
+                                    <th class="text-center" style="border-bottom-color: white;">
+                                        <span>السعر</span>
+                                    </th>
+
+                                    <th class="text-center" style="border-right:none;width:13%;">
+                                        <span>Color</span>
+                                    </th>
+                                    <th class="text-center" style="border-left:none;width:7%;">
+                                        <span>اللون</span>
+                                    </th>
+
+                                    <th class="text-center" style="border-bottom-color: white;">
+                                        <span>رقم الهيكل</span>
+                                    </th>
+                                    <th class="text-center" style="border-bottom-color: white;">
+                                        <span>الموديل</span>
+                                    </th>
+                                    <th class="text-center" style="border-bottom-color: white;">
+                                        <span>نوع السيارة</span>
+                                    </th>
+
+                                </tr>
+                                <tr style="height:3px; line-height:0px;">
+                                    <th class="text-center" style="width:10%;">
+                                        <!--<span>الصافي بعد الضريبة</span><br/>-->
+                                        <span>Net Amount</span>
+                                    </th>
+                                    <th class="text-center" style="width:5%;">
+                                        <!--<span>الضريبة</span><br/>-->
+                                        <span>VAt Amt</span>
+                                    </th>
+                                    <th class="text-center" style="width:10%;">
+                                        <!--<span>السعر</span><br/>-->
+                                        <span>Total Price</span>
+                                    </th>
+
+                                    <th class="text-center">
+                                        <span>Name &amp;nbsp;الإسم</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span style="position:relative; margin-left: -30px;">Code &amp;nbsp;</span>
+                                        <span style="position:relative; padding-left: 30px;">&amp;nbsp;الكود</span>
+                                    </th>
+
+                                    <th class="text-center" style="width:19%;">
+                                        <!--<span>رقم الهيكل</span><br/>-->
+                                        <span>VIN</span>
+                                    </th>
+                                    <th class="text-center" style="width:5%;">
+                                        <!--<span>الموديل</span><br/>-->
+                                        <span>Year</span>
+                                    </th>
+                                    <th class="text-center" style="width:31%;">
+                                        <!--<span>نوع السيارة</span><br/>-->
+                                        <span>Description</span>
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="net_total" t-value="0.00"/>
+                                <t t-set="tax_total" t-value="0.00"/>
+                                <t t-set="sub_total" t-value="0.00"/>
+                                <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                    <tr>
+                                        <td class="text-right">
+                                            <span t-field="line.price_total"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-set="vals1" t-value="line.price_total - line.price_subtotal"/>
+                                            <t t-set="net_total" t-value="net_total + line.price_total"/>
+                                            <t t-set="tax_total" t-value="tax_total + vals1"/>
+                                            <span t-esc="vals1"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-set="sub_total" t-value="sub_total + line.price_subtotal"/>
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.product_id.model_code"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.product_id.model_year"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_id.description"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="height:3px; line-height:0px;">
+                                    <td class="text-right">
+                                        <span t-esc="net_total"/>
+                                    </td>
+                                    <td colspan="2" class="text-right">
+                                        <span>الإجمالي قبل الضريبة</span>
+                                    </td>
+                                </tr>
+                                <tr style="height:3px; line-height:0px;">
+                                    <td class="text-right">
+                                        <span t-esc="tax_total"/>
+                                    </td>
+                                    <td colspan="2" class="text-right">
+                                        <span>الضريبة 15%</span>
+                                    </td>
+                                </tr>
+                                <tr style="height:3px; line-height:0px;">
+                                    <td class="text-right">
+                                        <span t-esc="sub_total"/>
+                                    </td>
+                                    <td colspan="2" class="text-right">
+                                        <span>الإجمالي بعد الضريبة</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="font-size:15px;direction:rtl;text-align:right;">
+                            <span class="text-right" style="text-align: right;">1) لقد استلمنا السيارة/ السيارات
+                                المذكورة أعلاه سليمة و تعمل في حالة جيدة جدآ و كاملة اللوازم غير منقوصة ولا يوجد بها أي
+                                عيب من العيوب بتاتا علما بأن السيارة/ السيارات أعلاه مضمونة من أي خلل فني ناتج عن سوء
+                                الصنع في حدود شروط الشركة الصانعة.
+                            </span>
+                            <br/>
+                            <span class="text-right">2) أننا قد فهمنا ووافقنا علي تحمل المسؤولية كاملة عن
+                                السيارة/السيارات المشتراة و عن المخاطر المحتملة بخصوصها و التي تتضمن علي سبيل المثال لا
+                                الحصر( نقل السيارة/السيارات من مستودع الشركة إلي مستودعاتكم و مراكزنا حسبما يقتضي الحال)
+                            </span>
+                            <br/>
+                            <span class="text-right">3) أننا استلمنا اللوحات/الإستمارة/البطاقة الجمركية و نماذج الإفصاح
+                                المتعلقة ب السيارة/ السيارات المشتراه حسب عدد السيارة/السيارات الموضح بالفاتورة.
+                            </span>
+                            <br/>
+                            <span class="text-right">4) أن نقوم بسدادقيمة السيارة / السيارات المذكورة أعلاه و ندرك تمام
+                                الإدراك أن هذه الفاتور ليست سندا لسداد قيمة السيارة و غير ملزمة المؤسسة بتسليم السيارات
+                                مالم يتم سداد قيمها بموجب سند قبض موقع و مختم يصدر من الشركة يوضح قيمة سداد السيارة /
+                                السيارات الموضحة.
+                            </span>
+                            <br/>
+                        </div>
+                        <div style="font-size:15px;">
+                            <span style="margin-left:200px;margin-top:10px;">المستلم</span>
+                            <br/>
+
+                        </div>
+                        <div style="font-size:15px;width:100%;">
+                            <span style="float:right;margin-right:150px;">مسؤول المبيعات</span>
+                            <!--                        <span style="margin-left:200px;margin-top:10px;">المستلم</span>-->
+                        </div>
+                        <div style="font-size:15px;width:100%;margin-top:20px;">
+                            <span style="margin-left:120px;">----------------------------- &amp;nbsp;&amp;nbsp;:&amp;nbsp;&amp;nbsp;الإسم</span>
+                        </div>
+                        <div style="font-size:15px;width:100%;">
+                            <span style="float:right;margin-right:75px;">----------------------------------------</span>
+                        </div>
+                        <div style="font-size:15px;width:100%;margin-top:20px;">
+                            <span style="margin-left:120px;">----------------------------- &amp;nbsp;&amp;nbsp;:&amp;nbsp;&amp;nbsp;التوقيع</span>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="report_invoice_report_pdt">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="amcl_invoice_report.report_invoice_print" t-lang="doc.partner_id.lang"/>
+            </t>
+        </template>
+    </data>
+</odoo>
