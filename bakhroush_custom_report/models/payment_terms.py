@@ -16,3 +16,52 @@ class PaymentTerms(models.Model):
         ('bank', 'Bank - بانک'),
     ], required=True)
 
+# class StockMove(models.Model):
+#     _inherit = 'stock.move'
+#
+#     method = fields.Selection(
+#         [('normal', 'Normal'), ('concrete', 'Concrete')],
+#         string="Method",
+#         required=True,
+#         default='concrete'
+#     )
+
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
+
+    barcode = fields.Char(
+        string='Barcode'
+    )
+    opc = fields.Boolean(
+        string='OPC'
+    )
+    src = fields.Boolean(
+        string='SRC'
+    )
+    quantity_of_cement = fields.Float(
+        'Quantity of Cement / m3'
+    )
+    clas = fields.Char(
+        'Class'
+    )
+    total_loading = fields.Char(
+        'Total Loading'
+    )
+    slump = fields.Char(
+        'Slump'
+    )
+    temperature = fields.Char(
+        'Temperature'
+    )
+    weight = fields.Char(
+        'Weight'
+    )
+    pump = fields.Char(
+        'Pump'
+    )
+    wc = fields.Char(
+        'W/C'
+    )
+    method = fields.Char(
+        'Method'
+    )

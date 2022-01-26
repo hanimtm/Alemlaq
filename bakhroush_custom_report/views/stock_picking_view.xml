@@ -1,76 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="ir.ui.view" id="view_warehouse">
-        <field name="name">stock.warehouse.form</field>
-        <field name="model">stock.warehouse</field>
-        <field name="inherit_id" ref="stock.view_warehouse"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="allowed_users" widget="many2many_tags"/>
-            </xpath>
-        </field>
-    </record>
-
-
-    <record model="ir.ui.view" id="view_picking_custom_form">
-        <field name="name">stock.picking.custom.form</field>
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
-        <field name="arch" type="xml">
-<!--            <xpath expr="//button[@name='button_validate']" position="replace">-->
-<!--                    <button name="button_validate_custom" type="object" string="Validate" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'assigned')]}"/>-->
-<!--                </xpath>-->
-            <xpath expr="//button[@name='button_scrap']" position="attributes">
-                <attribute name="groups">bakhroush_custom_report.group_scrap_manager</attribute>
-            </xpath>
-            <xpath expr="//button[@name='action_see_move_scrap']" position="attributes">
-                <attribute name="groups">bakhroush_custom_report.group_scrap_manager</attribute>
-            </xpath>
-<!--            <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="attributes">-->
-<!--                <attribute name="groups">bakhroush_custom_report.group_retrun_manager</attribute>-->
-<!--            </xpath>-->
-            <xpath expr="//field[@name='picking_type_id']" position="after">
-                <field name="source_warehouse"
-                       attrs="{'required': [('picking_type_code', '=', 'internal')],'invisible': [('picking_type_code', '!=', 'internal')]}"/>
-                <field name="destination_warehouse"
-                       attrs="{'required': [('picking_type_code', '=', 'internal')],'invisible': [('picking_type_code', '!=', 'internal')]}"/>
-            </xpath>
-            <xpath expr="//field[@name='location_id']" position="attributes">
-                <attribute name="domain">[('id','=',dummy_src_location)]</attribute>
-            </xpath>
-            <xpath expr="//field[@name='location_dest_id']" position="attributes">
-                <attribute name="domain">[('usage','!=','view')]</attribute>
-            </xpath>
-            <xpath expr="//group[1]" position="inside">
-                <group>
-                    <field name="invoice_no"/>
-                    <field name="building_permit_no"/>
-                    <field name="customer_no"/>
-                    <field name="mobile_no"/>
-                    <field name="location"/>
-                    <field name="time_out"/>
-                    <field name="mixing_time"/>
-                    <field name="load_time_mixer"/>
-                    <field name="received_time"/>
-                </group>
-                <group>
-                    <field name="method"/>
-                    <field name="corresponding"/>
-                    <field name="car_no"/>
-<!--                    <field name="driver_name"/>-->
-<!--                    <field name="dummy_driver_name" widget="many2many_tags"/>-->
-                    <field name="balance_amount"/>
-                    <field name="picking_total_value"/>
-                    <field name="addition_approval" invisible="1"/>
-                    <field name="dummy_src_location" invisible="1"/>
-                    <field name="invoice_id"/>
-                    <field name="allowed_users" widget="many2many_tags" invisible="1"/>
-                </group>
-            </xpath>
-
-        </field>
-    </record>
-
     <record id="stock.view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
         <field name="name">stock.move.line.operations.tree</field>
         <field name="model">stock.move.line</field>
@@ -91,25 +20,25 @@
                 <field name="product_uom_id"
                        attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="opc"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="src"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="quantity_of_cement"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="clas"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="total_loading"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="slump"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="temperature"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="weight"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="pump"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
                 <field name="wc"
-                       attrs="{'column_invisible': [('parent.method', '=', 'normal')],'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
 
                 <field name="move_id" invisible="1"/>
                 <field name="picking_id" invisible="1"/>
@@ -175,48 +104,47 @@
                 <field name="activity_exception_decoration" widget="activity_exception"/>
                 <field name="json_popover" nolabel="1" widget="stock_rescheduling_popover"
                        attrs="{'invisible': [('json_popover', '=', False)]}"/>
-                <field name="allowed_users" invisible="1"/>
+<!--                <field name="allowed_users" invisible="1"/>-->
             </tree>
         </field>
     </record>
 
-    <record id="internal_action_picking_tree" model="ir.actions.act_window">
-        <field name="name">Warehouse Transfers</field>
-        <field name="res_model">stock.picking</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,kanban,form,calendar</field>
-        <field name="domain">['|',('allowed_users','=', False),('allowed_users','in', uid)]</field>
-        <field name="context">{'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0]}
-        </field>
-        <field name="view_id" ref="internal_picktree"/>
-        <field name="search_view_id" ref="stock.view_picking_internal_search"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                No transfer found. Let's create one!
-            </p>
-            <p>
-                Transfers allow you to move products from one location to another.
-            </p>
-        </field>
-    </record>
+<!--    <record id="internal_action_picking_tree" model="ir.actions.act_window">-->
+<!--        <field name="name">Warehouse Transfers</field>-->
+<!--        <field name="res_model">stock.picking</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="view_mode">tree,kanban,form,calendar</field>-->
+<!--        <field name="domain">['|',('allowed_users','=', False),('allowed_users','in', uid)]</field>-->
+<!--        <field name="context">{'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0]}-->
+<!--        </field>-->
+<!--        <field name="view_id" ref="internal_picktree"/>-->
+<!--        <field name="search_view_id" ref="stock.view_picking_internal_search"/>-->
+<!--        <field name="help" type="html">-->
+<!--            <p class="o_view_nocontent_smiling_face">-->
+<!--                No transfer found. Let's create one!-->
+<!--            </p>-->
+<!--            <p>-->
+<!--                Transfers allow you to move products from one location to another.-->
+<!--            </p>-->
+<!--        </field>-->
+<!--    </record>-->
 
-    <menuitem id="internal_picking" name="Warehouse Transfers" parent="stock.menu_stock_warehouse_mgmt" sequence="5"
-              action="internal_action_picking_tree" groups="stock.group_stock_manager,stock.group_stock_user"/>
-    <menuitem
-        id="stock.menu_stock_scrap"
-        name="Scrap"
-        parent="stock.menu_stock_warehouse_mgmt"
-        action="stock.action_stock_scrap"
-        groups="bakhroush_custom_report.group_scrap_manager"
-        sequence="99"/>
+<!--    <menuitem id="internal_picking" name="Warehouse Transfers" parent="stock.menu_stock_warehouse_mgmt" sequence="5"-->
+<!--              action="internal_action_picking_tree" groups="stock.group_stock_manager,stock.group_stock_user"/>-->
+<!--    <menuitem-->
+<!--        id="stock.menu_stock_scrap"-->
+<!--        name="Scrap"-->
+<!--        parent="stock.menu_stock_warehouse_mgmt"-->
+<!--        action="stock.action_stock_scrap"-->
+<!--        groups="bakhroush_custom_report.group_scrap_manager"-->
+<!--        sequence="99"/>-->
 
-<!--    <menuitem action="stock.action_inventory_form" id="stock.menu_action_inventory_form" parent="bakhroush_custom_report.group_inventory_adjustment_manager" sequence="30"/>-->
 
-    <record id="stock_picking_type_action" model="ir.actions.act_window">
+    <record id="stock.stock_picking_type_action" model="ir.actions.act_window">
             <field name="name">Inventory Overview</field>
             <field name="res_model">stock.picking.type</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="domain">[('warehouse_id.allowed_users','in', uid)]</field>
+<!--            <field name="domain">[('warehouse_id.allowed_users','in', uid)]</field>-->
             <field name="view_mode">kanban,form</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
