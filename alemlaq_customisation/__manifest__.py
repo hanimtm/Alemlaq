@@ -21,7 +21,7 @@
 
     # always loaded
     'data': [
-        'views/res_partner_views.xml',
+        # 'views/res_partner_views.xml',
         'views/account_move_view.xml',
         'views/stock_view.xml',
     ],
