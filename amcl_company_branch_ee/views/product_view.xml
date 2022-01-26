@@ -7,8 +7,7 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <field name="barcode" position="after">
-                    <field name="branch_id" required="1" widget="many2many_tags"
-                           domain="[('company_id', '=', current_company_id)]"
+                    <field name="branch_id" required="1"
                            groups="amcl_company_branch_ee.group_multi_branches"
                            options="{'no_create':True,'no_edit':True}"/>
                 </field>

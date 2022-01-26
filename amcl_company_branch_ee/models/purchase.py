@@ -12,12 +12,6 @@
 from odoo import models, fields, api
 
 
-class ProductProduct(models.Model):
-    _inherit = 'product.product'
-
-    branch_id = fields.Many2one('company.branch', string="Branch", default=lambda self: self.env.user.branch_id)
-
-
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
