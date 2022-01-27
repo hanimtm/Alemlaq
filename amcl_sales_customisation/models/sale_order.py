@@ -40,3 +40,17 @@ class SaleOrder(models.Model):
                 each['e_mail'] = (
                 each.get('e_mail')[0], self.env['res.partner'].browse(each.get('e_mail')[0]).email)
         return res
+
+    def _prepare_invoice(self):
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        invoice_vals['sale_order'] = self.id
+        return invoice_vals
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    def _prepare_invoice_line(self, **optional_values):
+        values = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
+        values['account_id'] = self.order_id.sales_type_id.income_account.id or False
+
+        return values

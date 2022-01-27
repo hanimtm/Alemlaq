@@ -13,7 +13,6 @@
     'application': True,
     'data': [
         'security/ir.model.access.csv',
-        'security/rule.xml',
         'views/sale_type_view.xml',
         'views/res_partner_views.xml',
         'wizard/request_invoice_wizard_view.xml',

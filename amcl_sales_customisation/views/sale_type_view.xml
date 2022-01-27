@@ -9,7 +9,6 @@
                     <field name="name"/>
                     <field name="income_account"/>
                     <field name="expense_account"/>
-                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
@@ -25,7 +24,7 @@
                         <group class="col-6">
                             <field name="income_account"/>
                             <field name="expense_account"/>
-                            <field name="company_id" required="True"/>
+                            <field name="company_id"/>
                         </group>
                     </sheet>
                 </form>
