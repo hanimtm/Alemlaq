@@ -27,7 +27,7 @@
                         </td>
                         <td style="width:40%;">
                             <div class="row">
-                                <div class="col-8 p-2 mt-8" style="margin-top:15px;">
+                                <div class="col-8 p-2 mt-8" style="margin-top:15px;font-family: 'Cairo';font-size: 11px; !important">
                                     <center>
                                         <!--<span t-if="company.arabic" t-field="company.arabic"></span>-->
                                         <span>شركة اليمياق للتجار</span>
@@ -285,10 +285,10 @@
                                             <span t-field="line.price_subtotal"/>
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.product_id.name"/>
+                                            <span t-field="line.product_id.exterior_color"/>
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.product_id.model_code"/>
+                                            <span t-field="line.product_id.exterior_color_code"/>
                                         </td>
                                         <td class="text-center">
                                             <span t-field="line.product_id.default_code"/>
@@ -297,7 +297,7 @@
                                             <span t-field="line.product_id.model_year"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="line.product_id.description"/>
+                                            <span t-field="line.product_id.name"/>
                                         </td>
                                     </tr>
                                 </t>

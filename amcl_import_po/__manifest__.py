@@ -9,7 +9,7 @@
         Import PO
                     ''',
     'version': '15.0.1',
-    'depends': ['purchase', 'product', 'stock'],
+    'depends': ['purchase', 'product', 'stock','amcl_company_branch_ee'],
     'application': True,
     'data': [
         'security/import_po_security.xml',

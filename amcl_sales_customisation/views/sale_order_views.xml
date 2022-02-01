@@ -23,6 +23,7 @@
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="mobile_no" string="Mobile No" context="{'only_mobile': True}"/>
                 <field name="e_mail" context="{'only_email': True}"/>
+                <field name="id_no" context="{'only_id_no': True}"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="sales_type_id" required="True" options="{'no_open': True}"/>

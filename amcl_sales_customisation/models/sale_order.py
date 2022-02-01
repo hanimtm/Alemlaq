@@ -10,6 +10,7 @@ class SaleOrder(models.Model):
     #e_mail = fields.Char(string='E-mail', related='partner_id.email')
     e_mail = fields.Many2one('res.partner',string='E-mail')
     mobile_no = fields.Many2one('res.partner', string='Mobile No')
+    id_no = fields.Many2one('res.partner', string='ID No')
     sales_type_id = fields.Many2one('sale.type', string='Sales Type')
 
     @api.onchange('partner_id')
@@ -31,6 +32,13 @@ class SaleOrder(models.Model):
             if each.e_mail:
                 each.partner_id = each.e_mail
 
+    @api.onchange('id_no')
+    def onchange_id_no(self):
+        for each in self:
+            if each.id_no:
+                each.partner_id = each.id_no
+
+
     def read(self, records):
         res = super(SaleOrder, self).read(records)
         for each in res:
@@ -39,6 +47,8 @@ class SaleOrder(models.Model):
             if each.get('e_mail'):
                 each['e_mail'] = (
                 each.get('e_mail')[0], self.env['res.partner'].browse(each.get('e_mail')[0]).email)
+            if each.get('id_no'):
+                each['id_no'] = (each.get('id_no')[0],self.env['res.partner'].browse(each.get('id_no')[0]).ref)
         return res
 
     def _prepare_invoice(self):

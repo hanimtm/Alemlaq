@@ -32,36 +32,36 @@ class StockMoveLine(models.Model):
     barcode = fields.Char(
         string='Barcode'
     )
-    opc = fields.Boolean(
-        string='OPC'
-    )
-    src = fields.Boolean(
-        string='SRC'
-    )
-    quantity_of_cement = fields.Float(
-        'Quantity of Cement / m3'
-    )
-    clas = fields.Char(
-        'Class'
-    )
-    total_loading = fields.Char(
-        'Total Loading'
-    )
-    slump = fields.Char(
-        'Slump'
-    )
-    temperature = fields.Char(
-        'Temperature'
-    )
-    weight = fields.Char(
-        'Weight'
-    )
-    pump = fields.Char(
-        'Pump'
-    )
-    wc = fields.Char(
-        'W/C'
-    )
-    method = fields.Char(
-        'Method'
-    )
+    # opc = fields.Boolean(
+    #     string='OPC'
+    # )
+    # src = fields.Boolean(
+    #     string='SRC'
+    # )
+    # quantity_of_cement = fields.Float(
+    #     'Quantity of Cement / m3'
+    # )
+    # clas = fields.Char(
+    #     'Class'
+    # )
+    # total_loading = fields.Char(
+    #     'Total Loading'
+    # )
+    # slump = fields.Char(
+    #     'Slump'
+    # )
+    # temperature = fields.Char(
+    #     'Temperature'
+    # )
+    # weight = fields.Char(
+    #     'Weight'
+    # )
+    # pump = fields.Char(
+    #     'Pump'
+    # )
+    # wc = fields.Char(
+    #     'W/C'
+    # )
+    # method = fields.Char(
+    #     'Method'
+    # )
