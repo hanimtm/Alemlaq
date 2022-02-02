@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='grade']" position="after">
+                <field name="exterior_color_code"/>
+            </xpath>
+            <xpath expr="//field[@name='exterior_color']" position="after">
+                <field name="interior_color_code"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

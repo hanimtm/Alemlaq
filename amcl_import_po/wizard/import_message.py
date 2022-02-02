@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import fields, models, _
 
 
 class ImportMessage(models.TransientModel):
@@ -13,3 +13,10 @@ class ImportMessage(models.TransientModel):
         return False
 
     name = fields.Text(string="Message", readonly=True, default=get_default)
+
+    def action_open_purchase_orders(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }

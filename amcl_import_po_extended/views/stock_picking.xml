@@ -1,0 +1,37 @@
+<odoo>
+
+      <record id="inherit_amcl_import_po_extended_stock_picking_form_view" model="ir.ui.view">
+            <field name="name">Amcl Import Po Extended Stock Picking Form View</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
+                    <field name="brand" optional="hide"/>
+                    <field name="description" optional="hide"/>
+                    <field name="vin" optional="hide"/>
+                    <field name="exterior_color" optional="hide"/>
+                    <field name="exterior_color_code" optional="hide"/>
+                    <field name="interior_color" optional="hide"/>
+                    <field name="interior_color_code" optional="hide"/>
+                    <field name="complete_engine_number" optional="hide"/>
+                    <field name="model_code" optional="hide"/>
+<!--                    <field name="action" optional="hide"/>-->
+                    <field name="alj_suffix" optional="hide"/>
+                    <field name="model_year" optional="hide"/>
+                    <field name="grade" optional="hide"/>
+                    <field name="transmission_type" optional="hide"/>
+                    <field name="sales_document" optional="hide"/>
+<!--                    <field name="request_delivery_date" optional="hide"/>-->
+                    <field name="billing_document" optional="hide"/>
+                    <field name="bill_date" optional="hide"/>
+<!--                    <field name="vehicle_wholesale_price" optional="hide"/>-->
+<!--                    <field name="broker_declaration_date" optional="hide"/>-->
+<!--                    <field name="declaration_date" optional="hide"/>-->
+<!--                    <field name="netval" optional="hide"/>-->
+<!--                    <field name="vat_amount" optional="hide"/>-->
+                </xpath>
+
+            </field>
+      </record>
+
+</odoo>
