@@ -4,36 +4,34 @@
 
         <template id="external_layout_standard_inv">
             <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
-                <table style="padding:2px;width:100%;"
-                       class="table-condensed mt-2">
+                <table style="padding:2px;width:100%;" class="table-condensed mt-2">
                     <tr>
                         <td style="width:40%;padding:2px;">
                             <div class="col-md-12 p-2">
                                 <!--                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"-->
                                 <!--                                     style="max-height: 50px;align:left;"/>-->
-                                <img src='/amcl_invoice_report/static/src/img/Toyota_1.png' width="320" height="60"/>
+                                <img src="/amcl_invoice_report/static/src/img/Toyota_1.png" width="320" height="60"/>
                             </div>
                             <div class="col-md-12 p-2">
                                 <!--                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"-->
                                 <!--                                     style="max-height: 50px;align:left;"/>-->
-                                <img src='/amcl_invoice_report/static/src/img/lexus_1.png' width="320" height="80"/>
+                                <img src="/amcl_invoice_report/static/src/img/lexus_1.png" width="320" height="80"/>
                             </div>
                         </td>
                         <td style="width:20%;">
                             <center>
-                                <img t-att-src="'/report/barcode/?type=QR&amp;width=400&amp;height=400&amp;value=' +doc.generate_tlv_code()"
-                                         style="height:90px"/>
+                                <img t-att-src="'/report/barcode/?type=QR&amp;width=400&amp;height=400&amp;value=' +doc.generate_tlv_code()" style="height:90px"/>
                             </center>
                         </td>
                         <td style="width:40%;">
                             <div class="row">
-                                <div class="col-8 p-2 mt-8" style="margin-top:15px;">
+                                <div class="col-8 p-2 mt-8" style="margin-top:15px;font-family: 'Cairo';font-size: 13px; !important">
                                     <center>
                                         <!--<span t-if="company.arabic" t-field="company.arabic"></span>-->
-                                        <span>شركة اليمياق للتجار</span>
+                                        <span style="font-size:180%;"><span t-field="company.arabic"/></span>
                                         <br/>
                                         <!--                                        <span t-if="company.name" t-field="company.name"></span>-->
-                                        <span>ALEMIAQ TRADING Co.</span>
+                                        <span style="font-size:180%;"><span t-field="company.name"/></span>
                                         <br/>
                                         <span t-if="company.street_arabic" t-field="company.street_arabic">
                                             <br/>
@@ -43,9 +41,9 @@
                                             <br/>
                                         </span>
                                         <br/>
-                                        <span t-if="company.city_arabic" t-field="company.city_arabic"></span>
-                                        <span t-if="company.state_arabic" t-field="company.state_arabic"></span>
-                                        <span t-if="company.zip_arabic" t-field="company.zip_arabic"></span>
+                                        <span t-if="company.city_arabic" t-field="company.city_arabic"/>
+                                        <span t-if="company.state_arabic" t-field="company.state_arabic"/>
+                                        <span t-if="company.zip_arabic" t-field="company.zip_arabic"/>
                                         <br/>
                                         <span t-if="company.country_arabic" t-field="company.country_arabic">
                                             <br/>
@@ -56,8 +54,7 @@
                                     <center>
                                         <!--<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"-->
                                         <!--style="max-height: 90px;"/>-->
-                                        <img src='/amcl_invoice_report/static/src/img/letterpad_logo.png' width="150"
-                                             height="150"/>
+                                        <img src="/amcl_invoice_report/static/src/img/letterpad_logo.png" width="150" height="150"/>
                                     </center>
                                 </div>
                             </div>
@@ -66,9 +63,7 @@
                 </table>
             </div>
 
-            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
-                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
-                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
                 <div class="pt-5">
                     <!-- This div ensures that the address is not cropped by the header. -->
                     <t t-call="web.address_layout"/>
@@ -148,40 +143,79 @@
                             <tr>
                                 <td width="40%" class="text-right p-2 pr-5">
                                     <!-- Customer Name -->
-                                    <span t-field="doc.partner_id.name" style="font-size:130%;"/>&amp;nbsp;:
-                                    <span style="font-size:150%;">إسم العميل</span>
-                                    <br/>
-                                    <!-- Address -->
-                                    <span style="font-size:100%;">العنوان</span>
-                                    <br/>
-                                    <!-- P.O Number -->
-                                    <span t-field="doc.ref" style="font-size:130%;"/>&amp;nbsp;:
-                                    <span style="font-size:150%;">رقم أمر الشراء</span>
-                                    <br/>
-                                    <!-- P.O Date -->
-                                    <span t-field="doc.invoice_date" style="font-size:130%;"/>&amp;nbsp;:
-                                    <span style="font-size:150%;">تاريخ أمر الشراء</span>
-                                    <br/>
-                                    <!-- Customer Code -->
-                                    <span t-field="doc.partner_id.customer_no" style="font-size:130%;"/>&amp;nbsp;:
-                                    <span style="font-size:150%;">رقم العميل</span>
-                                    <br/>
+                                    <table>
+                                      <tr>
+                                          <td class="text-right">
+                                            <span t-field="doc.partner_id.name" style="font-size:150%;"/>
+                                          </td>
+                                          <td class="text-right">
+                                            <span style="font-size:150%;">: إسم العميل</span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-right" colspan="2" style="font-size:150%;">
+                                          العنوان
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                           <td class="text-right">
+                                            <span t-field="doc.ref" style="font-size:150%;"/>
+                                          </td>
+                                          <td class="text-right">
+                                            <span style="font-size:150%;">: رقم أمر الشراء</span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                           <td class="text-right">
+                                            <span t-field="doc.invoice_date" style="font-size:150%;"/>
+                                          </td>
+                                          <td class="text-right">
+                                            <span style="font-size:150%;">: تاريخ أمر الشراء</span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                           <td class="text-right">
+                                            <span t-field="doc.partner_id.customer_no" style="font-size:150%;"/>
+                                          </td>
+                                          <td class="text-right">
+                                            <span style="font-size:150%;">: رقم العميل</span>
+                                          </td>
+                                      </tr>
+                                    </table>
+
+
+<!--                                    <span t-field="doc.partner_id.name" style="font-size:150%;"/>&amp;nbsp;:-->
+<!--                                    <span style="font-size:150%;">إسم العميل</span>-->
+<!--                                    <br/>-->
+<!--                                    &lt;!&ndash; Address &ndash;&gt;-->
+<!--                                    <span style="font-size:150%;">العنوان</span>-->
+<!--                                    <br/>-->
+<!--                                    &lt;!&ndash; P.O Number &ndash;&gt;-->
+<!--                                    <span t-field="doc.ref" style="font-size:150%;"/>&amp;nbsp;:-->
+<!--                                    <span style="font-size:150%;">رقم أمر الشراء</span>-->
+<!--                                    <br/>-->
+<!--                                    &lt;!&ndash; P.O Date &ndash;&gt;-->
+<!--                                    <span t-field="doc.invoice_date" style="font-size:150%;"/>&amp;nbsp;:-->
+<!--                                    <span style="font-size:150%;">تاريخ أمر الشراء</span>-->
+<!--                                    <br/>-->
+<!--                                    &lt;!&ndash; Customer Code &ndash;&gt;-->
+<!--                                    <span t-field="doc.partner_id.customer_no" style="font-size:150%;"/>&amp;nbsp;:-->
+<!--                                    <span style="font-size:150%;">رقم العميل</span>-->
+<!--                                    <br/>-->
                                 </td>
-                                <td width="20%" class="text-center">
-                                    <span class="pt-2 pb-2 pr-4 pl-4  border">
-                                        <b>
-                                            <t t-esc="doc.name" style="font-size:130%;"/>
-                                        </b>
+                                <th width="20%" class="text-center" style="font-size:250%;">
+                                    <span class="pt-2 pb-2 pr-4 pl-4 border">
+                                        <t t-esc="doc.name"/>
                                     </span>
-                                </td>
+                                </th>
                                 <td width="40%" class="text-right p-2">
-                                    <span t-field="doc.invoice_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span t-field="doc.invoice_date" style="font-size:150%;"/>&amp;nbsp;:
                                     <span style="font-size:150%;">التاريخ</span>
                                     <br/>
-                                    <span t-field="doc.arebic_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span t-field="doc.arebic_date" style="font-size:150%;"/>&amp;nbsp;:
                                     <span style="font-size:150%;">الموافق</span>
                                     <br/>
-                                    <span t-field="doc.delivery_date" style="font-size:130%;"/>&amp;nbsp;:
+                                    <span t-field="doc.delivery_date" style="font-size:150%;"/>&amp;nbsp;:
                                     <span style="font-size:150%;">تاريخ التوريد</span>
                                     <br/>
                                 </td>
@@ -285,10 +319,10 @@
                                             <span t-field="line.price_subtotal"/>
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.product_id.name"/>
+                                            <span t-field="line.product_id.exterior_color"/>
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.product_id.model_code"/>
+                                            <span t-field="line.product_id.exterior_color_code"/>
                                         </td>
                                         <td class="text-center">
                                             <span t-field="line.product_id.default_code"/>
@@ -296,8 +330,8 @@
                                         <td class="text-center">
                                             <span t-field="line.product_id.model_year"/>
                                         </td>
-                                        <td class="text-right">
-                                            <span t-field="line.product_id.description"/>
+                                        <td class="text-center">
+                                            <span t-field="line.product_id.name"/>
                                         </td>
                                     </tr>
                                 </t>
@@ -305,25 +339,25 @@
                                     <td class="text-right">
                                         <span t-esc="net_total"/>
                                     </td>
-                                    <td colspan="2" class="text-right">
+                                    <th colspan="2" class="text-right">
                                         <span>الإجمالي قبل الضريبة</span>
-                                    </td>
+                                    </th>
                                 </tr>
                                 <tr style="height:3px; line-height:0px;">
                                     <td class="text-right">
                                         <span t-esc="tax_total"/>
                                     </td>
-                                    <td colspan="2" class="text-right">
+                                    <th colspan="2" class="text-right">
                                         <span>الضريبة 15%</span>
-                                    </td>
+                                    </th>
                                 </tr>
                                 <tr style="height:3px; line-height:0px;">
                                     <td class="text-right">
                                         <span t-esc="sub_total"/>
                                     </td>
-                                    <td colspan="2" class="text-right">
+                                    <th colspan="2" class="text-right">
                                         <span>الإجمالي بعد الضريبة</span>
-                                    </td>
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>

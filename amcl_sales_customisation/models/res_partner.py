@@ -15,8 +15,9 @@ class ResPartner(models.Model):
         if operator == 'ilike' and not (name or '').strip():
             domain = []
         else:
-            domain = ['|', '|', '|', ('name', operator, name),
-                      ('mobile', operator, name), ('email', operator, name), ('phone', operator, name)]
+            domain = ['|', '|', '|', '|', ('name', operator, name),
+                      ('mobile', operator, name), ('email', operator, name), ('phone', operator, name),
+                      ('ref', operator, name)]
         return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
 
     def name_get(self):
@@ -32,6 +33,13 @@ class ResPartner(models.Model):
             for record in self:
                 email = record.email or ""
                 name = email
+                res.append((record.id, name))
+            return res
+        if self._context.get("only_id_no"):
+            res = []
+            for record in self:
+                ref = record.ref or ""
+                name = ref
                 res.append((record.id, name))
             return res
         return super(ResPartner, self).name_get()

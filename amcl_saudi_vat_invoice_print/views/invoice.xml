@@ -9,15 +9,15 @@
             <xpath expr="//notebook" position="inside">
                 <page string="More Details">
                     <group>
-                        <field name="attention" attrs="{'required': [('move_type','=','out_invoice')]}"/>
-                        <field name="approved_by" attrs="{'required': [('move_type','=','out_invoice')]}"/>
-                        <field name="vat_text" attrs="{'required': [('move_type','=','out_invoice')]}"/>
-                        <field name="vat_arabic_text" attrs="{'required': [('move_type','=','out_invoice')]}"/>
+                        <field name="attention"/>
+                        <field name="approved_by"/>
+                        <field name="vat_text"/>
+                        <field name="vat_arabic_text"/>
                     </group>
                     <group>
                         <field name="amount_text"/>
                         <field name="amount_in_ar"/>
-                        <field name="qr_image" widget="image"/>
+                        <field name="qr_image" widget="image" invisible="1"/>
                     </group>
                 </page>
             </xpath>
