@@ -45,7 +45,9 @@ class StockMove(models.Model):
         if sale_line:
             order_line_id = self.env['sale.order.line'].browse(sale_line)
 
-        res.write({'brand': order_line_id.product_id.brand or "",
+        print('Brand',order_line_id)
+        if order_line_id:
+            res.write({'brand': order_line_id.product_id.brand or "",
                    'description': order_line_id.product_id.description or "",
                    'vin': order_line_id.product_id.default_code or "",
                    'exterior_color': order_line_id.product_id.exterior_color or "",
