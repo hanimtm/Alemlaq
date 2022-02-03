@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Custom Card Request Tree View -->
+    <record id="custom_card_request_tree_view" model="ir.ui.view">
+        <field name="name">custom.card.request.tree.view</field>
+        <field name="model">custom.card.request</field>
+        <field name="arch" type="xml">
+            <tree string="Custom Card Request" create="false" edit="false">
+                <field name="name" readonly="1"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="sale_order_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="custom_card_request_form_view" model="ir.ui.view">
+        <field name="name">custom.card.request.form.view</field>
+        <field name="model">custom.card.request</field>
+        <field name="arch" type="xml">
+            <form string="Custom Card Request" create="false">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Process" states="draft" class="oe_highlight"
+                            name="process_custom_card_request" type="object"/>
+                    <button string="Refuse" states="upload" class="oe_highlight"
+                            name="refuse_custom_card_request" type="object"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="sale_order_id" readonly="1"/>
+                            <field name="is_record_uploaded" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Request Card Lines" name="order_lines">
+                            <field name="custom_card_request_ids" options="{'no_create': True, 'no_open':True}">
+                                <tree editable="bottom" create="0" delete="0" options="{'no_create': True, 'no_open':True}">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="vin" readonly="1"/>
+                                    <field name="custom_card_file" invisible="1"/>
+                                    <field name="upload_card" filename="custom_card_file" widget="binary"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Custom Card Document Request Actions -->
+    <record id="action_request_custom_card" model="ir.actions.act_window">
+        <field name="name">Request a Custom Card</field>
+        <field name="res_model">custom.card.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Custom Card Request
+            </p>
+            <p>
+                Use Custom Card Request to organize your Requests.
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Custom Card Request Tree View -->
+    <record id="custom_card_request_line_tree_view" model="ir.ui.view">
+        <field name="name">custom.card.request.line.tree.view</field>
+        <field name="model">custom.card.request.line</field>
+        <field name="arch" type="xml">
+            <tree string="Card Request" create="0">
+                <field name = "custom_card_request_id"/>
+                <field name="product_id" readonly="1"/>
+                <field name="vin" readonly="1"/>
+                <field name="custom_card_file" invisible="1" readonly="1"/>
+                <field name="upload_card" filename="custom_card_file" widget="binary" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem id="custom_card_menu_root"
+              name="Custom Card"
+              active="True"
+              web_icon="custom_card,static/description/icon.png"
+              groups="custom_card.group_for_card_request_handler"
+              sequence="31"/>
+
+    <menuitem id="custom_card_request_menu"
+              name="Request a Custom Card"
+              parent="custom_card_menu_root"
+              action="custom_card.action_request_custom_card"
+              groups="custom_card.group_for_card_request_handler"
+              sequence="1"/>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_sale_order_form_view_for_custom_request" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                    <field name="sent_card_request" readonly="True"/>
+                    <field name="is_card_request_approved" readonly="True"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_view_invoice']" position="after">
+<!--                    <button name="action_view_custom_card_requests"-->
+<!--                            type="object" icon="fa-envelope" style="width:14%">-->
+<!--                        <field name="custom_card_request_count" widget="statinfo" string="Card Request"/>-->
+<!--                    </button>-->
+
+                    <button name="action_card_documents"
+                            type="object" icon="fa-envelope" style="width:14%" class="btn-success">
+                        <field name="custom_card_request_count" widget="statinfo" string="Card Request"/>
+                    </button>
+                </xpath>
+
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button class="oe_stat_button oe_highlight" type="object" icon="fa-book"
+                            name="request_for_custom_card" string="Request for a Card"
+                            attrs="{'invisible': [('sent_card_request', '!=', False)]}"/>
+                </xpath>
+
+<!--                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">-->
+<!--                    <field name="custom_card_request_count" widget="statinfo" string="Card Request"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+    </data>
+</odoo>
