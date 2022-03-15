@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="amcl_report_wizard_view_form" model="ir.ui.view">
+            <field name="name">amcl_report_wizard_view_form</field>
+            <field name="model">amcl.reporting.wizard</field>
+            <field name="arch" type="xml">
+                <form string="amcl_report_wizard_form">
+                    <sheet>
+                        <group>
+                            <field name="sale_order_id" readonly="1"/>
+<!--                            <field name="sale_order_state" invisible="1"/>-->
+
+                            <field name="type_report" required="1" widget="radio"/>
+<!--                            <field name="catch_receipt"/>-->
+<!--                             attrs="{'invisible': [('sale_order_state', '!=', 'done')]}"-->
+                        </group>
+                    </sheet>
+
+                    <footer>
+                        <button class="oe_highlight" type="object"
+                                name="button_print_report_ordinary_confession_pdf" string="Print PDF"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

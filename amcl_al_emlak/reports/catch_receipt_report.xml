@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_catch_receipt_without_header_and_footer_report"
+                model="report.paperformat">
+            <field name="name">A4 Without header and footer</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_catch_receipt_report"
+                model="account.payment"
+                string="سند قبض"
+                name="amcl_al_emlak.report_catch_receipt_report_view"
+                file="amcl_al_emlak.report_catch_receipt_report"
+                paperformat="amcl_al_emlak.paperformat_catch_receipt_without_header_and_footer_report"
+                report_type="qweb-pdf"
+               />
+
+        <template id="report_catch_receipt_report_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+
+                        <table style="width:100%; background-color:#ffffff;">
+                            <tr style="background-color:#ffffff;">
+                                <td style="text-align:center">
+                                    <img class="img" src="/amcl_al_emlak/static/src/img/logo.png"
+                                         style="height:150px;width:250px; text-align:right;"/>
+                                </td>
+
+                                <td style="text-align:center; direction: rtl;">
+                                    <div>
+                                        <img class="img" src="/amcl_al_emlak/static/src/img/toyota.jpg"
+                                             style="height:60px;width:250px; text-align:right;"/>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <img class="img" src="/amcl_al_emlak/static/src/img/lexus.jpg"
+                                             style="height:60px;width:250px; text-align:right;"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <div class="page" style="border-style:solid; border-radius:10px; direction: rtl;">
+
+                            <table style="width:100%; text-align:right">
+                                <tr style="background-color:#ffffff;">
+                                    <td style="width:33%; text-align:right">
+                                        <table style="width:100% ; text-align:right; background-color:#ffffff;">
+                                            <tr style="background-color:#ffffff;">
+
+                                                <td style="width:50% ; text-align:center">H هللة</td>
+                                                <td style="width:50% ; text-align:center">S.R ريال</td>
+                                            </tr>
+                                            <tr style="background-color:#ffffff;">
+                                                <td style="width:50% ; text-align:center">
+                                                    <div style="border-style:solid; border-radius:10px; text-align:center; height:25px;">
+                                                        <span t-field="doc.amount_str_after_point"/>
+                                                    </div>
+                                                </td>
+                                                <td style="width:50% ; text-align:center">
+                                                    <div style="border-style:solid; border-radius:10px; text-align:center; height:25px;">
+                                                        <span t-field="doc.amount_str_before_point"/>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td style="width:33%; text-align:center">
+                                        <b>سند قبض</b>
+                                        <br/>
+                                        <b>رقم
+                                            <span t-field="docs.name"/>
+                                            No
+                                        </b>
+                                    </td>
+
+                                    <td style="width:33%; text-align:left">
+                                        <b>Date:</b>
+                                        <b>
+                                            <span t-field="doc.date"/>
+                                        </b>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <table style="width:100% ; text-align:right; background-color:#ffffff;">
+                                <tr style="background-color:#ffffff;">
+
+                                    <td style="width:25%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            إستلمنا من السادة
+                                        </div>
+                                    </td>
+
+
+                                    <td style="width:50%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            <span t-field="doc.partner_id.arabic"/>
+                                        </div>
+                                    </td>
+
+                                    <td style="width:25%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            ................................................
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <table style="width:100% ; text-align:right; background-color:#ffffff;">
+                                <tr style="background-color:#ffffff;">
+                                    <td style="width:25%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            مبلغ وقدره
+                                        </div>
+                                    </td>
+
+                                    <td style="width:75%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            <span t-esc="doc.amount_in_word"/>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <table style="width:100% ; text-align:right; background-color:#ffffff;">
+                                <tr style="background-color:#ffffff;">
+
+                                    <td style="width:25%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            وذلك عن
+                                        </div>
+                                    </td>
+
+
+                                    <td style="width:75%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            <span t-field="doc.ref"/>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <table style="width:100% ; text-align:right; background-color:#ffffff;">
+                                <tr style="background-color:#ffffff;">
+
+                                    <td style="width:25%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            طريقة الدفع
+                                        </div>
+                                    </td>
+                                    <td style="width:75%; text-align:left">
+                                        <div style="border-style:groove; border-radius:10px; text-align:center; height:35px;">
+                                            <span t-field="doc.journal_id.name"/>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <table style="width:100% ; text-align:right; background-color:#ffffff;">
+                                <tr style="background-color:#ffffff;">
+                                    <td style="width:33%; text-align:center">أمين الصندوق</td>
+
+                                    <td style="width:33%; text-align:center">المحاسب</td>
+                                    <td style="width:33%; text-align:center">المدير المالي</td>
+
+                                </tr>
+                                <tr>
+                                    <td style="width:33%; text-align:center"/>
+                                    <td style="width:33%; text-align:center"/>
+                                    <td style="width:33%; text-align:center"/>
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <br/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

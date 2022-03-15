@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="report_receipt_form" model="ir.actions.report">
+            <field name="name">نموذج استلام Memory</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">amcl_al_emlak.report_sale_order_receipt_form_view</field>
+            <field name="report_file">amcl_al_emlak.report_receipt_form</field>
+        </record>
+
+        <template id="report_sale_order_receipt_form_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="direction: rtl;  font-family: Droid Arabic Kufi;">
+                            <div style="text-align:center; font-family: Droid Arabic Kufi;">
+                                <u>
+                                    <h2>معرض العملاق للسيارات</h2>
+                                </u>
+                            </div>
+                            <br/>
+                            <div style="text-align:center; font-family: Droid Arabic Kufi;">
+                                <u>
+                                    <h3>مذكرة استلام ذاكرة ميموري navigaon</h3>
+
+                                </u>
+                            </div>
+                            <br/>
+                            <br/>
+                            <table style="text-align:right; width:100%;">
+                                <t t-foreach="data['info']" t-as="line">
+                                    <tr style="font-size:16px; width:100%;">
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">أقر انا المدعو
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-field="doc.sale_order_id.partner_id.arabic"/>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">بأنني استلمت ذاكرة ميموري لسيارة</h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-raw="line['name']"/>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <br/>
+                            <br/>
+
+                            <table style="text-align:right; width:100%;">
+                                <tr style="text-align:right; width:100%;">
+                                    <td>
+                                        <h5 style=" font-family: Droid Arabic Kufi;">نوع</h5>
+                                    </td>
+                                    <td>
+                                        <h5 style=" font-family: Droid Arabic Kufi;">موديل</h5>
+                                    </td>
+                                    <td>
+                                        <h5 style=" font-family: Droid Arabic Kufi;">لوحة</h5>
+                                    </td>
+                                    <td>
+                                        <h5 style=" font-family: Droid Arabic Kufi;">عدد</h5>
+                                    </td>
+                                    <td>
+                                        <h5 style=" font-family: Droid Arabic Kufi;">هيكل</h5>
+                                    </td>
+                                </tr>
+                                <t t-foreach="data['info']" t-as="line">
+                                    <tr style="text-align:right; width:100%;">
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-raw="line['brand']"/>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-raw="line['vehicle_model']"/>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-raw="line['key_number']"/>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-raw="line['qty']"/>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 style=" font-family: Droid Arabic Kufi;">
+                                                <span t-raw="line['haykal']"/>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <br/>
+                            <br/>
+                            <div style="text-align:right;">
+                                <h5 style=" font-family: Droid Arabic Kufi;">
+                                    <br/>
+                                    وبذلك تخلي مؤسسة العملاق مسؤوليتها عن هذة الذاكرة وليس لي الحق بالمطالبة بها نهائيا
+                                    وهذااقرار مني بذالك
+                                </h5>
+                            </div>
+                            <br/>
+                            <div style="text-align:right;">
+                                <h5 style=" font-family: Droid Arabic Kufi;">التاريخ &#160;&#160;
+                                    <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                                </h5>
+                            </div>
+                            <br/>
+                            <div style="text-align:right;">
+                                <h5 style=" font-family: Droid Arabic Kufi;">رقم الجوال &#160;&#160;
+                                    <span t-field="doc.sale_order_id.partner_id.mobile"/>
+                                </h5>
+                            </div>
+                            <br/>
+                            <div style="text-align:right;">
+                                <h5 style=" font-family: Droid Arabic Kufi;">التوقيع</h5>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

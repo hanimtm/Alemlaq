@@ -26,3 +26,6 @@ class PurchaseOrderLine(models.Model):
     item = fields.Char('Item')
     billing_document = fields.Char('Billing Document')
     bill_date = fields.Date('Bill Date')
+    key_number = fields.Char('Key Number')
+    vessel_no = fields.Char('Vessel No.')
+    card_no = fields.Char('Card No')

@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_offer_price_report"
+                model="report.paperformat">
+            <field name="name">A4 Without header and footer</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_offer_price"
+                model="sale.order"
+                string="Offer Price"
+                name="offer_price.report_price_offer_view"
+                file="offer_price.report_price_offer"
+                report_type="qweb-pdf"
+                paperformat="offer_price.paperformat_offer_price_report"
+        />
+
+        <template id="report_price_offer_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="direction:rtl; padding-top:2px; font-family: Droid Arabic Kufi;">
+                            <div style="width:100%; background-color:#b3b3b3; text-align:center;">
+                                <b>
+                                    <u>عرض سعر Quotation</u>
+                                </b>
+                            </div>
+
+                            <div style="border: 1px solid; margin-top:2px;">
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم المالك</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p>:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.company_id.name"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم الفرع</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.branch_id.name"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم الضيف</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.partner_id.arabic"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">المدينة-العنوان</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.company_id.city"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">هاتف</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.company_id.phone"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">سجل تجاي فرعي</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">البريد
+                                            الالكتروني
+                                        </p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.company_id.email"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">هاتف</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.company_id.phone"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">رقم الهوية</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.partner_id.cr_number"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">تاريخ العرض</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.date_order"
+                                                  t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">مرجع ضريبة القيمة
+                                            المضافة للمشتري
+                                        </p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p>:</p>
+                                    </div>
+                                    <div class="col-8"
+                                         style="font-size:11px; text-align:right;">
+                                        <p>
+                                            <span t-field="doc.partner_id.vat"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="border: 1px solid; margin-top:2px;">
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">رقم العرض</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.name"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">عناية السيد</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.partner_id.arabic"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">العنوان</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.partner_id.city"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-3"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">جوال الضيف</p>
+                                    </div>
+                                    <div class="col-1"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    </div>
+                                    <div class="col-2"
+                                         style="font-size:11px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            <span t-field="doc.partner_id.mobile"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table style="width:100%; height:20px;">
+                                <tr style="width:100%;">
+                                    <td style="width:50%; font-size:11px; text-align:right;">
+                                        <p>يسرنا أن نقدم لكم عرض أسعارنا الخاصة بالسيارة/بالسيارات المطلوبة
+                                            بتاريخ()املين ان
+                                            يحوز على رضاكم
+                                        </p>
+                                    </td>
+                                    <td style="width:50%; font-size:11px; text-align:left;">
+                                        <p>We have great pleasure to provide this quotation date()for your requirements
+                                            as below
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <table style="width:100%; font-size:10px; border:1px solid;
+                                                    border-collapse: collapse;">
+                                <tr style="background-color:#b3b3b3; border: 1px solid;">
+                                    <th style="width:2%; border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">م<br/>s
+                                        </b>
+                                    </th>
+                                    <th style="width:23%; border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">المنتج<br/>Product
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">سنة الموديل<br/>Model Year
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">سعر الوحدة<br/>Unit Price
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">الخصم<br/>Discount
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">السعر بعد الخصم<br/>Price After
+                                            Discount
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">ضريبة القيمة المضافة 15%<br/>VAT
+                                            Value 15%
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">السعر بعد الخصم والضريبة<br/>Price
+                                            after discount with VAT
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">العدد<br/>QTY
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">اللوحات<br/>Plates
+                                        </b>
+                                    </th>
+                                    <th style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">السعر الاجمالي<br/>Total Price
+                                        </b>
+                                    </th>
+                                </tr>
+                                <t t-set="number" t-value="0"/>
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="doc.order_line" t-as="line">
+                                    <t t-set="number" t-value="number + 1"/>
+                                    <tr style="height:25px; border:1px solid;">
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-raw="number"/>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-raw="line.product_id.name"/>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <!--                                                <t t-raw="line.product_id.model_year"/>-->
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <span t-raw="'{0:,.2f}'.format(line.price_unit)"/>
+                                            </p>
+                                        </td>
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-raw="line.discount"/>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <span t-raw="'{0:,.2f}'.format(line.price_subtotal)"/>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-if="line.tax_id">
+                                                    <t t-raw="line.tax_id.name"/>
+                                                </t>
+
+                                                <t t-if="not line.tax_id">
+                                                    0.00
+                                                </t>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-set="price_after_vat"
+                                                   t-value="line.price_subtotal + line.price_tax"/>
+                                                <span t-raw="'{0:,.2f}'.format(price_after_vat)"/>
+
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-raw="line.product_uom_qty"/>
+                                            </p>
+                                        </td>
+                                        <t t-set="line_total" t-value="line.price_subtotal + line.price_tax"/>
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-foreach="doc.license_plate_ids" t-as="license">
+                                                    <t t-if="license.order_line_id.id == line.id">
+                                                        <span t-raw="'{0:,.2f}'.format(license.price)"/>
+                                                        <t t-set="line_total"
+                                                           t-value="line_total + (license.product_id.list_price)"/>
+                                                    </t>
+                                                </t>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <span t-raw="'{0:,.2f}'.format(line_total)"/>
+                                                <t t-set="total" t-value="total + line_total"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                                <tr style="height:25px; border:1px solid;">
+                                    <td colspan="5"
+                                        style="border: no; text-align:center;"/>
+                                    <td colspan="5"
+                                        style="background-color:#b3b3b3; border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">الإجمالي Total</b>
+                                    </td>
+                                    <td style="border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">
+                                            <span t-raw="'{0:,.2f}'.format(total)"/>
+                                        </b>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table style="width:100%;">
+                                <tr>
+                                    <th style="font-size:12px; text-align:center;">
+                                        <u>
+                                            <b style="font-family: Droid Arabic Kufi;">الشروط والأحكام</b>
+                                        </u>
+                                    </th>
+                                    <th style="font-size:12px; text-align:center;">
+                                        <u>
+                                            <b style="font-family: Droid Arabic Kufi;">Terms and Conditions</b>
+                                        </u>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:right; font-size:11px; width:50%;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            [1] يسري هذا العرض من تاريخ الخطاب أو نهاية السهر الحالي (أيهما أسبق) ولا
+                                            <br/>
+                                            حتى : <u
+                                                style="color:red; font-weight: bold;">
+                                            3أيام
+                                        </u> يعد ضماناً لعملية
+                                            الشراء.
+                                            <br/>
+                                            [2]موعد تسليم السيارة/السيارات يخضع لمدى توفرها بالمخزون ويتم الاتفاق علية
+                                            بوثيقة منفصلة موقعة من الطرفين .
+                                            <br/>
+                                            [3]الأسعار أعلاه خاصة للعدد المذكور في عرض السعر واي تغير في الكمية يترتب
+                                            عليه
+                                            تغير السعر.
+                                            <br/>
+                                            [4]في حال وجود أي فروقات في الأسعار لتغير الكمية يقوم المستفيد بدفع الفرق
+                                            لشركة
+                                            العملاق التجارية
+                                            <br/>
+                                            [5]الدفع يتم بإحدى الوسائل البنكية المعتمدة حسب الشروط والأحكام ذات العلاقة
+                                            <br/>
+                                            [6]تحتفظ شركة العملاق التجارية بحقها بين الحين والأخر في تغير أي من تفاصيل
+                                            المواصفات والأسعار دون إشعار
+                                            <br/>
+                                            (وللمزيد من المعلومات يرجى التواصل مع قسم المبيعات للحصول على اخر التحديثات
+                                            <br/>
+                                            [7]تتضمن الأسعار أعلاه سعر السيارة وقيمة اللوحات وغير شاملة لقيمة التأمين
+                                            والاستمارة.
+                                            <br/>
+                                            [8]جميع الأسعار المذكورة بالريال السعودي.
+                                            <br/>
+                                            [9]الضمان : 3 سنوات او 100000 كيلو متر ايهما اقرب
+                                        </p>
+                                    </td>
+                                    <td style="text-align:left; font-size:10px; width:50%; direction:ltr">
+                                        <p style="font-family: Droid Arabic Kufi;">[1] Quotation from the issuance date
+                                            OR end of current month(whichever is
+                                            earlier)
+                                            and it's not considered as a guarantee for
+                                            <br/>
+                                            Validity : <u style="color:red; font-weight: bold;">3Days</u> sales.
+                                            <br/>[2]
+                                            Delivery date will be subjected to stock availability and as per a
+                                            separate signed document between the parties
+                                            <br/>
+                                            [3]
+                                            The price above are specific to the number mentioned in the quotation and
+                                            any change in quantity will result in price change
+                                            <br/>
+                                            [4]
+                                            If there is any difference in prices to change the quantity, the
+                                            beneficiary shall pay the difference to ALEMLAQ Trading Co.
+                                            <br/>
+                                            [5]
+                                            Payment by any bank certified means subject to the relevant Terms and
+                                            Conditions
+                                            <br/>
+                                            [6]
+                                            ALEMLAQ Trading Co. reserves the right to alter any details of the
+                                            specification and prices without prior
+                                            <br/>
+                                            (please contact or confirm with our sales associate for the latest updates)
+                                            <br/>
+                                            [7]
+                                            The above prices include the price of the car ,and the plates and do not
+                                            include the insurance value and the form
+                                            <br/>
+                                            [8]
+                                            All listed prices are in SAR
+                                            <br/>
+                                            [9]
+                                            Warranty: 3 Years or 100000 Km Whichever Comes First.
+                                            <br/>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table style="width:100%; border: 1px solid;">
+                                <tr style="width:100%; border: 1px solid;">
+                                    <th colspan="2"
+                                        style="background-color:#b3b3b3; text-align:center; font-size:12px; width:50%; border: 1px solid;">
+                                        <p style="font-family: Droid Arabic Kufi;">توقيع مدير المبيعات Sales manager
+                                            Signature
+                                        </p>
+                                    </th>
+
+                                    <th colspan="2"
+                                        style="background-color:#b3b3b3; text-align:center; font-size:12px; width:50%; border: 1px solid;">
+                                        <p style="font-family: Droid Arabic Kufi;">توقيع مندوب المبيعات Salesman
+                                            Signature
+                                        </p>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center; width:35%; border: 1px solid; font-size:11px;"/>
+                                    <td style="text-align:center; width:15%; border: 1px solid; font-size:11px;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            Sales manager Name:
+                                            أسم مدير المبيعات
+                                        </p>
+                                    </td>
+                                    <td style="text-align:center; width:35%; border: 1px solid; font-size:11px;"/>
+                                    <td style="text-align:center; width:15%; border: 1px solid; font-size:11px;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            Salesman Name:
+                                            أسم مندوب المبيعات
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center; width:35%; border: 1px solid; font-size:11px;"/>
+                                    <td style="text-align:center; width:15%; border: 1px solid; font-size:11px;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            Sales manager Contact No.
+                                            رقم مدير المبيعات
+                                        </p>
+                                    </td>
+                                    <td style="text-align:center; width:35%; border: 1px solid; font-size:11px;"/>
+                                    <td style="text-align:center; width:15%; border: 1px solid; font-size:11px;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            Salesman Contact No.
+                                            رقم مندوب المبيعات
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align:center; width:35%; border: 1px solid; font-size:11px;"/>
+                                    <td style="text-align:center; width:15%; border: 1px solid; font-size:11px;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            Signature
+                                            التوقيع
+                                        </p>
+                                    </td>
+                                    <td style="text-align:center; width:35%; border: 1px solid; font-size:11px;"/>
+                                    <td style="text-align:center; width:15%; border: 1px solid; font-size:11px;">
+                                        <p style="font-family: Droid Arabic Kufi;">
+                                            Signature
+                                            التوقيع
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr style="width:100%; border: 1px solid;">
+                                    <th colspan="2"
+                                        style="background-color:#b3b3b3; text-align:center; font-size:11px; width:50%; border: 1px solid;">
+                                        <b style="font-family: Droid Arabic Kufi;">ختم الفرع Branch Stamp
+                                        </b>
+                                    </th>
+
+                                    <th colspan="2"
+                                        style="background-color:#b3b3b3; text-align:center; font-size:11px; width:50%; border: 1px solid;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم الشخص ورقمه وتوقيعه Contact Person Name and Signature
+                                        </p>
+                                    </th>
+                                </tr>
+
+                                <tr  style="height:50px;">
+                                    <td colspan="2"
+                                        style="text-align:center; border: 1px solid;">
+                                        <img class="img" src="/offer_price/static/src/img/khtm.PNG"/>
+                                    </td>
+                                    <td colspan="2" style="text-align:center; border: 1px solid;">
+
+
+                                        <table style="width:100%;">
+                                            <tr style="height:10px;">
+                                                <td style="width:25%; text-align:right; font-size:12px;">
+                                                    <p style="font-family: Droid Arabic Kufi;">الإسم</p>
+                                                </td>
+                                                <td style="width:50%;"/>
+                                                <td style="width:25%; text-align:left; font-size:12px;">
+                                                    <p style="font-family: Droid Arabic Kufi;">Name</p>
+                                                </td>
+                                            </tr>
+                                            <tr style="height:10px;">
+                                                <td style="width:25%; text-align:right; font-size:12px;">
+                                                    <p style="font-family: Droid Arabic Kufi;">التوقيع</p>
+                                                </td>
+                                                <td style="width:50%; "/>
+                                                <td style="width:25%; text-align:left; font-size:12px;">
+                                                    <p style="font-family: Droid Arabic Kufi;">Signature</p>
+                                                </td>
+                                            </tr>
+                                            <tr style="height:10px;">
+                                                <td style="width:25%; text-align:right; font-size:12px;">
+                                                    <p style="font-family: Droid Arabic Kufi;">رقم التواصل</p>
+                                                </td>
+                                                <td style="width:50%;"/>
+                                                <td style="width:25%; text-align:left; font-size:12px;">
+                                                    <p style="font-family: Droid Arabic Kufi;">Contact Number</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

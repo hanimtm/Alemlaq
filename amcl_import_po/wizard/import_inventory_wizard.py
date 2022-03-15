@@ -56,6 +56,7 @@ class ImportPoWizard(models.TransientModel):
 
     def import_po_apply(self):
         picking = self.env['stock.picking'].browse(self.env.context['picking_id'])
+
         not_found_records = []
         if self and self.file:
             # For Excel
@@ -74,12 +75,12 @@ class ImportPoWizard(models.TransientModel):
                                 skip_header = False
                                 counter = counter + 1
                                 continue
-
+                            print('Picking :: ', picking)
                             if picking.move_lines:
 
-                                move = picking.move_lines.filtered(
-                                    lambda p: p.product_id.default_code == sheet.cell(row, 2).value.strip('\n'))
-
+                                move = picking.move_lines.sudo().filtered(
+                                    lambda p: p.product_id.default_code == sheet.cell(row, 2).value)
+                                print('Picking :: ', move)
                                 if not move:
                                     not_found_records.append(sheet.cell(row, 2).value)
                                     continue
@@ -96,21 +97,32 @@ class ImportPoWizard(models.TransientModel):
                                     else:
                                         type = 'manual'
 
-                                    move.write({'complete_engine_number': sheet.cell(row, 3).value or "",
+                                    move.sudo().write({'complete_engine_number': sheet.cell(row, 3).value or "",
                                                 'transmission_type':type,
-                                                'billing_document' : sheet.cell(row, 5).value or "",
-                                                'bill_date' : datetime.datetime.strptime(str(int(sheet.cell(row, 6).value)), '%Y%m%d').date() or False})
-
+                                                'billing_document': sheet.cell(row, 5).value or "",
+                                                'bill_date': datetime.datetime.strptime(str(int(sheet.cell(row, 6).value)), '%Y%m%d').date() or False,
+                                                'key_number': sheet.cell(row, 7).value or "",
+                                                'vessel_no': sheet.cell(row, 8).value or "",
+                                                'card_no': sheet.cell(row, 9).value or "",
+                                                })
+                                    move.product_id.product_tmpl_id.sudo().write({
+                                        'key_number': move.key_number,
+                                        'vessel_no': move.vessel_no,
+                                        'card_no': move.card_no,
+                                    })
                                     if move.purchase_line_id:
-                                        move.purchase_line_id.write({
+                                        move.purchase_line_id.sudo().write({
                                             'complete_engine_number': move.complete_engine_number,
                                             'transmission_type': move.transmission_type,
                                             'billing_document': move.billing_document,
-                                            'bill_date': move.bill_date
+                                            'bill_date': move.bill_date,
+                                            'key_number': move.key_number,
+                                            'vessel_no': move.vessel_no,
+                                            'card_no': move.card_no,
                                         })
 
                                     if move.sale_line_id:
-                                        move.sale_line_id.write({
+                                        move.sale_line_id.sudo().write({
                                             'complete_engine_number': move.complete_engine_number,
                                             'transmission_type': move.transmission_type,
                                             'billing_document': move.billing_document,

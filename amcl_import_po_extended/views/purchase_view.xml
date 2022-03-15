@@ -23,6 +23,9 @@
 <!--                    <field name="vms_customer" optional="hide"/>-->
                     <field name="alj_suffix" optional="hide"/>
                     <field name="vehicle_model" optional="hide"/>
+                    <field name="key_number" optional="hide"/>
+                    <field name="vessel_no" optional="hide"/>
+                    <field name="card_no" optional="hide"/>
                 </xpath>
             </field>
         </record>

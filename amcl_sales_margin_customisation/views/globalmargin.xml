@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="global_margin_form" model="ir.ui.view">
+            <field name="name">global.margin.form</field>
+            <field name="model">global.margin</field>
+            <field name="arch" type="xml">
+                <form string="Global Margin">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="global_margin"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_global_margin_tree" model="ir.ui.view">
+            <field name="name">global.margin.tree</field>
+            <field name="model">global.margin</field>
+            <field name="arch" type="xml">
+                <tree string="Global Margin" editable="bottom">
+                    <field name="name"/>
+                    <field name="global_margin"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_global_margin_tree" model="ir.actions.act_window">
+            <field name="name">Global Margin</field>
+            <field name="res_model">global.margin</field>
+            <field name="view_id" ref="view_global_margin_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Global Margin
+                </p>
+                <p>
+                    New Global Margin.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem name="Global Margin" id="menu_global_margin" parent="sale.menu_sale_config"
+                  action="action_global_margin_tree" sequence="99"/>
+    </data>
+</odoo>

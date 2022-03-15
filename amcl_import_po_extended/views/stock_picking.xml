@@ -15,20 +15,16 @@
                     <field name="interior_color_code" optional="hide"/>
                     <field name="complete_engine_number" optional="hide"/>
                     <field name="model_code" optional="hide"/>
-<!--                    <field name="action" optional="hide"/>-->
                     <field name="alj_suffix" optional="hide"/>
                     <field name="model_year" optional="hide"/>
                     <field name="grade" optional="hide"/>
                     <field name="transmission_type" optional="hide"/>
                     <field name="sales_document" optional="hide"/>
-<!--                    <field name="request_delivery_date" optional="hide"/>-->
                     <field name="billing_document" optional="hide"/>
                     <field name="bill_date" optional="hide"/>
-<!--                    <field name="vehicle_wholesale_price" optional="hide"/>-->
-<!--                    <field name="broker_declaration_date" optional="hide"/>-->
-<!--                    <field name="declaration_date" optional="hide"/>-->
-<!--                    <field name="netval" optional="hide"/>-->
-<!--                    <field name="vat_amount" optional="hide"/>-->
+                    <field name="key_number" optional="hide"/>
+                    <field name="vessel_no" optional="hide"/>
+                    <field name="card_no" optional="hide"/>
                 </xpath>
 
             </field>

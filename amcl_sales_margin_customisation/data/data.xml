@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="global_margin_data" model="global.margin">
+            <field name="name">Global Margin</field>
+            <field name="global_margin">0</field>
+        </record>
+    </data>
+</odoo>

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 
 from odoo import fields, models, api, _
 from odoo.tools import float_is_zero
@@ -17,7 +17,7 @@ class PurchaseOrder(models.Model):
             if order.invoice_status != 'to invoice':
                 continue
             order = order.with_company(order.company_id)
-            grouped_po_lines = groupby(order.order_line, key=lambda l: l.billing_document)
+            grouped_po_lines = groupby(order.order_line.sorted('billing_document'), key=lambda l: l.billing_document)
             for product, po_lines in grouped_po_lines:
                 invoice_vals_list = []
                 invoice_vals = order._prepare_invoice()
@@ -26,12 +26,14 @@ class PurchaseOrder(models.Model):
                 for line in po_lines:
                     invoice_vals['invoice_line_ids'].append((0, 0, line._prepare_account_move_line()))
                     invoice_vals['ref'] = line.billing_document
+                    invoice_vals['branch_id'] = order.branch_id.id
                     invoice_vals_list.append(invoice_vals)
                     dat = line.bill_date
                     document = line.billing_document
                 AccountMove = self.env['account.move'].with_context(default_move_type='in_invoice')
                 for vals in invoice_vals_list:
                     if not self.env['account.move'].search([('ref','=',document)]):
+                        print(vals)
                         invoice = AccountMove.with_company(vals['company_id']).create(vals)
                         invoice.write({'invoice_date': dat})
                         moves |= invoice

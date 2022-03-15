@@ -36,3 +36,9 @@ class ProductTemplate(models.Model):
     item = fields.Char('Item')
     car_id = fields.Many2one('car.company', string='Company')
 
+class Product(models.Model):
+    _inherit = 'product.product'
+
+    _sql_constraints = [
+        ('barcode_uniq', 'unique(barcode , company_id)', "A barcode can only be assigned to one product !"),
+    ]

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="inherit_stock_picking_form_view" model="ir.ui.view">
+            <field name="name">inherit.stock.picking.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="statusbar_visible">draft,clearance,under_transit,assigned,done</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_stock_picking_form_views" model="ir.ui.view">
+            <field name="name">inherit.stock.picking.form.views</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_validate']" position="before">
+                    <button name="set_clearance_qty" string="Clearance" type="object" class="btn-primary"
+                            attrs="{'invisible': [('state', '!=', 'clearance')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='set_clearance_qty']" position="after">
+                    <button name="set_transit_qty" string="Set Transit Qty" type="object" class="btn-primary"
+                            attrs="{'invisible': [('state', '!=', 'under_transit')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='%(amcl_import_po.ahcec_import_inventory_action)d']" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('state', '!=',
+                        'clearance'),('product_imported','!=',False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']"
+                       position="before">
+                    <field name="clearance_user_id" readonly="True"/>
+                    <field name="clearance_qty"/>
+                    <field name="transit_user_id" readonly="True"/>
+                    <field name="transit_qty"/>
+                    <field name="final_user_id" readonly="True"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>

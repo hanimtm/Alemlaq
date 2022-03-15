@@ -13,32 +13,32 @@
                 <field name="product_id" required="1" context="{'default_type': 'product'}"
                        attrs="{'readonly': ['|', ('state', '=', 'done'), ('move_id', '!=', False)]}"/>
                 <field name="company_id" invisible="1"/>
-                <field name="method" invisible="1"/>
+<!--                <field name="method" invisible="1"/>-->
                 <field name="qty_done"
                        attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
                        force_save="1"/>
                 <field name="product_uom_id"
                        attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="opc"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="src"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="quantity_of_cement"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="clas"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="total_loading"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="slump"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="temperature"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="weight"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="pump"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
-                <field name="wc"
-                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>
+<!--                <field name="opc"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="src"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="quantity_of_cement"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="clas"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="total_loading"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="slump"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="temperature"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="weight"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="pump"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
+<!--                <field name="wc"-->
+<!--                       attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"/>-->
 
                 <field name="move_id" invisible="1"/>
                 <field name="picking_id" invisible="1"/>

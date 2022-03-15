@@ -10,6 +10,9 @@
             </xpath>
             <xpath expr="//field[@name='exterior_color']" position="after">
                 <field name="interior_color_code"/>
+                <field name="key_number"/>
+                <field name="vessel_no"/>
+                <field name="card_no"/>
             </xpath>
         </field>
     </record>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_without_header_and_footer_report"
+                model="report.paperformat">
+            <field name="name">A4 Without header and footer</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="report_form_nb_4_commitment_of_individuals" model="ir.actions.report">
+            <field name="name">نموذج رقم 4- تعهد للأفراد</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">amcl_al_emlak.form_nb_4_commitment_of_individuals</field>
+            <field name="report_file">amcl_al_emlak.form_nb_4_commitment_of_individuals</field>
+            <field name="paperformat_id" ref="amcl_al_emlak.paperformat_without_header_and_footer_report"/>
+        </record>
+
+
+        <template id="form_nb_4_commitment_of_individuals">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="font-family: Droid Arabic Kufi; direction: rtl;">
+                            <h2 style="text-align:center; font-family: Droid Arabic Kufi;">بسم الله الرحمن الرحيم</h2>
+                            <br/>
+                            <table style="width:100%">
+                                <tr style="background-color:#ffffff;">
+                                    <td style="width:33%; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <h5>المملكة العربية السعودية</h5>
+                                        <h5>وزارة الداخلية</h5>
+                                        <h5>الأمن العام</h5>
+                                        <h5>الإدارة العامة للمرور</h5>
+                                        <h5>إدارة مرور محافظة جدة</h5>
+                                        <h5>شعبة الرخص</h5>
+                                    </td>
+                                    <td style="width:33%; text-align:right;">
+                                        <img class="img" src="/amcl_al_emlak/static/src/img/mrour.png"
+                                             style="height:120px;width:170px; text-align:right;"/>
+                                    </td>
+
+                                    <td style="width:33%; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <h5>الرقم .........................</h5>
+                                        <h5>التاريخ ......................</h5>
+                                        <h5>المشفوعان .................</h5>
+                                        <h5>الموضوع ..................</h5>
+                                    </td>
+
+                                </tr>
+                            </table>
+                            <br/>
+                            <table style="text-align:right; width:100%; border: 1px solid black;">
+                                <tr style="height:50px;">
+                                    <td style="text-align:center; width:40%; border: 1px solid black; font-family: Droid Arabic Kufi;">
+                                        <h5>رقم الهيكل للتسجيل الجديد فقط</h5>
+                                    </td>
+                                    <td style="text-align:center; width:20%; border: 1px solid black; font-family: Droid Arabic Kufi;">
+                                        <h5>نوع المركبة</h5>
+                                    </td>
+                                    <td style="text-align:center; width:20%; border: 1px solid black; font-family: Droid Arabic Kufi;">
+                                        <h5>نوع التسجيل</h5>
+                                    </td>
+                                    <td style="text-align:center; width:20%; border: 1px solid black; font-family: Droid Arabic Kufi;">
+                                        <h5>رقم اللوحة</h5>
+                                    </td>
+                                </tr>
+                                <tr style="height:50px;">
+                                    <td style="text-align:center; width:40%; border: 1px solid black;"/>
+                                    <td style="text-align:center; width:20%; border: 1px solid black;"/>
+                                    <td style="text-align:center; width:20%; border: 1px solid black;"/>
+                                    <td style="text-align:center; width:20%; border: 1px solid black;"/>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div style="text-align:center; font-size:20px; font-family: Droid Arabic Kufi;">
+                                <u>
+                                    <h3>تعهد للأفراد</h3>
+                                </u>
+                            </div>
+                            <br/>
+                            <div style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <h5>
+                                    أقر انا المحرر هويتي أدناه بانني استلمت لوحات سيارتي الموضحة بياناتها بعالية
+                                    مع مساميرها وأفهمت من قبل المختصين بإدارة مرور محافظة جدة بأن يتم تركيب اللوحات
+                                    على المركبة وفق ما هو موضحا في البرشور الإرشادي المسلم لي مع اللوحات وأن مخالفة ذلك
+                                    والتركيب
+                                    بشكل مخالف لما هو موضح بشكل بالدليل الارشادي يعد مخالفة مني استحق عليها المسألة
+                                    القانونية
+                                    وما يفرض بحقي نظاما من اجراء لقاء هذه المخالفة وإذا اقر بما ذكر فأنني أتعهد
+                                    بالإلتزام
+                                    التام به والتركيب
+                                    وفق ما هو موضح بالدليل الإرشادي المسلم لي وبالمسامير المسلمة مع اللوحة أتحمل كامل
+                                    المسئولية عند مخالفة
+                                    ذلك ويحق لإدارة المرور أو اي جهة أمنية إخضاعي للمسألة والتحقيق وإتخاذ أي اجراء نظامي
+                                    بحقي وعليه جرى التوقيع
+                                </h5>
+                            </div>
+                            <hr/>
+                            <br/>
+                            <div style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <h4>
+                                    <u>المقر بما فيه</u>
+                                </h4>
+                                <h5>الإسم</h5>
+                                <h5>الجنسية</h5>
+                                <h5>الهاتف</h5>
+                                <h5>العنوان</h5>
+                                <h5>التوقيع</h5>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

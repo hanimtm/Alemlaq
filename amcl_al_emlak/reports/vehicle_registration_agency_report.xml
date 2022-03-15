@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report
+                id="report_vehicle_registration_agency"
+                model="sale.order"
+                string="إقرار تسجيل مركبة بوكالة"
+                name="amcl_al_emlak.report_vehicle_registration_agency_view"
+                file="amcl_al_emlak.report_vehicle_registration_agency"
+                report_type="qweb-pdf"
+                menu="False"/>
+
+        <template id="report_vehicle_registration_agency_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="direction: rtl; font-family: Droid Arabic Kufi;">
+                            <div style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <h5>التاريخ :
+                                    <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                                </h5>
+                            </div>
+                            <br/>
+
+                            <div style="text-align:center;;">
+                                <u>
+                                    <h1 style="font-weight: bold; font-family: Droid Arabic Kufi;">إقرار</h1>
+                                </u>
+                            </div>
+                            <br/>
+                            <div style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <h5>السادة شركة العملاق التجارية</h5>
+                            </div>
+                            <br/>
+                            <table style="width:100%; background-color:#ffffff;">
+                                <tr style="background-color:#ffffff;">
+                                    <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <h5>أقر أنا السيد</h5>
+                                    </td>
+                                    <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <h5>
+                                            <span t-field="doc.sale_order_id.partner_id.arabic"/>
+                                        </h5>
+                                    </td>
+                                    <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <h5>هوية رقم</h5>
+                                    </td>
+                                    <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                        <h5>
+                                            <span t-field="doc.sale_order_id.partner_id.ref"/>
+                                        </h5>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div style="text-align:right;">
+                                <h5 style="font-family: Droid Arabic Kufi;">الموضحة بياناتي أعلاه بأنه لا مانع لدي من تسجيل السيارة</h5>
+                            </div>
+                            <br/>
+                            <table style="width:100%; background-color:#ffffff;">
+                                <t t-foreach="data['info']" t-as="line">
+                                    <tr style="background-color:#ffffff;">
+                                        <td style="width:25%; text-align:right;font-family: Droid Arabic Kufi;">
+                                            <h5>نوع</h5>
+                                        </td>
+                                        <td style="width:25%; text-align:right;font-family: Droid Arabic Kufi;">
+                                            <h5>
+                                                <span t-raw="line['name']"/>
+                                            </h5>
+                                        </td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>هيكل</h5>
+                                        </td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>
+                                                <span t-raw="line['haykal']"/>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color:#ffffff; margin-top:225px;">
+                                        <td style="width:30%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>الموديل</h5>
+                                        </td>
+                                        <td style="width:20%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>
+                                                <span t-raw="line['brand']"/>
+                                            </h5>
+                                        </td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>اللون</h5>
+                                        </td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>
+                                                <span t-raw="line['exterior_color']"/>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color:#ffffff; margin-top:25px;">
+                                        <td style="width:30%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>بإسم السيد</h5>
+                                        </td>
+                                        <td style="width:20%; text-align:right; font-family: Droid Arabic Kufi;">&#160;</td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>هوية</h5>
+                                        </td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">&#160;</td>
+                                    </tr>
+                                    <tr style="background-color:#ffffff; margin-top:25px;">
+                                        <td style="width:30%; text-align:right; font-family: Droid Arabic Kufi;">
+                                            <h5>بموجب وكالة رقم</h5>
+                                        </td>
+                                        <td style="width:20%; text-align:right; font-family: Droid Arabic Kufi;">&#160;</td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">
+
+                                        </td>
+                                        <td style="width:25%; text-align:right; font-family: Droid Arabic Kufi;">&#160;</td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <br/>
+                            <div style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <h5>وهذا إقرار مني بذلك, وأشهد الله على ذلك والله خير الشاهدين</h5>
+                            </div>
+                            <br/>
+                            <div style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <h5>التوقيع</h5>
+                            </div>
+                            <br/>
+                            <div style="text-align:right;">
+                                <h5 style="text-align:right; font-family: Droid Arabic Kufi;">
+                                    الجوال &#160;
+                                    <span t-field="doc.sale_order_id.partner_id.mobile"/>
+                                </h5>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

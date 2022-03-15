@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         Inherit Form View to Modify it
+        <record id="amcl_id_add_field_amount_in_word" model="ir.ui.view">
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="amount_in_word"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="amcl_id_add_field_amount_in_word_tree_view" model="ir.ui.view">
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <!-- Add new fields here -->
+                    <field name="amount_in_word"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

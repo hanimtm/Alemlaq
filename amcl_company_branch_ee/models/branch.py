@@ -55,7 +55,6 @@ class ResUsers(models.Model):
 
     @api.constrains('branch_id', 'branch_ids')
     def _check_company_branch(self):
-        print(">>>>>>>>>>>> self <<<<<<<", self)
         if any(user.branch_ids and user.branch_id not in user.branch_ids for user in self):
             raise ValidationError(_('The chosen branch is not in the allowed branches for this user'))
 

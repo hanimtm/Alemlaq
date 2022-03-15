@@ -38,7 +38,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     amount_text = fields.Char(string='Amount In Words', compute='amount_to_words')
-    amount_in_ar = fields.Char(string='Amount In Words', compute='amount_to_words')
+    amount_in_ar = fields.Char(string='Amount In Words(Arabic)', compute='amount_to_words')
     attention = fields.Many2one('res.partner', 'Attention')
     approved_by = fields.Many2one('res.partner', 'Approved By')
     vat_text = fields.Char('Vat Text', compute='_get_vat_text')

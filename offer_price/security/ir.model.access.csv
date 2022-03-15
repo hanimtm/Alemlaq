@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_license_plate_line,access_license_plate_line,model_license_plate,,1,1,1,1
+access_license_plate_wiz,access_license_plate_wiz,model_license_plate_wizard,,1,1,1,0

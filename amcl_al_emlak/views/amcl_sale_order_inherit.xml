@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="amcl_sale_order_inherit" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_quotation_send']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <button name="btn_show_wizard_print" class="btn btn-primary"
+                            type="object" string="Print Report"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

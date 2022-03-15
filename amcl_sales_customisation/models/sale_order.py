@@ -9,29 +9,22 @@ from odoo.exceptions import AccessError, UserError
 from odoo.tools import format_date
 from odoo.tools.misc import formatLang, format_date, get_lang
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     # mobile_no = fields.Char(string='Mobile No', related='partner_id.mobile')
-    #e_mail = fields.Char(string='E-mail', related='partner_id.email')
-    e_mail = fields.Many2one('res.partner',string='E-mail')
+    # e_mail = fields.Char(string='E-mail', related='partner_id.email')
+    e_mail = fields.Many2one('res.partner', string='E-mail')
     mobile_no = fields.Many2one('res.partner', string='Mobile No')
     id_no = fields.Many2one('res.partner', string='ID No')
     sales_type_id = fields.Many2one('sale.type', string='Sales Type')
 
-
     def action_confirm(self):
-        # if self._get_forbidden_state_confirm() & set(self.mapped('state')):
-        #     raise UserError(_(
-        #         'It is not allowed to confirm an order in the following states: %s'
-        #     ) % (', '.join(self._get_forbidden_state_confirm())))
-
         for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
             order.message_subscribe([order.partner_id.id])
         self.write(self._prepare_confirmation_values())
 
-        # Context key 'default_name' is sometimes propagated up to here.
-        # We don't need it and it creates issues in the creation of linked records.
         context = self._context.copy()
         context.pop('default_name', None)
 
@@ -69,10 +62,11 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).read(records)
         for each in res:
             if each.get('mobile_no'):
-                each['mobile_no'] = (each.get('mobile_no')[0],self.env['res.partner'].browse(each.get('mobile_no')[0]).mobile)
+                each['mobile_no'] = (
+                each.get('mobile_no')[0], self.env['res.partner'].browse(each.get('mobile_no')[0]).mobile)
             if each.get('e_mail'):
                 each['e_mail'] = (
-                each.get('e_mail')[0], self.env['res.partner'].browse(each.get('e_mail')[0]).email)
+                    each.get('e_mail')[0], self.env['res.partner'].browse(each.get('e_mail')[0]).email)
             if each.get('id_no'):
                 each['id_no'] = (each.get('id_no')[0], self.env['res.partner'].browse(each.get('id_no')[0]).ref)
         return res
@@ -81,7 +75,6 @@ class SaleOrder(models.Model):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
         invoice_vals['sale_order'] = self.id
         return invoice_vals
-
 
     def _create_invoices(self, grouped=False, final=False, date=None):
         """
@@ -100,7 +93,7 @@ class SaleOrder(models.Model):
 
         # 1) Create invoices.
         invoice_vals_list = []
-        invoice_item_sequence = 0 # Incremental sequencing to keep the lines order on the invoice.
+        invoice_item_sequence = 0  # Incremental sequencing to keep the lines order on the invoice.
         for order in self:
             order = order.with_company(order.company_id)
             current_section_vals = None
@@ -150,7 +143,9 @@ class SaleOrder(models.Model):
                     x.get(grouping_key) for grouping_key in invoice_grouping_keys
                 ]
             )
-            for grouping_keys, invoices in groupby(invoice_vals_list, key=lambda x: [x.get(grouping_key) for grouping_key in invoice_grouping_keys]):
+            for grouping_keys, invoices in groupby(invoice_vals_list,
+                                                   key=lambda x: [x.get(grouping_key) for grouping_key in
+                                                                  invoice_grouping_keys]):
                 origins = set()
                 payment_refs = set()
                 refs = set()
@@ -196,7 +191,8 @@ class SaleOrder(models.Model):
             for invoice in invoice_vals_list:
                 sequence = 1
                 for line in invoice['invoice_line_ids']:
-                    line[2]['sequence'] = SaleOrderLine._get_invoice_line_sequence(new=sequence, old=line[2]['sequence'])
+                    line[2]['sequence'] = SaleOrderLine._get_invoice_line_sequence(new=sequence,
+                                                                                   old=line[2]['sequence'])
                     sequence += 1
 
         # Manage the creation of invoices in sudo because a salesperson must be able to generate an invoice from a
@@ -210,19 +206,86 @@ class SaleOrder(models.Model):
             moves.sudo().filtered(lambda m: m.amount_total < 0).action_switch_invoice_into_refund_credit_note()
         for move in moves:
             move.message_post_with_view('mail.message_origin_link',
-                values={'self': move, 'origin': move.line_ids.mapped('sale_line_ids.order_id')},
-                subtype_id=self.env.ref('mail.mt_note').id
-            )
+                                        values={'self': move, 'origin': move.line_ids.mapped('sale_line_ids.order_id')},
+                                        subtype_id=self.env.ref('mail.mt_note').id
+                                        )
         return moves
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    model_year = fields.Char('Model Year')
+    grade = fields.Char('Grade (VC)')
+    exterior_color_code = fields.Char('Exterior Color Code(VC)')
+    exterior_color = fields.Char('Exterior Color (VC)')
+    interior_color_code = fields.Char('Interior Color Code(VC)')
+    interior_color = fields.Char('Interior Color (VC)')
+    transmission_type = fields.Selection(
+        [('automatic', 'AUTOMATIC'),
+         ('cvt', 'CVT'),
+         ('manual', 'MANUAL')],
+        default='automatic', string="Transmission Type")
+
+    brand = fields.Char('Brand')
+    alj_suffix = fields.Char('ALJ Suffix (VC)')
+    vehicle_model = fields.Char('Vehicle Model')
+    complete_engine_number = fields.Char('Complete Engine Number')
+    sales_document = fields.Char('Sales Document')
+    item = fields.Char('Item')
+    billing_document = fields.Char('Billing Document')
+    bill_date = fields.Date('Bill Date')
+    stock_location_id = fields.Many2one('stock.location', string="Location")
+
+    @api.onchange('product_id')
+    def product_id_change(self):
+        res = super(SaleOrderLine, self).product_id_change()
+        quant_ids = self.product_id.stock_quant_ids.filtered(lambda quant: quant.quantity > 0)
+        if self.product_id:
+            self.write({'stock_location_id': quant_ids[0].location_id.id or False,
+                        'model_year': self.product_id.model_year or "",
+                        'grade': self.product_id.grade or "",
+                        'exterior_color_code': self.product_id.exterior_color_code or "",
+                        'exterior_color': self.product_id.exterior_color or "",
+                        'interior_color_code': self.product_id.interior_color_code or "",
+                        'interior_color': self.product_id.interior_color or "",
+                        'transmission_type': self.product_id.transmission_type or "",
+                        'brand': self.product_id.brand or "",
+                        'alj_suffix': self.product_id.alj_suffix or "",
+                        'vehicle_model': self.product_id.vehicle_model or "",
+                        'complete_engine_number': self.product_id.complete_engine_number or "",
+                        'item': self.product_id.item or "",
+                        'billing_document': self.product_id.billing_document or "",
+                        'bill_date': self.product_id.bill_date or False,
+                        'sales_document': self.product_id.sales_document or ""
+                        })
+        return res
+
     def _prepare_invoice_line(self, **optional_values):
         values = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
+        quant_ids = self.product_id.stock_quant_ids.filtered(lambda quant: quant.quantity > 0)
         values['account_id'] = self.order_id.sales_type_id.income_account.id or False
 
+        values.update({'stock_location_id': quant_ids[0].location_id.id or False,
+                       'model_year': self.product_id.model_year or "",
+                       'grade': self.product_id.grade or "",
+                       'exterior_color_code': self.product_id.exterior_color_code or "",
+                       'exterior_color': self.product_id.exterior_color or "",
+                       'interior_color_code': self.product_id.interior_color_code or "",
+                       'interior_color': self.product_id.interior_color or "",
+                       'transmission_type': self.product_id.transmission_type or "",
+                       'brand': self.product_id.brand or "",
+                       'alj_suffix': self.product_id.alj_suffix or "",
+                       'vehicle_model': self.product_id.vehicle_model or "",
+                       'complete_engine_number': self.product_id.complete_engine_number or "",
+                       'item': self.product_id.item or "",
+                       'billing_document': self.product_id.billing_document or "",
+                       'bill_date': self.product_id.bill_date or False,
+                       'sales_document': self.product_id.sales_document or ""
+                       })
+
         return values
+
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -246,15 +309,20 @@ class StockPicking(models.Model):
             picking.message_subscribe([self.env.user.partner_id.id])
             picking_type = picking.picking_type_id
             precision_digits = self.env['decimal.precision'].precision_get('Product Unit of Measure')
-            no_quantities_done = all(float_is_zero(move_line.qty_done, precision_digits=precision_digits) for move_line in picking.move_line_ids.filtered(lambda m: m.state not in ('done', 'cancel')))
-            no_reserved_quantities = all(float_is_zero(move_line.product_qty, precision_rounding=move_line.product_uom_id.rounding) for move_line in picking.move_line_ids)
+            no_quantities_done = all(
+                float_is_zero(move_line.qty_done, precision_digits=precision_digits) for move_line in
+                picking.move_line_ids.filtered(lambda m: m.state not in ('done', 'cancel')))
+            no_reserved_quantities = all(
+                float_is_zero(move_line.product_qty, precision_rounding=move_line.product_uom_id.rounding) for move_line
+                in picking.move_line_ids)
             if no_reserved_quantities and no_quantities_done:
                 pickings_without_quantities |= picking
 
             if picking_type.use_create_lots or picking_type.use_existing_lots:
                 lines_to_check = picking.move_line_ids
                 if not no_quantities_done:
-                    lines_to_check = lines_to_check.filtered(lambda line: float_compare(line.qty_done, 0, precision_rounding=line.product_uom_id.rounding))
+                    lines_to_check = lines_to_check.filtered(
+                        lambda line: float_compare(line.qty_done, 0, precision_rounding=line.product_uom_id.rounding))
                 for line in lines_to_check:
                     product = line.product_id
                     if product and product.tracking != 'none':
@@ -265,19 +333,25 @@ class StockPicking(models.Model):
         if not self._should_show_transfers():
             if pickings_without_moves:
                 raise UserError(_('Please add some items to move.'))
-            print('State ',self.state)
+            print('State ', self.state)
             if pickings_without_quantities and self.state != 'done':
                 raise UserError(self._get_without_quantities_error_message())
             if pickings_without_lots:
-                raise UserError(_('You need to supply a Lot/Serial number for products %s.') % ', '.join(products_without_lots.mapped('display_name')))
+                raise UserError(_('You need to supply a Lot/Serial number for products %s.') % ', '.join(
+                    products_without_lots.mapped('display_name')))
         else:
             message = ""
             if pickings_without_moves:
-                message += _('Transfers %s: Please add some items to move.') % ', '.join(pickings_without_moves.mapped('name'))
+                message += _('Transfers %s: Please add some items to move.') % ', '.join(
+                    pickings_without_moves.mapped('name'))
             if pickings_without_quantities:
-                message += _('\n\nTransfers %s: You cannot validate these transfers if no quantities are reserved nor done. To force these transfers, switch in edit more and encode the done quantities.') % ', '.join(pickings_without_quantities.mapped('name'))
+                message += _(
+                    '\n\nTransfers %s: You cannot validate these transfers if no quantities are reserved nor done. To force these transfers, switch in edit more and encode the done quantities.') % ', '.join(
+                    pickings_without_quantities.mapped('name'))
             if pickings_without_lots:
-                message += _('\n\nTransfers %s: You need to supply a Lot/Serial number for products %s.') % (', '.join(pickings_without_lots.mapped('name')), ', '.join(products_without_lots.mapped('display_name')))
+                message += _('\n\nTransfers %s: You need to supply a Lot/Serial number for products %s.') % (
+                ', '.join(pickings_without_lots.mapped('name')),
+                ', '.join(products_without_lots.mapped('display_name')))
             if message:
                 raise UserError(message.lstrip())
 
@@ -302,21 +376,25 @@ class StockPicking(models.Model):
         if self.user_has_groups('stock.group_reception_report') \
                 and self.user_has_groups('stock.group_auto_reception_report') \
                 and self.filtered(lambda p: p.picking_type_id.code != 'outgoing'):
-            lines = self.move_lines.filtered(lambda m: m.product_id.type == 'product' and m.state != 'cancel' and m.quantity_done and not m.move_dest_ids)
+            lines = self.move_lines.filtered(lambda
+                                                 m: m.product_id.type == 'product' and m.state != 'cancel' and m.quantity_done and not m.move_dest_ids)
             if lines:
                 # don't show reception report if all already assigned/nothing to assign
-                wh_location_ids = self.env['stock.location'].search([('id', 'child_of', self.picking_type_id.warehouse_id.view_location_id.id), ('location_id.usage', '!=', 'supplier')]).ids
+                wh_location_ids = self.env['stock.location'].search(
+                    [('id', 'child_of', self.picking_type_id.warehouse_id.view_location_id.id),
+                     ('location_id.usage', '!=', 'supplier')]).ids
                 if self.env['stock.move'].search([
-                        ('state', 'in', ['confirmed', 'partially_available', 'waiting', 'assigned']),
-                        ('product_qty', '>', 0),
-                        ('location_id', 'in', wh_location_ids),
-                        ('move_orig_ids', '=', False),
-                        ('picking_id', 'not in', self.ids),
-                        ('product_id', 'in', lines.product_id.ids)], limit=1):
+                    ('state', 'in', ['confirmed', 'partially_available', 'waiting', 'assigned']),
+                    ('product_qty', '>', 0),
+                    ('location_id', 'in', wh_location_ids),
+                    ('move_orig_ids', '=', False),
+                    ('picking_id', 'not in', self.ids),
+                    ('product_id', 'in', lines.product_id.ids)], limit=1):
                     action = self.action_view_reception_report()
                     action['context'] = {'default_picking_ids': self.ids}
                     return action
         return True
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -339,7 +417,8 @@ class AccountMove(models.Model):
             future_moves = self.filtered(lambda move: move.date > fields.Date.context_today(self))
             future_moves.auto_post = True
             for move in future_moves:
-                msg = _('This move will be posted at the accounting date: %(date)s', date=format_date(self.env, move.date))
+                msg = _('This move will be posted at the accounting date: %(date)s',
+                        date=format_date(self.env, move.date))
                 move.message_post(body=msg)
             to_post = self - future_moves
         else:
@@ -364,12 +443,16 @@ class AccountMove(models.Model):
 
             if not move.partner_id:
                 if move.is_sale_document():
-                    raise UserError(_("The field 'Customer' is required, please complete it to validate the Customer Invoice."))
+                    raise UserError(
+                        _("The field 'Customer' is required, please complete it to validate the Customer Invoice."))
                 elif move.is_purchase_document():
-                    raise UserError(_("The field 'Vendor' is required, please complete it to validate the Vendor Bill."))
+                    raise UserError(
+                        _("The field 'Vendor' is required, please complete it to validate the Vendor Bill."))
 
-            if move.is_invoice(include_receipts=True) and float_compare(move.amount_total, 0.0, precision_rounding=move.currency_id.rounding) < 0:
-                raise UserError(_("You cannot validate an invoice with a negative total amount. You should create a credit note instead. Use the action menu to transform it into a credit note or refund."))
+            if move.is_invoice(include_receipts=True) and float_compare(move.amount_total, 0.0,
+                                                                        precision_rounding=move.currency_id.rounding) < 0:
+                raise UserError(
+                    _("You cannot validate an invoice with a negative total amount. You should create a credit note instead. Use the action menu to transform it into a credit note or refund."))
 
             if move.display_inactive_currency_warning:
                 raise UserError(_("You cannot validate an invoice with an inactive currency: %s",
@@ -389,7 +472,8 @@ class AccountMove(models.Model):
             # When the accounting date is prior to the tax lock date, move it automatically to today.
             # /!\ 'check_move_validity' must be there since the dynamic lines will be recomputed outside the 'onchange'
             # environment.
-            if (move.company_id.tax_lock_date and move.date <= move.company_id.tax_lock_date) and (move.line_ids.tax_ids or move.line_ids.tax_tag_ids):
+            if (move.company_id.tax_lock_date and move.date <= move.company_id.tax_lock_date) and (
+                    move.line_ids.tax_ids or move.line_ids.tax_tag_ids):
                 move.date = move._get_accounting_date(move.invoice_date or move.date, True)
                 move.with_context(check_move_validity=False)._onchange_currency()
 
@@ -409,16 +493,19 @@ class AccountMove(models.Model):
                     'payment_reference': move._get_invoice_computed_reference(),
                     'line_ids': []
                 }
-                for line in move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable', 'payable')):
+                for line in move.line_ids.filtered(
+                        lambda line: line.account_id.user_type_id.type in ('receivable', 'payable')):
                     to_write['line_ids'].append((1, line.id, {'name': to_write['payment_reference']}))
                 move.write(to_write)
 
         for move in to_post:
             if move.is_sale_document() \
                     and move.journal_id.sale_activity_type_id \
-                    and (move.journal_id.sale_activity_user_id or move.invoice_user_id).id not in (self.env.ref('base.user_root').id, False):
+                    and (move.journal_id.sale_activity_user_id or move.invoice_user_id).id not in (
+            self.env.ref('base.user_root').id, False):
                 move.activity_schedule(
-                    date_deadline=min((date for date in move.line_ids.mapped('date_maturity') if date), default=move.date),
+                    date_deadline=min((date for date in move.line_ids.mapped('date_maturity') if date),
+                                      default=move.date),
                     activity_type_id=move.journal_id.sale_activity_type_id.id,
                     summary=move.journal_id.sale_activity_note,
                     user_id=move.journal_id.sale_activity_user_id.id or move.invoice_user_id.id,

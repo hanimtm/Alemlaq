@@ -28,6 +28,31 @@
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="sales_type_id" required="True" options="{'no_open': True}"/>
             </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="stock_location_id" string="Location" optional="show" readonly="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="model_year" string="Model Year" optional="hide" />
+                <field name="grade" string="Grade" optional="hide"/>
+                <field name="exterior_color_code" string="Exterior Color Code" optional="hide"/>
+
+                <field name="exterior_color" string="Exterior Color" optional="hide"/>
+                <field name="interior_color_code" string="Interior Color Code" optional="hide"/>
+                <field name="interior_color" string="Interior Color" optional="hide"/>
+
+                <field name="transmission_type" string="Transmission Type" optional="hide"/>
+                <field name="brand" string="Brand" optional="hide"/>
+                <field name="alj_suffix" string="Alj Suffix" optional="hide"/>
+
+                <field name="vehicle_model" string="Vehicle Model" optional="hide"/>
+                <field name="complete_engine_number" string="Complete Engine Number" optional="hide"/>
+                <field name="sales_document" string="Sales Document" optional="hide"/>
+
+                 <field name="billing_document" string="Billing Document" optional="hide"/>
+                <field name="bill_date" string="Bill Date" optional="hide"/>
+
+            </xpath>
         </field>
     </record>
 

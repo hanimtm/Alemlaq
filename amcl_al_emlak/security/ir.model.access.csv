@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_print_report_wizard_access,access_print_report,amcl_al_emlak.model_amcl_reporting_wizard,,1,1,1,1

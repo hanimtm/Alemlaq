@@ -25,6 +25,9 @@ class StockMove(models.Model):
     sales_document = fields.Char('Sales Document')
     billing_document = fields.Char('Billing Document')
     bill_date = fields.Date('Bill Date')
+    key_number = fields.Char('Key Number')
+    vessel_no = fields.Char('Vessel No.')
+    card_no = fields.Char('Card No')
 
     # action = fields.Char('Action')
     # request_delivery_date = fields.Date('Request Delivery Date')
@@ -45,7 +48,6 @@ class StockMove(models.Model):
         if sale_line:
             order_line_id = self.env['sale.order.line'].browse(sale_line)
 
-        print('Brand',order_line_id)
         if order_line_id:
             res.write({'brand': order_line_id.product_id.brand or "",
                    'description': order_line_id.product_id.description or "",

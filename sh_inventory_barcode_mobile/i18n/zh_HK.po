@@ -1,0 +1,379 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_inventory_barcode_mobile
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-22 09:52+0000\n"
+"PO-Revision-Date: 2020-10-22 09:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_stock_move_operations
+msgid ""
+"<i class=\"fa fa-barcode\"/>\n"
+"\t\t                \tStart"
+msgstr "开始"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_stock_move_operations
+msgid ""
+"<i class=\"fa fa-barcode\"/>\n"
+"\t\t                \tStop"
+msgstr "停止"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_picking_form
+msgid ""
+"<i class=\"fa fa-barcode\"/>\n"
+"\t                \tStart"
+msgstr "开始"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_picking_form
+msgid ""
+"<i class=\"fa fa-barcode\"/>\n"
+"\t                \tStop"
+msgstr "停止"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_stock_move_operations
+msgid ""
+"<span style=\"display:block;\">Result:</span>\n"
+"\t\t            \t<code id=\"js_id_sh_stock_move_barcode_mobile_result\"/>"
+msgstr "结果"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_picking_form
+msgid "结果"
+"<span style=\"display:block;\">Result:</span>\n"
+"\t            \t<code id=\"js_id_sh_stock_barcode_mobile_result\"/>"
+msgstr "结果"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_picking_form
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_stock_move_operations
+msgid "<strong style=\"align-self: center;\" class=\"col-3\">Camera</strong>"
+msgstr "相机"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "Alert!"
+msgstr "警报！"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields.selection,name:sh_inventory_barcode_mobile.selection__res_company__sh_stock_barcode_mobile_type__all
+msgid "All"
+msgstr "全部"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields.selection,name:sh_inventory_barcode_mobile.selection__res_company__sh_stock_barcode_mobile_type__barcode
+msgid "Barcode"
+msgstr "条码"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "Becareful! Quantity exceed than initial demand!"
+msgstr "当心！数量超过初始需求！"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model,name:sh_inventory_barcode_mobile.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model,name:sh_inventory_barcode_mobile.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Continuous scanning or not"
+msgstr "连续扫描与否"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_move__sh_stock_move_bm_is_cont_scan
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_picking__sh_stock_bm_is_cont_scan
+msgid "Continuously Scan?"
+msgstr "持续扫描？"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_bm_is_cont_scan
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_bm_is_cont_scan
+msgid "Continuously Scan? (Stock Picking)"
+msgstr "持续扫描？ （股票采摘）"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__display_name
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_move__display_name
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_picking__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid "Failed"
+msgstr "失败的"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__id
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__id
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_move__id
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_picking__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields.selection,name:sh_inventory_barcode_mobile.selection__res_company__sh_stock_barcode_mobile_type__int_ref
+msgid "Internal Reference"
+msgstr "内部参考"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Inventory Mobile Barcode Scanner"
+msgstr "库存移动条形码扫描仪"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_bm_is_add_product
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_bm_is_add_product
+msgid "Is add new product in picking? (Stock Picking)"
+msgstr "是在拣选中添加新产品吗？ （股票采摘）"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Is add product in picking in draft state?"
+msgstr "添加产品在摘要状态时？"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company____last_update
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_move____last_update
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr "最后修改了"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_move__sh_stock_move_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_stock_picking__sh_stock_barcode_mobile
+msgid "Mobile Barcode"
+msgstr "移动条形码"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_bm_is_notify_on_fail
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_bm_is_notify_on_fail
+msgid "Notification On Product Failed? (Stock Picking)"
+msgstr "产品通知失败了吗？ （股票采摘）"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_bm_is_notify_on_success
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_bm_is_notify_on_success
+msgid "Notification On Product Succeed? (Stock Picking)"
+msgstr "产品的通知成功？ （股票采摘）"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Notification on Failed"
+msgstr "失败通知"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Notification on Succeed"
+msgstr "有关成功的通知"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "Picking type is not outgoing or incoming or internal transfer."
+msgstr "拣选类型不是传出或进入或内部转移。"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Play Sound On Product Failed"
+msgstr "产品上的声音失败"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_bm_is_sound_on_fail
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_bm_is_sound_on_fail
+msgid "Play Sound On Product Failed? (Stock Picking)"
+msgstr "产品上的声音失败了吗？ （股票采摘）"
+
+#. module: sh_inventory_barcode_mobile
+#: model_terms:ir.ui.view,arch_db:sh_inventory_barcode_mobile.sh_inventory_barcode_mobile_res_config_settings_form
+msgid "Play Sound On Product Succeed"
+msgstr "产品上的播放声音成功"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_bm_is_sound_on_success
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_bm_is_sound_on_success
+msgid "Play Sound On Product Succeed? (Stock Picking)"
+msgstr "产品上的声音成功吗？ （股票采摘）"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "Pls add all product items in line than rescan."
+msgstr "请按照重新扫描添加所有产品项。"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_company__sh_stock_barcode_mobile_type
+#: model:ir.model.fields,field_description:sh_inventory_barcode_mobile.field_res_config_settings__sh_stock_barcode_mobile_type
+msgid "Product Scan Options In Mobile (Stock Picking)"
+msgstr "产品扫描在移动（股票采摘）中的选项"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid "Product: %s Qty: %s"
+msgstr "产品：％s数量：％s"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "Product: %s Qty: %s lot/serial: %s"
+msgstr "产品：％s数量：％s lot / serial：％s"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model.fields.selection,name:sh_inventory_barcode_mobile.selection__res_company__sh_stock_barcode_mobile_type__sh_qr_code
+msgid "QR code"
+msgstr "二维码"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid "Scanned Internal Reference/Barcode not exist in any product!"
+msgstr "扫描内部参考/条形码不存在于任何产品中！"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "Serial Number already exist!"
+msgstr "序列号已存在！"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model,name:sh_inventory_barcode_mobile.model_stock_move
+msgid "Stock Move"
+msgstr "股票飞"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid "Succeed"
+msgstr "成功"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "There are no available qty for this lot/serial: %s"
+msgstr "此批次/序列号没有可用的数量：％s"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "There are no available qty for this lot: %s"
+msgstr "这个地段没有可用的数量：％s"
+
+#. module: sh_inventory_barcode_mobile
+#: model:ir.model,name:sh_inventory_barcode_mobile.model_stock_picking
+msgid "Transfer"
+msgstr "转移"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid "You can not scan item in %s state."
+msgstr "您无法在％S状态下扫描项目。"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid ""
+"You can not scan product item for Detailed Operations directly here, Pls "
+"click detail button (at end each line) and than rescan your product item."
+msgstr ""
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_move.py:0
+#, python-format
+msgid "You can only process 1.0 %s of products with unique serial number."
+msgstr "您只能使用唯一的序列号处理1.0％的产品。"
+
+#. module: sh_inventory_barcode_mobile
+#: code:addons/sh_inventory_barcode_mobile/models/stock_picking.py:0
+#, python-format
+msgid "You must first select a Operation Type."
+msgstr "您必须先选择一个操作类型。"
