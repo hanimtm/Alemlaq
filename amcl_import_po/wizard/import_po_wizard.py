@@ -69,10 +69,8 @@ class ImportPoWizard(models.TransientModel):
 
         # action = self.env.ref('amcl_import_po.import_po_action').sudo().read()[0]
         # action = {'type': 'ir.actions.act_window_close'}
-
         # open the new success message box
         try:
-
             view = self.env.ref('amcl_import_po.ahcec_message_wizard')
             # view_id = view and view.id or False
             context = dict(self._context or {})
@@ -83,7 +81,6 @@ class ImportPoWizard(models.TransientModel):
             for k, v in skipped_line_no.items():
                 dic_msg = dic_msg + "\nRow No " + k + " " + v + " "
             context['message'] = dic_msg
-
             return {
                 'name': 'Success',
                 'type': 'ir.actions.act_window',
@@ -99,15 +96,14 @@ class ImportPoWizard(models.TransientModel):
             pass
 
     def import_po_apply(self):
-
-        self.ensure_one()
-        if self and self.file:
+        created_po = self.env['purchase.order'].sudo().search(
+            [('import_wizard_id', '=', self.sequence_id)])
+        if self and self.file and not created_po:
             self.ensure_one()
             pol_obj = self.env['purchase.order.line']
             purchase_order_obj = self.env['purchase.order']
             product_product_obj = self.env['product.product']
             existing_product_list = []
-
             # For Excel
             created_po = self.env['purchase.order'].sudo().search(
                 [('import_wizard_id', '=', self.sequence_id)])
@@ -124,11 +120,9 @@ class ImportPoWizard(models.TransientModel):
                             existing_product_list.append(search_product.default_code or "")
                 if existing_product_list:
                     counter = -1
-                    # raise UserError(_('Found existing Records %s.', existing_product_list))
                 else:
                     try:
                         skip_header = True
-                        running_po = None
                         created_po = False
                         created_po_list_for_confirm = []
                         created_po_list = []
@@ -142,14 +136,12 @@ class ImportPoWizard(models.TransientModel):
                         po_vals.update({'branch_id': self.branch_id.id})
                         po_vals.update({'import_wizard_id': self.sequence_id})
 
-
                         if not created_po:
                             created_po = purchase_order_obj.sudo().create(po_vals)
                         created_po_list_for_confirm.append(created_po.id)
                         created_po_list.append(created_po.id)
 
                         for row in range(sheet.nrows):
-
                             try:
                                 if skip_header:
                                     skip_header = False
