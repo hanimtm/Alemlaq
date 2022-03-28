@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
 {
-    'name': 'Import PO',
+    'name': 'Import-PO',
     'author': 'AMCL',
     'category': 'Extra Tools',
     'summary': 'Purchase Order - Import',

@@ -1,6 +1,4 @@
 from odoo import fields, api, models
-import logging
-_logger = logging.getLogger(__name__)
 
 
 class LicensePlateWizard(models.TransientModel):
@@ -13,13 +11,16 @@ class LicensePlateWizard(models.TransientModel):
     sale_order_id = fields.Many2one('sale.order', string='Sale Order')
 
     def create_new_license_plate(self):
-        license_plate = self.env['license.plate']
-        license_plate_dict = {
-            'product_id': self.product_id.id,
-            'qty': self.qty,
-            'order_line_id': self.order_line_id.id,
-            'price': self.product_id.list_price * self.qty,
-            'sale_order_id': self.sale_order_id.id,
-        }
-
-        license_plate.create(license_plate_dict)
+        licenses_plate = self.env['license.plate'].search(
+            [('product_id', '=', self.product_id.id),
+             ('order_line_id', '=', self.sale_order_id.id),
+             ('order_line_id', '=', self.order_line_id.id)])
+        if not licenses_plate:
+            license_plate = self.env['license.plate'].create({
+                'product_id': self.product_id.id,
+                'qty': self.qty,
+                'order_line_id': self.order_line_id.id,
+                'price': self.product_id.list_price * self.qty,
+                'sale_order_id': self.sale_order_id.id,
+            })
+            return license_plate

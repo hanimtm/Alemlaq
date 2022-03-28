@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_stock_picking_type_inherit" model="ir.ui.view">
+            <field name="name">Stock Picking Type Inherit</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='warehouse_id']" position="after">
+                    <field name="user_ids" widget="many2many_tags"
+                           options="{'no_create': True, 'no_edit': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock.stock_picking_type_action" model="ir.actions.act_window">
+            <field name="domain">
+                [('user_ids', 'in', [uid])]
+            </field>
+        </record>
+
+
+        <record id="stock.stock_picking_action_picking_type" model="ir.actions.act_window">
+            <field name="domain">
+                [('picking_type_id.user_ids', 'in', [uid])]
+            </field>
+        </record>
+
+        <!--        <record id="stock.action_picking_tree_all" model="ir.actions.act_window">-->
+        <!--            <field name="domain">-->
+        <!--                [('location_dest_id', 'in', [uid])]-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="id_stock_location_view_form_inherit" model="ir.ui.view">
+            <field name="name">id_stock_location_view_form_inherit</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='comment']" position="before">
+                    <group>
+                        <field name="user_ids" widget="many2many_tags"
+                               options="{'no_create': True, 'no_edit': True}"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+        <!--        <record id="stock.action_location_form" model="ir.actions.act_window">-->
+        <!--            <field name="domain">-->
+        <!--                [('user_ids', 'in', [uid])]-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="stock.action_picking_tree_ready" model="ir.actions.act_window">
+            <field name="domain">
+                [('location_dest_id.user_ids', 'in', [uid])]
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
+

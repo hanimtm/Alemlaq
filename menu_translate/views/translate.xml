@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ir_tranlation_new_view_tree" model="ir.ui.view">
+        <field name="name">ir_tranlation_new_view_tree</field>
+        <field name="model">ir.translation</field>
+        <field name="arch" type="xml">
+            <tree string="ir_tranlation_new_tree" create="0" editable="bottom">
+                <field name="src"/>
+                <field name="value"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

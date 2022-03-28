@@ -32,12 +32,12 @@
 
                             <div style="text-align:center; font-family: Droid Arabic Kufi;">
                                 <u>
-                                    <h1 style="font-weight: bold;">تفويض بتسجيل مركبة</h1>
+                                    <h3 style="font-weight: bold; font-family: Droid Arabic Kufi;">تفويض بتسجيل مركبة</h3>
                                 </u>
                             </div>
                             <br/>
                             <div style="text-align:right; font-family: Droid Arabic Kufi;">
-                                <h5>السادة شركة العملاق التجارية</h5>
+                                <h5 style="font-family: Droid Arabic Kufi;">السادة شركة العملاق التجارية</h5>
                             </div>
                             <br/>
                             <table style="width:100%; background-color:#ffffff;">

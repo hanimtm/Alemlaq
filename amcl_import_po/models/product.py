@@ -8,8 +8,8 @@ class ProductTemplate(models.Model):
 
     model_year = fields.Char('Model Year')
     grade = fields.Char('Grade (VC)')
-    exterior_color = fields.Char('Exterior Color (VC)')
-    interior_color = fields.Char('Interior Color (VC)')
+    exterior_color = fields.Char('Exterior Color (VC)', translate=True)
+    interior_color = fields.Char('Interior Color (VC)', translate=True)
     transmission_type = fields.Selection(
         [('automatic', 'AUTOMATIC'),
          ('cvt', 'CVT'),
@@ -17,11 +17,11 @@ class ProductTemplate(models.Model):
         default='automatic', string="Transmission Type")
     #vms_customer = fields.Char('VMS Customer')
     alj_suffix = fields.Char('ALJ Suffix (VC)')
-    vehicle_model = fields.Char('Vehicle Model')
-    brand = fields.Char('Brand')
+    vehicle_model = fields.Char('Vehicle Model', translate=True)
+    brand = fields.Char('Brand', translate=True)
     #description = fields.Char('Description')
     complete_engine_number = fields.Char('Complete Engine Number')
-    model_code = fields.Char('Model Code')
+    model_code = fields.Char('Model Code', translate=True)
     #action = fields.Char('Action')
     sales_document = fields.Char('Sales Document')
     #request_delivery_date = fields.Date('Request Delivery Date')

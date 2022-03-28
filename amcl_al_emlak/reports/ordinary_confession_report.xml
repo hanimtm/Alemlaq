@@ -18,7 +18,7 @@
                         <div class="page" style="direction: rtl;">
                             <div style="text-align:center; font-family: Droid Arabic Kufi;">
                                 <u>
-                                    <h1 style="font-weight: bold;  font-family: Droid Arabic Kufi;">إقرار</h1>
+                                    <h3 style="font-weight: bold; font-family: Droid Arabic Kufi;">إقرار</h3>
                                 </u>
                             </div>
                             <br/>
@@ -27,22 +27,22 @@
                             </div>
                             <br/>
 
-                            <table style="border:0px;" class="table">
+                            <table style="border:0px; width:100%; color:Black;" class="table">
                                 <tr>
                                     <td style="text-align:right;  font-family: Droid Arabic Kufi;">
-                                        <h5>أقر انا المدعو
+                                        <h5 style="font-family: Droid Arabic Kufi;">أقر انا المدعو
                                         </h5>
                                     </td>
                                     <td style="text-align:right;  font-family: Droid Arabic Kufi;">
-                                        <h5>
+                                        <h5 style="font-family: Droid Arabic Kufi;">
                                             <span t-field="doc.sale_order_id.partner_id.arabic"/>
                                         </h5>
                                     </td>
                                     <td style="text-align:right;  font-family: Droid Arabic Kufi;">
-                                        <h5>رقم الهوية</h5>
+                                        <h5 style="font-family: Droid Arabic Kufi;">رقم الهوية</h5>
                                     </td>
                                     <td style="text-align:right; font-family: Droid Arabic Kufi;">
-                                        <h5>
+                                        <h5 style="font-family: Droid Arabic Kufi;">
                                             <span t-field="doc.sale_order_id.partner_id.ref"/>
                                         </h5>
                                     </td>
@@ -51,7 +51,7 @@
 
                             <br/>
                             <div style="text-align:right; font-family: Droid Arabic Kufi;">
-                                <h5>
+                                <h5 style="font-family: Droid Arabic Kufi;">
                                     الموضحة بياناتي أعلاه بأنه لا مانع لدي من تسجيل السيارة
                                 </h5>
                             </div>

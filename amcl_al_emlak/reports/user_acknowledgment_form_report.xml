@@ -17,7 +17,7 @@
                         <div class="page" style="direction: rtl; font-family: Droid Arabic Kufi;">
                             <div style="text-align:center;">
                                 <u>
-                                    <h1 style="font-weight: bold; font-family: Droid Arabic Kufi;">اقرار مستخدم</h1>
+                                    <h3 style="font-weight: bold; font-family: Droid Arabic Kufi;">اقرار مستخدم</h3>
                                 </u>
                             </div>
                             <br/>
@@ -38,7 +38,7 @@
                                     </td>
                                     <td style=" font-family: Droid Arabic Kufi;">
                                         <h5>
-                                            <span t-field="doc.sale_order_id.id_no.ref"/>
+                                            <span t-field="doc.sale_order_id.partner_id.ref"/>
                                         </h5>
                                     </td>
                                 </tr>

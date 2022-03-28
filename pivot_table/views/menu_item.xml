@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="main_menu_amcl_pivot_table" name="Tracking Report"
+                  web_icon="pivot_table,static/description/img.png"
+                  sequence="1000" groups="pivot_table.allow_access_pivot_table"/>
+
+        <record model="ir.actions.act_window" id="amcl_action_pivot_table">
+            <field name="name">Pivot Table</field>
+            <field name="res_model">stock.quant</field>
+            <field name="view_mode">pivot</field>
+            <field name="domain">[('location_id.usage','=', 'internal')]</field>
+        </record>
+
+        <menuitem id="menu_amcl_pivot_table" name="Tracking Report"
+                  parent="pivot_table.main_menu_amcl_pivot_table"
+                  sequence="1" action="pivot_table.amcl_action_pivot_table"
+                  groups="pivot_table.allow_access_pivot_table"/>
+
+    </data>
+</odoo>

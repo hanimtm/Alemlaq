@@ -22,7 +22,7 @@
                         <field name="sequence_id" invisible="1"/>
                     </group>
                     <footer>
-                        <button name="import_po_apply" string="Apply" type="object" class="btn-primary"/>
+                        <button name="import_po" string="Upload" type="object" class="oe_highlight" />
                         <button string="Cancel" class="btn-default" special="cancel"/>
                     </footer>
 

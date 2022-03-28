@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="add_sequence_location_on_stock_location_inherit_view_tree" model="ir.ui.view">
+            <field name="name">Sequnce Location</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="location_sequence" widget="handle"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
