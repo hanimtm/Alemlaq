@@ -13,6 +13,7 @@
     'application': True,
     'data': [
             'views/globalmargin.xml',
+            'views/product.xml',
             'security/ir.model.access.csv',
             'data/data.xml',
     ],

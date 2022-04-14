@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="main_menu_amcl_field_translate" name="Field Translation"
+                  web_icon="field_translate,static/description/icon.jpg"
+                  sequence="1000" groups="field_translate.allow_access_field_translation"/>
+
+        <record model="ir.actions.act_window" id="amcl_action_field_translation">
+            <field name="name">Translation</field>
+            <field name="res_model">ir.translation</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('name', 'in', [
+                'product.template,name', 'product.template,exterior_color_code', 'product.template,exterior_color',
+                'product.template,interior_color_code', 'product.template,interior_color', 'product.template,vehicle_model',
+                'product.template,brand','product.template,model_code', 'product.template,description'
+                ]), ('src', '!=', '')]</field>
+            <field name="context">{'search_default_arabic_lang':1}</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('field_translate.ir_tranlation_tree_view')})]"/>
+        </record>
+
+        <menuitem id="menu_amcl_field_translation" name="Field Translation"
+                  parent="field_translate.main_menu_amcl_field_translate"
+                  sequence="1" action="field_translate.amcl_action_field_translation"
+                  groups="field_translate.allow_access_field_translation"/>
+
+<!--        <menuitem id="menu_generate_terms_wiz" name="Generate Missing Terms"-->
+<!--                  parent="field_translate.main_menu_amcl_field_translate"-->
+<!--                  sequence="1" action="field_translate.action_generate_terms_wiz"-->
+<!--                  groups="field_translate.allow_access_field_translation"/>-->
+
+    </data>
+</odoo>

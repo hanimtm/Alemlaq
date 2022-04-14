@@ -102,7 +102,7 @@ class SaleOrder(models.Model):
             stock_move_reservation_ids.unlink()
         return super(SaleOrder, self).action_cancel()
 
-    # @api.multi
+
     def action_view_reserved_stock(self):
         self.ensure_one()
         action = self.env.ref("odoo_stock_reservation.action_stock_move_reserv_product").sudo().read()[0]
@@ -110,8 +110,11 @@ class SaleOrder(models.Model):
         return action
 
     def schedule_action_cancel_reservation(self):
-        ICPSudo = self.env['ir.config_parameter'].sudo()
-        nb_days = ICPSudo.get_param('odoo_stock_reservation.nb_days')
+        # ICPSudo = self.env['ir.config_parameter'].sudo()
+        # nb_days = ICPSudo.get_param('odoo_stock_reservation.nb_days')
+        nb_days = 0
+        if self.env['number.days.reservation'].search([])[0]:
+            nb_days = self.env['number.days.reservation'].search([])[0].nb_days
         date_obj = fields.Date.today() - relativedelta(days=int(nb_days))
         sales = self.env['sale.order'].search([('validity_date', '=', date_obj)])
         for sale in sales:
@@ -135,7 +138,7 @@ class SaleOrderLine(models.Model):
     reserver_id = fields.Many2one(related="product_id.reserver_id",string="Reserved By")
 
 
-    # @api.multi
+
     def write(self, vals):
         if 'product_id' in vals:
             for rec in self:
@@ -153,7 +156,7 @@ class SaleOrderLine(models.Model):
         #                        vals.update(is_stock_reserv_created=True)
         return super(SaleOrderLine, self).write(vals)
 
-    # @api.multi
+
     def unlink(self):
         for rec in self:
             stock = self.env['stock.move.reservation'].search([('custome_so_line_id', '=', rec.id)])
@@ -161,5 +164,16 @@ class SaleOrderLine(models.Model):
             stock_res_move_ids._action_cancel()
             stock.unlink()
         return super(SaleOrderLine, self).unlink()
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        for line in self:
+            if line.product_id.is_reservation:
+                product = line.product_id.name
+                reserver = line.product_id.reserver_id.name
+                line.unlink()
+                raise ValidationError(
+                    _('The product %s is already reserved by %s, Please contact him to cancel the reservation to proceed.') % (
+                        product, reserver))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

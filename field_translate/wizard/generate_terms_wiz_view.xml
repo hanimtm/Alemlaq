@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="generate_terms_wiz_form_view" model="ir.ui.view">
+        <field name="name">Generate Terms Wiz</field>
+        <field name="model">generate.terms.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Generate Terms Wiz">
+                <p class="oe_grey">
+                    <b> 
+                        It Will Generate Missing Product Terms.
+                    </b>
+                </p>
+                <footer>
+                    <button name="generate_missing_product_terms" string="Generate" type="object" class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_generate_terms_wiz" model="ir.actions.act_window">
+        <field name="name">Generate Missing Terms</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">generate.terms.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

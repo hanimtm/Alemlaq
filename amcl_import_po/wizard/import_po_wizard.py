@@ -133,10 +133,9 @@ class ImportPoWizard(models.TransientModel):
                     else:
                         skip_header = True
                         partner = self.env.company.default_vendor
-                        print('Partner :: ', partner)
                         if not partner:
                             no_partner = False
-                            counter == -1
+                            counter = -1
                             break
 
                         for row in range(sheet.nrows):

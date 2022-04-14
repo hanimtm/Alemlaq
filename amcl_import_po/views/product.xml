@@ -19,6 +19,7 @@
                         <field name="alj_suffix"/>
                         <field name="vehicle_model"/>
                         <field name="brand"/>
+                        <field name="product_vc"/>
                     </group>
                     <group>
                         <field name="complete_engine_number"/>

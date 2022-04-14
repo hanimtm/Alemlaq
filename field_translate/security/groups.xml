@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data  noupdate="1">
+
+        <record id="allow_access_field_translation" model="res.groups">
+            <field name="name">Allow Field Translation</field>
+        </record>
+
+    </data>
+</odoo>

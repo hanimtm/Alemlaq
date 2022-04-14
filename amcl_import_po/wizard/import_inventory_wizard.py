@@ -106,6 +106,7 @@ class ImportPoWizard(models.TransientModel):
                                                 'card_no': sheet.cell(row, 9).value or "",
                                                 })
                                     move.product_id.product_tmpl_id.sudo().write({
+                                        'product_vc': sheet.cell(row, 0).value or "",
                                         'key_number': move.key_number,
                                         'vessel_no': move.vessel_no,
                                         'card_no': move.card_no,

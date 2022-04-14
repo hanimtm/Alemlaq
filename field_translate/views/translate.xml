@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Translation Search -->
+    <record id="view_translation_search_inherit" model="ir.ui.view">
+        <field name="name">view.translation.search.inherit</field>
+        <field name="model">ir.translation</field>
+        <field name="inherit_id" ref="base.view_translation_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='openerp-web']" position="after">
+                <filter name="arabic_lang"
+                    string="Arabic"
+                    domain="[('lang', '=', 'ar_001')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ir_tranlation_tree_view" model="ir.ui.view">
+        <field name="name">ir.tranlation.tree.view</field>
+        <field name="model">ir.translation</field>
+        <field name="arch" type="xml">
+            <tree string="Ir Tranlation Tree View" create="0" editable="bottom">
+                <field name="src"/>
+                <field name="value"/>
+                <field name="name" optional="hide"/>
+                <field name="lang" optional="hide"/>
+                <field name="module" optional="hide"/>
+                <field name="type" optional="hide"/>
+                <field name="state" optional="hide"/>
+                <field name="res_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

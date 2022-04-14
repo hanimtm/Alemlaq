@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="form_view_account_move_inherit_add_transfer_permit_bank_name_fields" model="ir.ui.view">
+            <field name="name">Add bank_name and transfer_permit fields</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="sale_order" invisible="1"/>
+                </field>
+
+                <xpath expr="//field[@name='payment_reference']" position="after">
+<!--                    <div attrs="{'invisible': [('sale_order', '=', False)]}">-->
+
+<!--                        <label for="transfer_no" style="color:red;"-->
+<!--                               attrs="{'invisible': [('sale_order', '=', False)]}"/>-->
+                        <field name="transfer_no"
+                               attrs="{'invisible': [('sale_order', '=', False)],
+                            'required': [('sale_order', '!=', False), ('id', '!=', False)]}"/>
+
+<!--                        <label for="transfer_permit" style="color:red;"-->
+<!--                               attrs="{'invisible': [('sale_order', '=', False)]}"/>-->
+                        <field name="transfer_permit" filename="transfer_permit_filename"
+                               attrs="{'invisible': [('sale_order', '=', False)],
+                            'required': [('sale_order', '!=', False), ('id', '!=', False)]}"/>
+                        <field name="transfer_permit_filename" invisible="1"/>
+<!--                        <label for="bank_name" style="color:red;"-->
+<!--                               attrs="{'invisible': [('sale_order', '=', False)]}"/>-->
+                        <field name="bank_name"
+                               attrs="{'invisible': [('sale_order', '=', False)],
+                            'required': [('sale_order', '!=', False), ('id', '!=', False)]}"/>
+<!--                    </div>-->
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

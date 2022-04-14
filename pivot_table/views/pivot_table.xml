@@ -12,5 +12,42 @@
                 </pivot>
             </field>
         </record>
+
+    <record id="pivot_table_inventory_search_view" model="ir.ui.view">
+       <field name="name">pivot_table_inventory_search_view</field>
+       <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="product_brand"/>
+                <field name="product_model_year"/>
+                <field name="product_ext_color_code"/>
+                <field name="product_int_color_code"/>
+                <field name="product_ext_color"/>
+                <field name="product_int_color"/>
+                <field name="product_grade"/>
+                <field name="product_key_number"/>
+                <field name="product_vessel_no"/>
+                <field name="product_card_no"/>
+                <field name="product_alj_suffix"/>
+                <field name="product_vehicle_model"/>
+            </xpath>
+            <xpath expr="//filter[@name='productgroup']" position="after">
+                 <filter name="product_brand" string="Brand" context="{'group_by': 'product_brand'}"/>
+                 <filter name="product_model_year" string="Model Year" context="{'group_by': 'product_model_year'}"/>
+                 <filter name="product_ext_color_code" string="Ext Color Code" context="{'group_by': 'product_ext_color_code'}"/>
+                 <filter name="product_int_color_code" string="Int Color Code" context="{'group_by': 'product_int_color_code'}"/>
+                 <filter name="product_ext_color" string="Ext Color" context="{'group_by': 'product_ext_color'}"/>
+                 <filter name="product_int_color" string="Int Color" context="{'group_by': 'product_int_color'}"/>
+                 <filter name="product_grade" string="Grade" context="{'group_by': 'product_grade'}"/>
+                 <filter name="product_key_number" string="Key Number" context="{'group_by': 'product_key_number'}"/>
+                 <filter name="product_vessel_no" string="Vessel No" context="{'group_by': 'product_vessel_no'}"/>
+                 <filter name="product_card_no" string="Card No" context="{'group_by': 'product_card_no'}"/>
+                 <filter name="product_alj_suffix" string="Alj Suffix" context="{'group_by': 'product_alj_suffix'}"/>
+                 <filter name="product_vehicle_model" string="Vehicle Model" context="{'group_by': 'product_vehicle_model'}"/>
+            </xpath>
+       </field>
+    </record>
+
     </data>
 </odoo>

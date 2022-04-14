@@ -26,7 +26,7 @@ class StockReservation(models.TransientModel):
         string='Email Notification',
     )
 
-    # @api.multi
+
     def action_create_reservation(self):
         self.ensure_one()
         custome_reservtion_obj = self.env['stock.move.reservation']

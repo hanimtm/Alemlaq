@@ -35,6 +35,8 @@ class ProductTemplate(models.Model):
     #purchase_order = fields.Many2one('purchase.order', 'Purchase')
     item = fields.Char('Item')
     car_id = fields.Many2one('car.company', string='Company')
+    product_vc = fields.Char('Product (VC)')
+
 
 class Product(models.Model):
     _inherit = 'product.product'

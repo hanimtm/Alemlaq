@@ -70,7 +70,7 @@ item
     # 'https://youtu.be/4Hz0R0lr-SY',
     'images': ['static/description/sst.jpg'],
     'depends': [
-        'sale_stock', 'sale_management'
+        'sale_stock', 'sale_management','sale'
     ],
     'data': [
         'security/ir.model.access.csv',
