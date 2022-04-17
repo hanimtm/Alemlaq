@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Field Translation",
+    'name': "Field - Translation",
     'summary': """
         Allow Product Fields to Translate Quickly 
     """,
