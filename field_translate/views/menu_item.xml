@@ -24,10 +24,10 @@
                   sequence="1" action="field_translate.amcl_action_field_translation"
                   groups="field_translate.allow_access_field_translation"/>
 
-<!--        <menuitem id="menu_generate_terms_wiz" name="Generate Missing Terms"-->
-<!--                  parent="field_translate.main_menu_amcl_field_translate"-->
-<!--                  sequence="1" action="field_translate.action_generate_terms_wiz"-->
-<!--                  groups="field_translate.allow_access_field_translation"/>-->
+        <menuitem id="menu_generate_terms_wiz" name="Update Terms"
+                  parent="field_translate.main_menu_amcl_field_translate"
+                  sequence="1" action="field_translate.action_generate_terms_wiz"
+                  groups="field_translate.allow_access_field_translation"/>
 
     </data>
 </odoo>

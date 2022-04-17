@@ -8,11 +8,23 @@
             <form string="Generate Terms Wiz">
                 <p class="oe_grey">
                     <b> 
-                        It Will Generate Missing Product Terms.
+                        Select Product Name and Update Value it will update all the value.
                     </b>
                 </p>
+                <group>
+                    <field name="field_name"/>
+                </group>
+                <group>
+                    <field name="line_ids" nolabel="1">
+                        <tree create="false" delete="false" editable="bottom">
+                            <field name="src" readonly="1"/>
+                            <field name="value"/>
+                            <field name="translation_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </group>
                 <footer>
-                    <button name="generate_missing_product_terms" string="Generate" type="object" class="btn-primary" />
+                    <button name="update_missing_product_terms" string="Generate" type="object" class="btn-primary" />
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>

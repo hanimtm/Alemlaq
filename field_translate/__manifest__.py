@@ -19,9 +19,9 @@
     # always loaded
     'data': [
         'security/groups.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/translate.xml',
-        # 'wizard/generate_terms_wiz_view.xml',
+        'wizard/generate_terms_wiz_view.xml',
         'views/menu_item.xml',
     ],
 }
