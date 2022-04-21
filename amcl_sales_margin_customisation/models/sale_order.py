@@ -8,7 +8,7 @@ class ProductTemplate(models.Model):
 
     def _get_default_property_global_margin(self):
         property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')
-        return fields.Date.to_date(property_global_margin[0])
+        return property_global_margin[0]
 
 
     list_price = fields.Float(
