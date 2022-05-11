@@ -15,6 +15,7 @@
         'security/ir.model.access.csv',
         'views/sale_type_view.xml',
         'views/res_partner_views.xml',
+        'views/stock_view.xml',
         'wizard/request_invoice_wizard_view.xml',
         'views/sale_order_views.xml',
     ],
