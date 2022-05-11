@@ -8,7 +8,7 @@ from collections import defaultdict
 from odoo.exceptions import AccessError, UserError
 from odoo.tools import format_date
 from odoo.tools.misc import formatLang, format_date, get_lang
-
+from odoo.exceptions import ValidationError
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -290,6 +290,32 @@ class SaleOrderLine(models.Model):
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    invoice_ids = fields.Many2many("account.move", string='Invoices', compute="_get_invoiced")
+
+    @api.depends()
+    def _get_invoiced(self):
+        invoices = []
+        for picking in self:
+            if picking.picking_type_id.code == 'outgoing':
+                invoices = picking.move_ids_without_package.sale_line_id.invoice_lines.move_id.filtered(
+                    lambda r: r.move_type == 'out_invoice' and r.state == 'draft')
+            print('Invoices :: ', invoices)
+            picking.invoice_ids = invoices
+
+    def action_view_invoice(self):
+        self.ensure_one()
+        form_view_name = "account.view_move_form"
+        xmlid = "account.action_move_out_invoice_type"
+        action = self.env["ir.actions.act_window"]._for_xml_id(xmlid)
+        if len(self.invoice_ids) > 1:
+            action["domain"] = "[('id', 'in', %s)]" % self.invoice_ids.ids
+        else:
+            form_view = self.env.ref(form_view_name)
+            action["views"] = [(form_view.id, "form")]
+            action["res_id"] = self.invoice_ids.id
+        return action
+
+
     def button_validate(self):
         # Clean-up the context key at validation to avoid forcing the creation of immediate
         # transfers.
@@ -303,6 +329,9 @@ class StockPicking(models.Model):
         pickings_without_lots = self.browse()
         products_without_lots = self.env['product.product']
         for picking in self:
+            if self.invoice_ids and self.picking_type_id.code == 'outgoing':
+                raise ValidationError(_('Please validate the corresponding Invoices and proceed.'))
+
             if not picking.move_lines and not picking.move_line_ids:
                 pickings_without_moves |= picking
 

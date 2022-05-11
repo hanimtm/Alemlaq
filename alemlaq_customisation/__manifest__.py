@@ -17,13 +17,14 @@
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
-    'depends': ['account'],
+    'depends': ['account', 'sale', 'sale_management', 'amcl_company_branch_ee'],
 
     # always loaded
     'data': [
         # 'views/res_partner_views.xml',
         'views/account_move_view.xml',
         'views/stock_view.xml',
+        'views/sale.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

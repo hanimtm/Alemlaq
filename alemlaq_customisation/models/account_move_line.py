@@ -6,6 +6,7 @@ from odoo import api, models, fields, _
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    branch_id = fields.Many2one('company.branch', string="Branch", related='move_id.branch_id', store=True, readonly=False)
     model_year = fields.Char('Model Year')
     grade = fields.Char('Grade (VC)')
     exterior_color_code = fields.Char('Exterior Color Code(VC)')

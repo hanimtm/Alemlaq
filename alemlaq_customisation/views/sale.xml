@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">view.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='order_lines']/field[@name='order_line']//tree//field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('sale_ok', '=', True),('qty_available','>',0),'|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
+                </xpath>
+                <xpath expr="//page[@name='optional_products']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="sale_order_template_view_form" model="ir.ui.view">
+            <field name="name">sale.order.template.inherit</field>
+            <field name="model">sale.order.template</field>
+            <field name="inherit_id" ref="sale_management.sale_order_template_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='optional_products']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
