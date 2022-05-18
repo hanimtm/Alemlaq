@@ -1,5 +1,7 @@
 from odoo import fields, api, models
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class LicensePlateWizard(models.TransientModel):
     _name = 'license.plate.wizard'
@@ -15,7 +17,11 @@ class LicensePlateWizard(models.TransientModel):
             [('product_id', '=', self.product_id.id),
              ('order_line_id', '=', self.sale_order_id.id),
              ('order_line_id', '=', self.order_line_id.id)])
+        _logger.critical('License Plate****')
+        _logger.critical(licenses_plate)
+        i=0
         if not licenses_plate:
+            _logger.critical(str(i+1))
             license_plate = self.env['license.plate'].create({
                 'product_id': self.product_id.id,
                 'qty': self.qty,
