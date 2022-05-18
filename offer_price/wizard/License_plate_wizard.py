@@ -15,7 +15,7 @@ class LicensePlateWizard(models.TransientModel):
     def create_new_license_plate(self):
         licenses_plate = self.env['license.plate'].search(
             [('product_id', '=', self.product_id.id),
-             ('order_line_id', '=', self.sale_order_id.id),
+             ('sale_order_id', '=', self.sale_order_id.id),
              ('order_line_id', '=', self.order_line_id.id)])
         _logger.critical('License Plate****')
         _logger.critical(licenses_plate)
