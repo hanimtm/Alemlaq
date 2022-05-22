@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, models, api, _
-from odoo.exceptions import AccessError, UserError
+from odoo.exceptions import AccessError, UserError, ValidationError
+
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -9,7 +10,6 @@ class ProductTemplate(models.Model):
     def _get_default_property_global_margin(self):
         property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')
         return property_global_margin[0]
-
 
     list_price = fields.Float(
         'Sales Price', compute='_compute_sales_price',
@@ -19,7 +19,14 @@ class ProductTemplate(models.Model):
     property_global_margin = fields.Many2one(
         'global.margin', "Global Margin",
         company_dependent=True, check_company=True,
-        domain="['|',('company_id', '=', False), ('company_id', '=', allowed_company_ids[0])]", default=_get_default_property_global_margin)
+        domain="['|',('company_id', '=', False), ('company_id', '=', allowed_company_ids[0])]",
+        default=_get_default_property_global_margin)
+
+    margin_price = fields.Float(
+        'Margin Price', compute='_compute_sales_price',
+        digits='Product Price',
+        help="Price at which the product is sold to customers.",
+    )
 
     @api.depends('standard_price', 'property_global_margin')
     def _compute_sales_price(self):
@@ -78,6 +85,7 @@ class ProductTemplate(models.Model):
                     price = self.calculate_margin(transmission_type, price)
 
                 product.list_price = price
+                product.margin_price = price
 
     def calculate_margin(self, margin, price):
         if margin:
@@ -87,15 +95,21 @@ class ProductTemplate(models.Model):
                 price = price + margin.amount
             return price
 
+    @api.constrains('list_price', 'margin_price')
+    def _check_percent(self):
+        for product in self:
+            if product.list_price < product.margin_price:
+                raise ValidationError(_('You can not change the Sale price less than Margin'))
+
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     @api.onchange('sales_type_id')
     def _onchange_sales_type_id(self):
-        print('IN ')
         for line in self.order_line:
-            print('IN ')
             line.product_id_change()
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -103,39 +117,18 @@ class SaleOrderLine(models.Model):
     @api.onchange('product_id')
     def product_id_change(self):
         res = super(SaleOrderLine, self).product_id_change()
-        print(res)
-        if self.order_id.sales_type_id:
-            if not self.product_id.property_global_margin:
-                property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')[0]
-            elif self.product_id.property_global_margin:
-                property_global_margin = self.product_id.property_global_margin
-            else:
-                property_global_margin = False
-
-            if property_global_margin:
-
-                sales_type = property_global_margin.sales_type.filtered(
-                    lambda l: l.name.id == self.order_id.sales_type_id.id)
-
-                if sales_type:
-                    if sales_type.type == 'percentage':
-                        price = self.product_id.list_price + ((self.product_id.standard_price * sales_type.amount) / 100)
-                        self.price_unit = price
-                    else:
-                        price = self.product_id.list_price + sales_type.amount
-                        print('property_global_margin  :: ', price)
-                        self.price_unit = price
-
+        if (self.product_id and not self.product_id.property_global_margin) or (self.product_id and self.product_id.margin_price <= 0):
+            raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
+        self.price_unit = self.product_id.margin_price
+        return res
 
     @api.onchange('price_unit')
     def onchange_unit_price_change(self):
-        margin = self.env['global.margin'].search([])[0]
-        if margin.global_margin > 0 and self.env.user.has_group(
-                'sales_team.group_sale_salesman') and (
-                not self.env.user.has_group('sales_team.group_sale_manager') or not self.env.user.has_group(
-            'base.group_erp_manager')):
-            after_margin = self.product_id.standard_price + (self.product_id.standard_price * margin.global_margin) / 100
-            print(after_margin)
-            if (self.price_unit != 0 and self.price_unit <= after_margin) or (self.price_unit != 0 and self.price_unit <= self.product_id.standard_price):
-                raise UserError(
-                    _('You can not enter a Unit Price, which is less or equal to marginal amount or less than the cost.'))
+        margin = self.product_id.margin_price
+        print('Margin :: ', margin)
+        print('self.price_unit :: ', self.price_unit)
+        if (self.price_unit != 0 and self.price_unit < margin) or (
+                self.price_unit != 0 and self.price_unit < self.product_id.standard_price):
+            self.write({'price_unit': margin})
+            raise UserError(
+                _('You can not enter a Unit Price, which is less than marginal amount or less than the cost.'))
