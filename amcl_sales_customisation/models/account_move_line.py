@@ -36,7 +36,6 @@ class AccountMoveInherit(models.Model):
 
     def _stock_account_prepare_anglo_saxon_out_lines_vals_new(self):
         lines_vals_list = []
-        self.ensure_one()
         if self.anglo_saxon is False:
             for move in self:
                 if not move.is_sale_document(include_receipts=True) or not move.company_id.anglo_saxon_accounting:
