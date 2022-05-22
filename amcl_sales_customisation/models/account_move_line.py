@@ -24,9 +24,10 @@ class AccountMoveInherit(models.Model):
             return super()._post(soft)
 
         # Create additional COGS lines for customer invoices.
-        if not self.anglo_saxon:
-            self.env['account.move.line'].create(self._stock_account_prepare_anglo_saxon_out_lines_vals_new())
-            self.write({'anglo_saxon': True})
+        for move in self:
+            if not move.anglo_saxon:
+                move.env['account.move.line'].create(self._stock_account_prepare_anglo_saxon_out_lines_vals_new())
+                move.write({'anglo_saxon': True})
 
         posted = super()._post(soft)
 
