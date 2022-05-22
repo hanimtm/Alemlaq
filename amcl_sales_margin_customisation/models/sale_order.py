@@ -117,7 +117,8 @@ class SaleOrderLine(models.Model):
     @api.onchange('product_id')
     def product_id_change(self):
         res = super(SaleOrderLine, self).product_id_change()
-        if (self.product_id and not self.product_id.property_global_margin) or (self.product_id and self.product_id.margin_price <= 0):
+        if (self.product_id and not self.product_id.property_global_margin) or (
+                self.product_id and self.product_id.margin_price <= 0):
             raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
         self.price_unit = self.product_id.margin_price
         return res
@@ -125,10 +126,12 @@ class SaleOrderLine(models.Model):
     @api.onchange('price_unit')
     def onchange_unit_price_change(self):
         margin = self.product_id.margin_price
-        print('Margin :: ', margin)
-        print('self.price_unit :: ', self.price_unit)
-        if (self.price_unit != 0 and self.price_unit < margin) or (
-                self.price_unit != 0 and self.price_unit < self.product_id.standard_price):
-            self.write({'price_unit': margin})
-            raise UserError(
-                _('You can not enter a Unit Price, which is less than marginal amount or less than the cost.'))
+        if margin > 0 and self.env.user.has_group(
+                'sales_team.group_sale_salesman') and (
+                not self.env.user.has_group('sales_team.group_sale_manager') or not self.env.user.has_group(
+            'base.group_erp_manager')):
+            if (self.price_unit != 0 and self.price_unit < margin) or (
+                    self.price_unit != 0 and self.price_unit < self.product_id.standard_price):
+                self.write({'price_unit': margin})
+                raise UserError(
+                    _('You can not enter a Unit Price, which is less than marginal amount or less than the cost.'))
