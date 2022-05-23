@@ -18,7 +18,7 @@ class SaleType(models.Model):
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-    sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id')
+    sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id', store=1)
     customer_gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')])
 
     id_card_iqama = fields.Binary(string='ID Card/Iqama')
@@ -65,7 +65,7 @@ class SaleOrder(models.Model):
     @api.onchange('partner_id')
     def onchange_partner(self):
         if self.partner_id:
-            self.customer_gender = self.partner_id.gender
+            # self.customer_gender = self.partner_id.gender
             if self.partner_id.company_type == 'person':
                 self.id_card_iqama = self.partner_id.id_card_iqama
                 self.id_card_iqama_filename = self.partner_id.id_card_iqama_filename
