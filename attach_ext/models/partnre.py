@@ -4,8 +4,7 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    customer_gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')],
-                                       string='Gender', default='man')
+    gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')])
 
     id_card_iqama = fields.Binary(string='ID Card/Iqama')
     id_card_iqama_filename = fields.Char()

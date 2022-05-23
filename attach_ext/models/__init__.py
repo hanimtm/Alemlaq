@@ -2,5 +2,5 @@
 
 from . import sale
 from . import account_move
-# from . import partnre
+from . import partnre
 
