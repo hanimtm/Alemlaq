@@ -17,7 +17,7 @@ class SaleOrder(models.Model):
     # e_mail = fields.Char(string='E-mail', related='partner_id.email')
     e_mail = fields.Many2one('res.partner', string='E-mail')
     mobile_no = fields.Many2one('res.partner', string='Mobile No')
-    id_no = fields.Many2one('res.partner', string='ID No')
+    id_no = fields.Many2one('res.partner', string='National / Iqama ID')
     sales_type_id = fields.Many2one('sale.type', string='Sales Type')
 
     def action_confirm(self):
