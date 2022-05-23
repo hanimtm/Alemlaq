@@ -13,7 +13,7 @@
                 </xpath>
 
             <xpath expr="//field[@name='ref']" position="attributes">
-                    <attribute name="string">ID No</attribute>
+                    <attribute name="string">National / Iqama ID</attribute>
                 </xpath>
             </field>
         </record>
