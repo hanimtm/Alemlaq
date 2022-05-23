@@ -7,6 +7,51 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='sales_type_id']" position="after">
+                    <field name="customer_gender"/>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page string="Attachment" name="attach">
+                        <group>
+                            <group>
+                                <label for="id_card_iqama"
+                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                <field widget="binary" filename="id_card_iqama_filename"
+                                       name="id_card_iqama" nolabel="1"
+                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+
+                                <label for="id_card_iqama"
+                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                <field name="id_card_iqama_filename"/>
+                            </group>
+
+                            <group>
+                                <div>
+                                    <label for="cr"/>
+                                    <field name="cr" filename="cr_filename"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="cr_filename" invisible="1"/>
+                                </div>
+                                
+                                <div>
+                                    <label for="tax_certificate"/>
+                                    <field name="tax_certificate" filename="tax_certificate_filename"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="tax_certificate_filename" invisible="1"/>
+                                </div>
+                                
+                                <div>
+                                    <label for="national_address"/>
+                                    <field name="national_address" filename="national_address_filename"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="national_address_filename" invisible="1"/>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
                 <xpath expr="//field[@name='cr_number']" position="attributes">
                     <attribute name="attrs">{'required': [('company_type', '=', 'company')]}</attribute>
                 </xpath>
