@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
-        <!-- Inherit Form View to Modify it -->
-        <record id="res_partner_view_form_inherit" model="ir.ui.view">
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='cr_number']" position="attributes">
-                    <attribute name="attrs">{'required': [('company_type', '=', 'company')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='vat']" position="attributes">
-                    <attribute name="attrs">{'required': [('company_type', '=', 'company')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='mobile']" position="attributes">
-                    <attribute name="required">1</attribute>
-                </xpath>
+            <record id="res_partner_view_form_inherit" model="ir.ui.view">
+                <field name="name">Add Attach File...</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='cr_number']" position="attributes">
+                        <attribute name="attrs">{'required': [('company_type', '=', 'company')]}</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='vat']" position="attributes">
+                        <attribute name="attrs">{'required': [('company_type', '=', 'company')]}</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='mobile']" position="attributes">
+                        <attribute name="required">1</attribute>
+                    </xpath>
 
-                <xpath expr="//field[@name='ref']" position="attributes">
-                    <attribute name="attrs">{'required': [('company_type', '=', 'person')]}</attribute>
-                </xpath>
-            </field>
-        </record>
+                    <xpath expr="//field[@name='ref']" position="attributes">
+                        <attribute name="attrs">{'required': [('company_type', '=', 'person')]}</attribute>
+                    </xpath>
+                </field>
+            </record>
 
-    </data>
 </odoo>
