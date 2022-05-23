@@ -2,9 +2,10 @@ from odoo import fields, models
 
 
 class ResPartnerInherit(models.Model):
+    _name = 'res.partner'
     _inherit = 'res.partner'
 
-    # gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')])
+    gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')])
 
     id_card_iqama = fields.Binary(string='ID Card/Iqama')
     id_card_iqama_filename = fields.Char()
