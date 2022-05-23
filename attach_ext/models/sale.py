@@ -19,13 +19,13 @@ class SaleType(models.Model):
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id')
-    customer_gender = fields.Selection(related='partner_id.customer_gender')
+    customer_gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')],
+                                       string='Gender', default='man')
+    id_card_iqama = fields.Binary()
+    id_card_iqama_filename = fields.Char()
 
-    id_card_iqama = fields.Binary(related='partner_id.id_card_iqama')
-    id_card_iqama_filename = fields.Char(related='partner_id.id_card_iqama_filename')
-
-    license_driving = fields.Binary(related='partner_id.license_driving')
-    license_driving_filename = fields.Char(related='partner_id.license_driving_filename')
+    license_driving = fields.Binary()
+    license_driving_filename = fields.Char()
     #  اقرار عادي
     eqrar = fields.Binary(tracking=True, string='إقرار عادي')
     eqrar_filename = fields.Char(tracking=True)
@@ -52,14 +52,14 @@ class SaleOrder(models.Model):
     vehicle_registration = fields.Binary(tracking=True, string='تفويض بتسجيل مركبة')
     vehicle_registration_filename = fields.Char(tracking=True)
 
-    cr = fields.Binary(related='partner_id.cr')
-    cr_filename = fields.Char(related='partner_id.cr_filename')
+    cr = fields.Binary()
+    cr_filename = fields.Char()
 
-    tax_certificate = fields.Binary(related='partner_id.tax_certificate')
-    tax_certificate_filename = fields.Char(related='partner_id.tax_certificate_filename')
+    tax_certificate = fields.Binary()
+    tax_certificate_filename = fields.Char()
 
-    national_address = fields.Binary(related='partner_id.national_address')
-    national_address_filename = fields.Char(related='partner_id.national_address_filename')
+    national_address = fields.Binary()
+    national_address_filename = fields.Char()
 
     def notify_sticky(self):
         self.ensure_one()
