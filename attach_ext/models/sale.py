@@ -19,13 +19,14 @@ class SaleType(models.Model):
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id')
-    customer_gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')],
-                                       string='Gender', default='man')
-    id_card_iqama = fields.Binary()
+    customer_gender = fields.Selection([('man', 'Man'), ('woman', 'Woman')])
+
+    id_card_iqama = fields.Binary(string='ID Card/Iqama')
     id_card_iqama_filename = fields.Char()
 
-    license_driving = fields.Binary()
-    license_driving_filename = fields.Char()
+    license_driving = fields.Binary(string='License Driving')
+    license_driving_filename = fields.Char(tracking=True)
+
     #  اقرار عادي
     eqrar = fields.Binary(tracking=True, string='إقرار عادي')
     eqrar_filename = fields.Char(tracking=True)
@@ -52,14 +53,31 @@ class SaleOrder(models.Model):
     vehicle_registration = fields.Binary(tracking=True, string='تفويض بتسجيل مركبة')
     vehicle_registration_filename = fields.Char(tracking=True)
 
-    cr = fields.Binary()
+    cr = fields.Binary(string='Commercial Register')
     cr_filename = fields.Char()
 
-    tax_certificate = fields.Binary()
+    tax_certificate = fields.Binary(string='Tax Certificate')
     tax_certificate_filename = fields.Char()
 
-    national_address = fields.Binary()
+    national_address = fields.Binary(string='National Address')
     national_address_filename = fields.Char()
+
+    @api.onchange('partner_id')
+    def onchange_partner(self):
+        if self.partner_id:
+            self.customer_gender = self.partner_id.gender
+            if self.partner_id.company_type == 'person':
+                self.id_card_iqama = self.partner_id.id_card_iqama
+                self.id_card_iqama_filename = self.partner_id.id_card_iqama_filename
+                self.license_driving = self.partner_id.license_driving
+                self.license_driving_filename = self.partner_id.license_driving_filename
+            else:
+                self.cr = self.partner_id.cr
+                self.cr_filename = self.partner_id.cr_filename
+                self.tax_certificate = self.partner_id.tax_certificate
+                self.tax_certificate_filename = self.partner_id.tax_certificate_filename
+                self.national_address = self.partner_id.national_address
+                self.national_address_filename = self.partner_id.national_address_filename
 
     def notify_sticky(self):
         self.ensure_one()
