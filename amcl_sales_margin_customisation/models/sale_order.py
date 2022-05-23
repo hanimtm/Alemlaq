@@ -114,13 +114,28 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.onchange('product_id')
+    @api.onchange('product_id','order_id.sales_type_id')
     def product_id_change(self):
         res = super(SaleOrderLine, self).product_id_change()
-        if (self.product_id and not self.product_id.property_global_margin) or (
-                self.product_id and self.product_id.margin_price <= 0):
+        if self.product_id and (not self.product_id.property_global_margin or self.product_id.margin_price <= 0):
             raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
-        self.price_unit = self.product_id.margin_price
+        if self.order_id.sales_type_id:
+            if not self.product_id.property_global_margin:
+                property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')[0]
+            elif self.product_id.property_global_margin:
+                property_global_margin = self.product_id.property_global_margin
+            else:
+                raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
+
+            sales_type = property_global_margin.sales_type.filtered(
+                    lambda l: l.id == self.order_id.sales_type_id.id)
+            if sales_type:
+                if sales_type.type == 'percentage':
+                    self.price_unit = self.price_unit + ((self.price_unit * sales_type.amount) / 100)
+                else:
+                    self.price_unit = self.price_unit + sales_type.amount
+        else:
+            self.price_unit = self.product_id.margin_price
         return res
 
     @api.onchange('price_unit')

@@ -211,6 +211,10 @@ class SaleOrder(models.Model):
                                         )
         return moves
 
+    @api.constrains('order_line')
+    def _constraint_order_line(self):
+        if len(self.order_line) == 0:
+            raise ValidationError(_("Please add the line items to proceed"))
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
