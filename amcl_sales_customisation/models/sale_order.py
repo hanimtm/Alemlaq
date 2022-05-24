@@ -332,11 +332,11 @@ class StockPicking(models.Model):
         pickings_without_lots = self.browse()
         products_without_lots = self.env['product.product']
         for picking in self:
-            if not self.invoice_ids:
+            if not self.invoice_ids and self.picking_type_id.code == 'outgoing':
                 raise ValidationError(
                     _('There is no Invoices available for this delivery, \n'
                       'Please create and confirm the Invoice to proceed.'))
-            if self.invoice_ids or (self.invoice_ids and self.picking_type_id.code == 'outgoing'):
+            if self.invoice_ids and self.picking_type_id.code == 'outgoing':
                 raise ValidationError(_('Please validate the corresponding Invoices and proceed.'))
 
             if not picking.move_lines and not picking.move_line_ids:
