@@ -26,8 +26,7 @@
                 <xpath expr="//field[@name='sales_type_id']" position="after">
                     <field name="sale_type_ext_id" readonly="1" invisible="1"/>
                     <field name="customer_gender"
-                           attrs="{'invisible': [('sale_type_ext_id', '!=', 1)],
-                                    'required': [('sale_type_ext_id', '=', 1)]}"/>
+                           attrs="{'invisible': [('sale_type_ext_id', '!=', 1)]}"/>
                 </xpath>
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="attachments" string="Attachments"

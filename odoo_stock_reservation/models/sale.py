@@ -35,7 +35,8 @@ class SaleOrder(models.Model):
                 ('state', '!=', 'cancel')
             ])
             if stock_move_reservation_ids:
-                raise ValidationError("Please Cancel Reserved Stock")
+                # raise ValidationError("Please Cancel Reserved Stock")
+                self.action_cancel_stock_reservation()
         return super(SaleOrder, self).action_confirm()
 
     def action_create_stock_reservation(self):
