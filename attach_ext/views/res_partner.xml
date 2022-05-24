@@ -7,10 +7,15 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='sales_type_id']" position="after">
-                <field name="gender" attrs="{'invisible':[('company_type', '=','company')]}"/>
+            <xpath expr="//field[@name='ref']" position="replace"/>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="ref" string="National/IQama ID"/>
             </xpath>
-            
+            <xpath expr="//field[@name='sales_type_id']" position="after">
+                <field name="gender" attrs="{'invisible':[('company_type', '=','company')],
+                'required': [('company_type', '=', 'person')]}"/>
+            </xpath>
+
             <xpath expr="//notebook/page[@name='internal_notes']" position="after">
                 <page string="Attach">
                     <group>
