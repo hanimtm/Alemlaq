@@ -42,171 +42,153 @@
                             <div style="border: 1px solid; margin-top:2px;">
                                 <div class="row">
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">اسم المالك</p>
-                                    </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p>:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.company_id.name"/>
-                                        </p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم المالك:</p>
                                     </div>
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">اسم الفرع</p>
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.company_id.name"/>-->
+<!--                                        </p>-->
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم الفرع:</p>
                                     </div>
-                                    <div class="col-2"
+<!--                                    <div class="col-1"-->
+<!--                                         style="font-size:10px; text-align:right;">-->
+<!--                                        <p style="font-family: Droid Arabic Kufi;">:</p>-->
+<!--                                    </div>-->
+                                    <div class="col-3"
                                          style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.branch_id.name"/>
-                                        </p>
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.branch_id.name"/>-->
+<!--                                        </p>-->
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">المدينة-العنوان:</p>
+                                    </div>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.company_id.city"/>-->
+<!--                                        </p>-->
+                                    </div>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+                                            <p style="font-family: Droid Arabic Kufi;">هاتف الفرع:</p>
+                                    </div>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.partner_id.arabic"/>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">اسم الضيف</p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">اسم العميل:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+
+                                    <div class="col-9"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.company_id.phone"/>-->
+<!--                                        </p>-->
                                     </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.partner_id.arabic"/>
+<!--                                    <div class="col-3"-->
+<!--                                         style="font-size:10px; text-align:right;">-->
+<!--                                        <p style="font-family: Droid Arabic Kufi;">سجل تجاي فرعي</p>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="col-3"-->
+<!--                                         style="font-size:10px; text-align:right;">-->
+<!--                                        <p style="font-family: Droid Arabic Kufi;"/>-->
+<!--                                    </div>-->
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">الجوال:
                                         </p>
                                     </div>
+
                                     <div class="col-3"
                                          style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">المدينة-العنوان</p>
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.company_id.email"/>-->
+<!--                                        </p>-->
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">الهاتف:</p>
                                     </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.company_id.city"/>
-                                        </p>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.company_id.phone"/>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">هاتف</p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">البريد الالكتروني:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.company_id.phone"/>
-                                        </p>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.partner_id.cr_number"/>-->
+<!--                                        </p>-->
                                     </div>
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">سجل تجاي فرعي</p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">الهوية:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;"/>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.date_order"-->
+<!--                                                  t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">البريد
-                                            الالكتروني
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">ضريبة القيمة المضافة للمشتري
                                         </p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.company_id.email"/>
-                                        </p>
-                                    </div>
+
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">هاتف</p>
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p>-->
+<!--                                            <span t-field="doc.partner_id.vat"/>-->
+<!--                                        </p>-->
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.company_id.phone"/>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
+
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">رقم الهوية</p>
-                                    </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.partner_id.cr_number"/>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">سجل تجاري للمشتري:
                                         </p>
                                     </div>
+
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">تاريخ العرض</p>
-                                    </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.date_order"
-                                                  t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">مرجع ضريبة القيمة
-                                            المضافة للمشتري
-                                        </p>
-                                    </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p>:</p>
-                                    </div>
-                                    <div class="col-8"
-                                         style="font-size:11px; text-align:right;">
-                                        <p>
-                                            <span t-field="doc.partner_id.vat"/>
-                                        </p>
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p>-->
+<!--                                            <span t-field="doc.partner_id.vat"/>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
                             </div>
@@ -214,75 +196,62 @@
                             <div style="border: 1px solid; margin-top:2px;">
                                 <div class="row">
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">رقم العرض</p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">رقم العرض:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right; font-family: Droid Arabic Kufi;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.name"/>
-                                        </p>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.name"/>-->
+<!--                                        </p>-->
                                     </div>
                                     <div class="col-3"
                                          style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">عناية السيد</p>
+                                        <p style="font-family: Droid Arabic Kufi;">تاريخ العرض:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.partner_id.arabic"/>
-                                        </p>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.partner_id.arabic"/>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">العنوان</p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">عناية السيد:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.partner_id.city"/>
-                                        </p>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.partner_id.city"/>-->
+<!--                                        </p>-->
                                     </div>
                                     <div class="col-3"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">جوال الضيف</p>
+                                         style="font-size:10px; text-align:right;">
+                                        <p style="font-family: Droid Arabic Kufi;">هاتف:</p>
                                     </div>
-                                    <div class="col-1"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">:</p>
-                                    </div>
-                                    <div class="col-2"
-                                         style="font-size:11px; text-align:right;">
-                                        <p style="font-family: Droid Arabic Kufi;">
-                                            <span t-field="doc.partner_id.mobile"/>
-                                        </p>
+
+                                    <div class="col-3"
+                                         style="font-size:10px; text-align:right;">
+<!--                                        <p style="font-family: Droid Arabic Kufi;">-->
+<!--                                            <span t-field="doc.partner_id.mobile"/>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
                             </div>
 
                             <table style="width:100%; height:20px;">
                                 <tr style="width:100%;">
-                                    <td style="width:50%; font-size:10px; text-align:right;">
+                                    <td style="width:50%; font-size:9px; text-align:right;">
                                         <p>يسرنا أن نقدم لكم عرض أسعارنا الخاصة بالسيارة/بالسيارات المطلوبة
-                                            بتاريخ()املين ان
-                                            يحوز على رضاكم
+                                            بتاريخ()املين ان يحوز على رضاكم
                                         </p>
                                     </td>
-                                    <td style="width:50%; font-size:11px; text-align:left;">
+                                    <td style="width:50%; font-size:9px; text-align:left;">
                                         <p>We have great pleasure to provide this quotation date()for your requirements
                                             as below
                                         </p>
@@ -298,8 +267,12 @@
                                         <b style="font-family: Droid Arabic Kufi;">م<br/>s
                                         </b>
                                     </th>
-                                    <th style="width:23%; border: 1px solid; text-align:center;">
+                                    <th style="width:11%; border: 1px solid; text-align:center;">
                                         <b style="font-family: Droid Arabic Kufi;">المنتج<br/>Product
+                                        </b>
+                                    </th>
+                                    <th style="width:12%; border: 1px solid; text-align:center;">
+                                        <b style="font-family: Droid Arabic Kufi;">الرقم<br/>Shecie
                                         </b>
                                     </th>
                                     <th style="border: 1px solid; text-align:center;">
@@ -320,9 +293,8 @@
                                         </b>
                                     </th>
                                     <th style="border: 1px solid; text-align:center;">
-                                        <b style="font-family: Droid Arabic Kufi;">ضريبة القيمة المضافة 15%<br/>VAT
-                                            Value 15%
-                                        </b>
+                                        <b style="font-family: Droid Arabic Kufi;">الضريبة<br/>VAT
+                                                                                    </b>
                                     </th>
                                     <th style="border: 1px solid; text-align:center;">
                                         <b style="font-family: Droid Arabic Kufi;">السعر بعد الخصم والضريبة<br/>Price
@@ -356,6 +328,12 @@
                                         <td style="border: 1px solid; text-align:center;">
                                             <p style="font-family: Droid Arabic Kufi;">
                                                 <t t-raw="line.product_id.name"/>
+                                            </p>
+                                        </td>
+
+                                        <td style="border: 1px solid; text-align:center;">
+                                            <p style="font-family: Droid Arabic Kufi;">
+                                                <t t-raw="line.product_id.default_code"/>
                                             </p>
                                         </td>
 
@@ -431,7 +409,7 @@
                                 </t>
 
                                 <tr style="height:25px; border:1px solid;">
-                                    <td colspan="5"
+                                    <td colspan="6"
                                         style="border: no; text-align:center;"/>
                                     <td colspan="5"
                                         style="background-color:#b3b3b3; border: 1px solid; text-align:center;">
@@ -460,9 +438,9 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:right; font-size:11px; width:50%;">
+                                    <td style="text-align:right; font-size:9px; width:50%;">
                                         <p style="font-family: Droid Arabic Kufi;">
-                                            [1] يسري هذا العرض من تاريخ الخطاب أو نهاية السهر الحالي (أيهما أسبق) ولا
+                                            [1] يسري هذا العرض من تاريخ الخطاب أو نهاية الشهر الحالي (أيهما أسبق) ولا
                                             <br/>
                                             حتى : <u
                                                 style="color:red; font-weight: bold;">
@@ -496,12 +474,10 @@
                                             [9]الضمان : 3 سنوات او 100000 كيلو متر ايهما اقرب
                                         </p>
                                     </td>
-                                    <td style="text-align:left; font-size:10px; width:50%; direction:ltr">
+                                    <td style="text-align:left; font-size:8px; width:50%; direction:ltr">
                                         <p style="font-family: Droid Arabic Kufi;">[1] Quotation from the issuance date
-                                            OR end of current month(whichever is
-                                            earlier)
+                                            OR end of current month(whichever is earlier)
                                             and it's not considered as a guarantee for
-                                            <br/>
                                             Validity : <u style="color:red; font-weight: bold;">3Days</u> sales.
                                             <br/>[2]
                                             Delivery date will be subjected to stock availability and as per a

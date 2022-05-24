@@ -33,11 +33,11 @@ class AccountMove(models.Model):
     def get_data_from_quotation(self):
         for rec in self:
             quotation = self.env['sale.order'].search([('name', '=', rec.invoice_origin)])
-            driving = self.env['license.plate'].search([('sale_order_id.name', '=', rec.invoice_origin)])
-            if driving:
-                _logger.critical('*************************')
-                _logger.critical(driving.product_id.product_tmpl_id.name)
-                _logger.critical(rec.id)
+            # driving = self.env['license.plate'].search([('sale_order_id.name', '=', rec.invoice_origin)])
+            # if driving:
+                # _logger.critical('*************************')
+                # _logger.critical(driving.product_id.product_tmpl_id.name)
+                # _logger.critical(rec.id)
                 # self.env['account.move.line'].sudo().create({
                 #     # 4101001001
                 #     'move_id': rec.id,
