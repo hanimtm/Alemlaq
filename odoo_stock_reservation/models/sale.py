@@ -103,6 +103,7 @@ class SaleOrder(models.Model):
             stock_move_reservation_ids.unlink()
         return super(SaleOrder, self).action_cancel()
 
+
     def action_view_reserved_stock(self):
         self.ensure_one()
         action = self.env.ref("odoo_stock_reservation.action_stock_move_reserv_product").sudo().read()[0]
@@ -126,75 +127,6 @@ class SaleOrder(models.Model):
                 raise ValidationError("Can't create invoice because in this sale there is line reserved")
         return super(SaleOrder, self)._create_invoices()
 
-    # @api.model
-    # def create(self, vals):
-    #     res = super(SaleOrder, self).create(vals)
-    #
-    #     custome_reservtion_obj = self.env['stock.move.reservation']
-    #     location_obj = self.env['stock.location']
-    #     picking_type_obj = self.env['stock.picking.type']
-    #     move_id_generated = False
-    #     mail_context = []
-    #
-    #     for line in vals['order_line']:
-    #         _logger.critical('*********************')
-    #         _logger.critical(line.product_id.name)
-    #         # if line.stock_reservation_qty > 0.0 and line.product_qty >= line.stock_reservation_qty:
-    #         # order_line_reserve_qty = line.order_line_id.stock_reserved_qty
-    #         # order_line_reserve_qty += line.stock_reservation_qty
-    #
-    #         # if line.order_line_id.product_uom_qty >= order_line_reserve_qty:
-    #         picking_type_id = picking_type_obj.search([
-    #             ('warehouse_id', '=', vals['warehouse_id']),
-    #             ('code', '=', 'outgoing')],
-    #             limit=1
-    #         )
-    #         location_id = picking_type_id.default_location_src_id
-    #         # location_dest_id = self.env.ref("odoo_stock_reservation.stock_dest_location_reservation")
-    #         location_dest_id = self.env['stock.location'].search([
-    #             ('is_stock_location_reservation', '=', True),
-    #             ('company_id', '=', vals['company_id'])], limit=1)
-    #
-    #         reserv_move_id = custome_reservtion_obj.create({
-    #             'name': vals['name'],
-    #             'custome_so_line_id': res.id,
-    #             'product_id': line.product_id.id,
-    #             'product_uom_qty': line.stock_reservation_qty,
-    #             'product_uom': line.uom_id.id,
-    #             'location_id': location_id.id,
-    #             'location_dest_id': location_dest_id.id,
-    #             'custome_sale_order_id': self.sale_order_id.id,
-    #             'reserv_request_date': fields.Datetime.now(),
-    #             'reserv_resquest_user_id': self.env.uid,
-    #             'reserved_qty': 1
-    #         })
-    #
-    #         # if reserv_move_id:
-    #         #     line.stock_reserved_qty += line.stock_reservation_qty
-    #         #     self.sale_order_id.is_stock_reserv_created = True
-    #         #     mail_context.append({
-    #         #         'name': reserv_move_id.reserv_code,
-    #         #         'product_id': reserv_move_id.product_id,
-    #         #         'reserved_qty': reserv_move_id.product_uom_qty,
-    #         #     })
-    #         reserv_move_id.move_id._action_confirm()
-    #         # move_id_generated = True
-    #         line.product_id.write({'is_reservation': True, 'reserver_id': self.env.user.id})
-    #         # else:
-    #         #     raise ValidationError("All the quantities are reserved")
-    #         # else:
-    #         #     raise ValidationError("Quantity is less then 0.0 or reserved quantity more then Order Quantity")
-    #
-    #     # if self.user_ids and move_id_generated:
-    #     #     partner_lst = [(4, user.partner_id.id) for user in self.user_ids]
-    #     #     email_template_id = self.env.ref("odoo_stock_reservation.email_template_stock_reservation1")
-    #     #     ctx = self._context.copy()
-    #     #     ctx.update({'stock_reservation_ctx': mail_context})
-    #     #     if email_template_id:
-    #     #         email_template_id.with_context(ctx).send_mail(
-    #     #             self.sale_order_id.id, email_values={'recipient_ids': partner_lst})
-    #
-    #     return res
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
