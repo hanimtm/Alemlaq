@@ -28,6 +28,10 @@
                     <field name="customer_gender"
                            attrs="{'invisible': [('sale_type_ext_id', '!=', 1)]}"/>
                 </xpath>
+
+                <field name="sales_type_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'not in', ['draft', 'sent'])]}</attribute>
+                </field>
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="attachments" string="Attachments"
                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 2, 3, 4])]}">
@@ -36,29 +40,37 @@
                                    attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 2, 3, 4])]}">
                                 <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}">
                                     <label for="id_card_iqama" style="color:red;"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <label for="id_card_iqama"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field widget="binary" filename="id_card_iqama_filename"
                                            name="id_card_iqama" nolabel="1"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="id_card_iqama_filename" invisible="1"/>
                                 </div>
-                                <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}">
+                                <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}">
                                     <label for="license_driving" style="color:red;"
                                            attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])]}"/>
                                     <label for="license_driving"
                                            attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])]}"/>
                                     <field name="license_driving" filename="license_driving_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="license_driving_filename" invisible="1"/>
                                 </div>
                                 <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}">
                                     <label for="eqrar" style="color:red;"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])]}"/>
-                                    <label for="eqrar" attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
+                                    <label for="eqrar" attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="eqrar" filename="eqrar_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="eqrar_filename" invisible="1"/>
                                 </div>
                                 <!--                                <div attrs="{'invisible': ['|', ('sale_type_ext_id', 'not in', [1]),-->
@@ -69,9 +81,11 @@
                                        ('customer_gender', '=', 'man'), '&amp;', ('sale_type_ext_id', 'in', [1])]}">
 
                                     <label for="eqrar_woman" style="color:red;"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <label for="eqrar_woman"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="eqrar_woman" filename="eqrar_woman_filename"/>
                                     <field name="eqrar_woman_filename" invisible="1"/>
 
@@ -84,21 +98,25 @@
                                 <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])]}">
                                     <label for="cr" style="color:red;"/>
                                     <field name="cr" filename="cr_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="cr_filename" invisible="1"/>
 
                                 </div>
                                 <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])]}">
                                     <label for="tax_certificate" style="color:red;"/>
                                     <field name="tax_certificate" filename="tax_certificate_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="tax_certificate_filename" invisible="1"/>
 
                                 </div>
-                                <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])]}">
+                                <div attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}">
                                     <label for="national_address" style="color:red;"/>
                                     <field name="national_address" filename="national_address_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [2, 4])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="national_address_filename" invisible="1"/>
 
                                 </div>
@@ -109,34 +127,39 @@
                                 <div>
                                     <label for="receipt_form"/>
                                     <field name="receipt_form" nolabel="1" filename="receipt_form_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="receipt_form_filename" invisible="1"/>
                                 </div>
                                 <div>
                                     <label for="form_nb_four"/>
                                     <field name="form_nb_four" nolabel="1" filename="form_nb_four_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="form_nb_four_filename" invisible="1"/>
                                 </div>
                                 <div>
                                     <label for="user_acknowledgment"/>
                                     <field name="user_acknowledgment" nolabel="1"
                                            filename="user_acknowledgment_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="user_acknowledgment_filename" invisible="1"/>
                                 </div>
                                 <div>
                                     <label for="registration_agency"/>
                                     <field name="registration_agency" nolabel="1"
                                            filename="registration_agency_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="registration_agency_filename" invisible="1"/>
                                 </div>
                                 <div>
                                     <label for="vehicle_registration"/>
                                     <field name="vehicle_registration" nolabel="1"
                                            filename="vehicle_registration_filename"
-                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])]}"/>
+                                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 3])],
+                                           'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                                     <field name="vehicle_registration_filename" invisible="1"/>
                                 </div>
                             </group>

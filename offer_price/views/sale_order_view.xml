@@ -13,7 +13,7 @@
                 </xpath>
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="License_plate" string="License Plate">
-                        <field name="license_plate_ids">
+                        <field name="license_plate_ids" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])]}">
                             <tree create="0">
                                 <field name="order_line_id" required="1"/>
                                 <field name="product_id" required="1"
