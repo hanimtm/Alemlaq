@@ -22,7 +22,6 @@
         'views/res_partner.xml',
         'views/sale_order_views.xml',
         'views/account_move.xml',
-
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -33,19 +33,19 @@ class AccountMove(models.Model):
     def get_data_from_quotation(self):
         for rec in self:
             quotation = self.env['sale.order'].search([('name', '=', rec.invoice_origin)])
-            # driving = self.env['license.plate'].search([('sale_order_id.name', '=', rec.invoice_origin)])
+            driving = self.env['license.plate'].search([('sale_order_id.name', '=', rec.invoice_origin)])
             # if driving:
-                # _logger.critical('*************************')
-                # _logger.critical(driving.product_id.product_tmpl_id.name)
-                # _logger.critical(rec.id)
-                # self.env['account.move.line'].sudo().create({
-                #     # 4101001001
-                #     'move_id': rec.id,
-                #     'account_id': 1,
-                #     'name': driving.product_id.product_tmpl_id.name,
-                #     'debit': 0,
-                #     'credit': driving.price
-                # })
+            #     # _logger.critical('*************************')
+            #     # _logger.critical(driving.product_id.product_tmpl_id.name)
+            #     # _logger.critical(rec.id)
+            #     self.env['account.move.line'].sudo().create({
+            #         # 4101001001
+            #         'move_id': 1,
+            #         'account_id': 1,
+            #         'name': driving.product_id.product_tmpl_id.name,
+            #         'debit': 0,
+            #         'credit': driving.price
+            #     })
             rec.id_card_iqama = quotation.id_card_iqama
             rec.id_card_iqama_filename = quotation.id_card_iqama_filename
             rec.license_driving = quotation.license_driving

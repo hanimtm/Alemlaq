@@ -19,19 +19,22 @@
                     <!--                               attrs="{'invisible': [('sale_order', '=', False)]}"/>-->
                     <field name="transfer_no"
                            attrs="{'invisible': [('sale_order', '=', False)],
-                            'required': [('sale_order', '!=', False), ('id', '!=', False)]}"/>
+                            'required': [('sale_order', '!=', False), ('id', '!=', False)],
+                            'readonly': [('state', '!=', 'draft')]}"/>
 
                     <!--                        <label for="transfer_permit" style="color:red;"-->
                     <!--                               attrs="{'invisible': [('sale_order', '=', False)]}"/>-->
                     <field name="transfer_permit" filename="transfer_permit_filename"
                            attrs="{'invisible': [('sale_order', '=', False)],
-                            'required': [('sale_order', '!=', False), ('id', '!=', False)]}"/>
+                            'required': [('sale_order', '!=', False), ('id', '!=', False)],
+                            'readonly': [('state', '!=', 'draft')]}"/>
                     <field name="transfer_permit_filename" invisible="1"/>
                     <!--                        <label for="bank_name" style="color:red;"-->
                     <!--                               attrs="{'invisible': [('sale_order', '=', False)]}"/>-->
                     <field name="bank_name" options="{'no_create': True}"
                            attrs="{'invisible': [('sale_order', '=', False)],
-                            'required': [('sale_order', '!=', False), ('id', '!=', False)]}"/>
+                            'required': [('sale_order', '!=', False), ('id', '!=', False)],
+                            'readonly': [('state', '!=', 'draft')]}"/>
                     <!--                    </div>-->
                 </xpath>
 
