@@ -97,7 +97,7 @@
             <field name="arch" type="xml">
                 <tree string="Global Margin">
                     <field name="name"/>
-                    <field name="global_margin" invisible="1"/>
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>

@@ -8,7 +8,9 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     def _get_default_property_global_margin(self):
-        property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')
+        property_global_margin = self.env['global.margin'].sudo().search(
+            [('company_id', '=', self.env.company.id)], order='id ASC')
+        print(property_global_margin)
         return property_global_margin[0]
 
     list_price = fields.Float(
@@ -34,7 +36,9 @@ class ProductTemplate(models.Model):
         self.list_price = 0
         for product in self:
             if not product.property_global_margin:
-                property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')[0]
+                property_global_margin = \
+                self.env['global.margin'].sudo().search([('company_id', '=', self.env.company.id)],
+                                                        order='id ASC')[0]
             elif product.property_global_margin:
                 property_global_margin = product.property_global_margin
             else:
@@ -114,21 +118,21 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.onchange('product_id','order_id.sales_type_id')
+    @api.onchange('product_id', 'order_id.sales_type_id')
     def product_id_change(self):
         res = super(SaleOrderLine, self).product_id_change()
         if self.product_id and (not self.product_id.property_global_margin or self.product_id.margin_price <= 0):
             raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
         if self.order_id.sales_type_id:
             if not self.product_id.property_global_margin:
-                property_global_margin = self.env['global.margin'].sudo().search([], order='id ASC')[0]
+                property_global_margin = self.env['global.margin'].sudo().search([('company_id', '=', self.env.company.id)], order='id ASC')[0]
             elif self.product_id.property_global_margin:
                 property_global_margin = self.product_id.property_global_margin
             else:
                 raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
 
             sales_type = property_global_margin.sales_type.filtered(
-                    lambda l: l.id == self.order_id.sales_type_id.id)
+                lambda l: l.id == self.order_id.sales_type_id.id)
             if sales_type:
                 if sales_type.type == 'percentage':
                     self.price_unit = self.price_unit + ((self.price_unit * sales_type.amount) / 100)
