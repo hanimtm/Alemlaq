@@ -15,7 +15,7 @@ class GlobalMargin(models.Model):
     interior_color = fields.One2many('interior_color.margin', 'margin_id', 'Interior Color')
     transmission_type = fields.One2many('transmission_type.margin', 'margin_id', 'Transmission Type')
     sales_type = fields.One2many('sales_type.margin', 'margin_id', 'Sales Type')
-    company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.company)
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
 
     # @api.constrains('name')
     # def _check_pos_config(self):
@@ -40,6 +40,7 @@ class BrandMargin(models.Model):
                              ('percentage', 'Percentage')],
                             string="Type", default='amount')
     amount = fields.Float('Amount')
+
 
 class YearMargin(models.Model):
     _name = 'year.margin'
