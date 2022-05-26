@@ -50,57 +50,52 @@ class ProductTemplate(models.Model):
                 # --brand-- #
                 brand = property_global_margin.brand.filtered(lambda l: l.name == str(product.brand).lower())
                 if brand:
-                    price = self.calculate_margin(brand, price)
-                    print('Brand :: ', price)
+                    price = self.calculate_margin(brand, price, product)
+
                 # --product_vc-- #
                 product_vc = property_global_margin.product_vc.filtered(
                     lambda l: l.name == str(product.product_vc).lower())
                 if product_vc:
-                    price = self.calculate_margin(product_vc, price)
-                    print('product_vc :: ', price)
+                    price = self.calculate_margin(product_vc, price, product)
 
                 # --year-- #
                 year = property_global_margin.year.filtered(
                     lambda l: l.name == str(product.model_year).lower())
                 if year:
-                    price = self.calculate_margin(year, price)
-                    print('year :: ', price)
+                    price = self.calculate_margin(year, price, product)
 
                 # --grade-- #
                 grade = property_global_margin.grade.filtered(
                     lambda l: l.name == str(product.grade).lower())
                 if grade:
-                    price = self.calculate_margin(grade, price)
-                    print('grade :: ', price)
+                    price = self.calculate_margin(grade, price, product)
 
                 # --exterior_color-- #
                 exterior_color = property_global_margin.exterior_color.filtered(
                     lambda l: l.name == str(product.exterior_color).lower())
                 if exterior_color:
-                    price = self.calculate_margin(exterior_color, price)
-                    print('ex_color :: ', price)
+                    price = self.calculate_margin(exterior_color, price, product)
 
                 # --interior_color-- #
                 interior_color = property_global_margin.interior_color.filtered(
                     lambda l: l.name == str(product.interior_color).lower())
                 if interior_color:
-                    price = self.calculate_margin(interior_color, price)
-                    print('int_color :: ', price)
+                    price = self.calculate_margin(interior_color, price, product)
+
 
                 # --transmission_type-- #
                 transmission_type = property_global_margin.transmission_type.filtered(
                     lambda l: l.name == product.transmission_type)
                 if transmission_type:
-                    price = self.calculate_margin(transmission_type, price)
-                    print('trans :: ', price)
+                    price = self.calculate_margin(transmission_type, price, product)
 
                 product.list_price = price
                 product.margin_price = price
 
-    def calculate_margin(self, margin, price):
+    def calculate_margin(self, margin, price, product):
         if margin:
             if margin.type == 'percentage':
-                price = price + ((self.standard_price * margin.amount) / 100)
+                price = price + ((product.standard_price * margin.amount) / 100)
             else:
                 price = price + margin.amount
             return price
