@@ -51,42 +51,48 @@ class ProductTemplate(models.Model):
                 brand = property_global_margin.brand.filtered(lambda l: l.name == str(product.brand).lower())
                 if brand:
                     price = self.calculate_margin(brand, price)
-
+                    print('Brand :: ', price)
                 # --product_vc-- #
                 product_vc = property_global_margin.product_vc.filtered(
                     lambda l: l.name == str(product.product_vc).lower())
                 if product_vc:
                     price = self.calculate_margin(product_vc, price)
+                    print('product_vc :: ', price)
 
                 # --year-- #
                 year = property_global_margin.year.filtered(
                     lambda l: l.name == str(product.model_year).lower())
                 if year:
                     price = self.calculate_margin(year, price)
+                    print('year :: ', price)
 
                 # --grade-- #
                 grade = property_global_margin.grade.filtered(
                     lambda l: l.name == str(product.grade).lower())
                 if grade:
                     price = self.calculate_margin(grade, price)
+                    print('grade :: ', price)
 
                 # --exterior_color-- #
                 exterior_color = property_global_margin.exterior_color.filtered(
                     lambda l: l.name == str(product.exterior_color).lower())
                 if exterior_color:
                     price = self.calculate_margin(exterior_color, price)
+                    print('ex_color :: ', price)
 
                 # --interior_color-- #
                 interior_color = property_global_margin.interior_color.filtered(
                     lambda l: l.name == str(product.interior_color).lower())
                 if interior_color:
                     price = self.calculate_margin(interior_color, price)
+                    print('int_color :: ', price)
 
                 # --transmission_type-- #
                 transmission_type = property_global_margin.transmission_type.filtered(
                     lambda l: l.name == product.transmission_type)
                 if transmission_type:
                     price = self.calculate_margin(transmission_type, price)
+                    print('trans :: ', price)
 
                 product.list_price = price
                 product.margin_price = price
@@ -94,7 +100,7 @@ class ProductTemplate(models.Model):
     def calculate_margin(self, margin, price):
         if margin:
             if margin.type == 'percentage':
-                price = price + ((price * margin.amount) / 100)
+                price = price + ((self.standard_price * margin.amount) / 100)
             else:
                 price = price + margin.amount
             return price
@@ -135,9 +141,9 @@ class SaleOrderLine(models.Model):
                 lambda l: l.id == self.order_id.sales_type_id.id)
             if sales_type:
                 if sales_type.type == 'percentage':
-                    self.price_unit = self.price_unit + ((self.price_unit * sales_type.amount) / 100)
+                    self.price_unit = self.product_id.list_price + ((self.product_id.standard_price * sales_type.amount) / 100)
                 else:
-                    self.price_unit = self.price_unit + sales_type.amount
+                    self.price_unit = self.product_id.list_price + sales_type.amount
         else:
             self.price_unit = self.product_id.margin_price
         return res
