@@ -26,11 +26,11 @@
             </field>
         </record>
 
-        <!--        <record id="stock.action_picking_tree_all" model="ir.actions.act_window">-->
-        <!--            <field name="domain">-->
-        <!--                [('location_dest_id', 'in', [uid])]-->
-        <!--            </field>-->
-        <!--        </record>-->
+        <record id="stock.action_picking_tree_all" model="ir.actions.act_window">
+            <field name="domain">
+                [('location_dest_id', 'in', [uid])]
+            </field>
+        </record>
 
         <record id="id_stock_location_view_form_inherit" model="ir.ui.view">
             <field name="name">id_stock_location_view_form_inherit</field>
