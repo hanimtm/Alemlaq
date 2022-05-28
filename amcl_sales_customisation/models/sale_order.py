@@ -10,6 +10,7 @@ from odoo.tools import format_date
 from odoo.tools.misc import formatLang, format_date, get_lang
 from odoo.exceptions import ValidationError
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -63,7 +64,7 @@ class SaleOrder(models.Model):
         for each in res:
             if each.get('mobile_no'):
                 each['mobile_no'] = (
-                each.get('mobile_no')[0], self.env['res.partner'].browse(each.get('mobile_no')[0]).mobile)
+                    each.get('mobile_no')[0], self.env['res.partner'].browse(each.get('mobile_no')[0]).mobile)
             if each.get('e_mail'):
                 each['e_mail'] = (
                     each.get('e_mail')[0], self.env['res.partner'].browse(each.get('e_mail')[0]).email)
@@ -124,6 +125,34 @@ class SaleOrder(models.Model):
                     )),
                 )
                 invoice_item_sequence += 1
+            for line in self.license_plate_ids:
+                quant_ids = line.product_id.stock_quant_ids.filtered(lambda quant: quant.quantity > 0)
+                invoice_line_vals.append(
+                    (0, 0, {
+                        'name': line.product_id.name,
+                        'product_id': line.product_id.id,
+                        'product_uom_id': line.product_id.uom_id.id,
+                        'quantity': line.qty,
+                        'price_unit': line.price,
+                        'tax_ids': [(6, 0, self.company_id.account_sale_tax_id.ids)],
+                        'model_year': line.product_id.model_year or "",
+                        'grade': line.product_id.grade or "",
+                        'exterior_color_code': line.product_id.exterior_color_code or "",
+                        'exterior_color': line.product_id.exterior_color or "",
+                        'interior_color_code': line.product_id.interior_color_code or "",
+                        'interior_color': line.product_id.interior_color or "",
+                        'transmission_type': line.product_id.transmission_type or "",
+                        'brand': line.product_id.brand or "",
+                        'alj_suffix': line.product_id.alj_suffix or "",
+                        'vehicle_model': line.product_id.vehicle_model or "",
+                        'complete_engine_number': line.product_id.complete_engine_number or "",
+                        'item': line.product_id.item or "",
+                        'billing_document': line.product_id.billing_document or "",
+                        'bill_date': line.product_id.bill_date or False,
+                        'sales_document': line.product_id.sales_document or ""
+                    }
+
+                     ))
 
             invoice_vals['invoice_line_ids'] += invoice_line_vals
             invoice_vals_list.append(invoice_vals)
@@ -215,6 +244,7 @@ class SaleOrder(models.Model):
     def _constraint_order_line(self):
         if len(self.order_line) == 0:
             raise ValidationError(_("Please add the line items to proceed"))
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -318,7 +348,6 @@ class StockPicking(models.Model):
             action["res_id"] = self.invoice_ids.id
         return action
 
-
     def button_validate(self):
         # Clean-up the context key at validation to avoid forcing the creation of immediate
         # transfers.
@@ -386,8 +415,8 @@ class StockPicking(models.Model):
                     pickings_without_quantities.mapped('name'))
             if pickings_without_lots:
                 message += _('\n\nTransfers %s: You need to supply a Lot/Serial number for products %s.') % (
-                ', '.join(pickings_without_lots.mapped('name')),
-                ', '.join(products_without_lots.mapped('display_name')))
+                    ', '.join(pickings_without_lots.mapped('name')),
+                    ', '.join(products_without_lots.mapped('display_name')))
             if message:
                 raise UserError(message.lstrip())
 
@@ -538,7 +567,7 @@ class AccountMove(models.Model):
             if move.is_sale_document() \
                     and move.journal_id.sale_activity_type_id \
                     and (move.journal_id.sale_activity_user_id or move.invoice_user_id).id not in (
-            self.env.ref('base.user_root').id, False):
+                    self.env.ref('base.user_root').id, False):
                 move.activity_schedule(
                     date_deadline=min((date for date in move.line_ids.mapped('date_maturity') if date),
                                       default=move.date),
