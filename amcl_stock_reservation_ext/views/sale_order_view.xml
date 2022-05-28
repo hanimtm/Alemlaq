@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="view_order_form_inherit_stock_reservation_ext" model="ir.ui.view">-->
+<!--            <field name="name">sale.order.inherit.stock.reservation</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="inherit_id" ref="sale.view_order_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//header" position="inside">-->
+<!--                    <button name="action_create_stock_reservation_direct" string="Create Stock Reservation"-->
+<!--                            type="object"-->
+<!--                            class="btn-primary"-->
+<!--                            attrs="{'invisible':['|',('state','!=','draft'),('is_stock_reservation_order','=',False)]}"/>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+        <record id="view_order_form_inherit_stock_reservation" model="ir.ui.view">
+            <field name="name">sale.order.inherit.stock.reservation</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="odoo_stock_reservation.view_order_form_inherit_stock_reservation"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_create_stock_reservation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_stock_reservation_order']" position="replace">
+                    <label for="is_stock_reservation_order"/>
+                    <div class="o_row">
+                        <field name="is_stock_reservation_order"/>
+                        <button name="action_create_stock_reservation_direct" type="object" string="Create Stock Reservation"
+                        class="btn-primary" attrs="{'invisible':['|',('state','!=','draft'),('is_stock_reservation_order','=',False)]}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
