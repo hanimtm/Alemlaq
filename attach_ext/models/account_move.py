@@ -18,11 +18,11 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    transfer_no = fields.Char(string='Transfer Number')
-    transfer_permit = fields.Binary(string='Transfer Permit')
-    transfer_permit_filename = fields.Char(string='Transfer Permit')
-    bank_name = fields.Many2one(comodel_name='account.journal', string='Bank',
-                                domain="[('type', '=', 'bank')]")
+    # transfer_no = fields.Char(string='Transfer Number')
+    # transfer_permit = fields.Binary(string='Transfer Permit')
+    # transfer_permit_filename = fields.Char(string='Transfer Permit')
+    # bank_name = fields.Many2one(comodel_name='account.journal', string='Bank',
+    #                             domain="[('type', '=', 'bank')]")
 
     id_card_iqama = fields.Binary(compute='get_data_from_quotation')
     id_card_iqama_filename = fields.Char(compute='get_data_from_quotation')
