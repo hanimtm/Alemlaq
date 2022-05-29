@@ -14,12 +14,16 @@ class SaleType(models.Model):
     ]
 
     ext_id = fields.Integer(string='Ext ID')
+    auto_reservation = fields.Boolean(default=False)
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id', store=1)
+    auto_reservation = fields.Boolean(related='sales_type_id.auto_reservation')
     customer_gender = fields.Selection(related='partner_id.gender')
+
+    car_user_id = fields.Many2one(comodel_name='res.partner', string='Car User')
 
     id_card_iqama = fields.Binary(related='partner_id.id_card_iqama')
     id_card_iqama_filename = fields.Char(related='partner_id.id_card_iqama_filename')

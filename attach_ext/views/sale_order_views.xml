@@ -12,6 +12,7 @@
                 <xpath expr="//field[@name='company_id']" position="after">
                     <!-- Add your fields or attributes here -->
                     <field name="ext_id"/>
+                    <field name="auto_reservation"/>
                 </xpath>
 
             </field>
@@ -23,10 +24,14 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+
                 <xpath expr="//field[@name='sales_type_id']" position="after">
                     <field name="sale_type_ext_id" readonly="1" invisible="1"/>
                     <field name="customer_gender"
                            attrs="{'invisible': [('sale_type_ext_id', '!=', 1)]}"/>
+                    <field name="car_user_id" attrs="{'required': [('sale_type_ext_id', '=', '3')],
+                    'invisible': [('sale_type_ext_id', '!=', '3')]}"/>
+
                 </xpath>
 
                 <field name="sales_type_id" position="attributes">
@@ -170,28 +175,28 @@
         </record>
 
         <!-- Inherit Form View to Modify it -->
-<!--        <record id="pivot_table_search_view" model="ir.ui.view">-->
-<!--            <field name="name">pivot_table_search_view</field>-->
-<!--            <field name="model">sale.report</field>-->
-<!--            <field name="inherit_id" ref="sale.view_order_product_pivot"/>-->
-<!--            <field name="arch" type="xml">-->
+        <!--        <record id="pivot_table_search_view" model="ir.ui.view">-->
+        <!--            <field name="name">pivot_table_search_view</field>-->
+        <!--            <field name="model">sale.report</field>-->
+        <!--            <field name="inherit_id" ref="sale.view_order_product_pivot"/>-->
+        <!--            <field name="arch" type="xml">-->
 
-<!--                <xpath expr="//pivot/field[@name='price_subtotal']" position="after">-->
-<!--                    <field name="product_brand"/>-->
-<!--                    <field name="product_model_year"/>-->
-<!--                    <field name="product_ext_color_code"/>-->
-<!--                    <field name="product_int_color_code"/>-->
-<!--                    <field name="product_ext_color"/>-->
-<!--                    <field name="product_int_color"/>-->
-<!--                    <field name="product_grade"/>-->
-<!--                    <field name="product_key_number"/>-->
-<!--                    <field name="product_vessel_no"/>-->
-<!--                    <field name="product_card_no"/>-->
-<!--                    <field name="product_alj_suffix"/>-->
-<!--                    <field name="product_vehicle_model"/>-->
-<!--                </xpath>-->
+        <!--                <xpath expr="//pivot/field[@name='price_subtotal']" position="after">-->
+        <!--                    <field name="product_brand"/>-->
+        <!--                    <field name="product_model_year"/>-->
+        <!--                    <field name="product_ext_color_code"/>-->
+        <!--                    <field name="product_int_color_code"/>-->
+        <!--                    <field name="product_ext_color"/>-->
+        <!--                    <field name="product_int_color"/>-->
+        <!--                    <field name="product_grade"/>-->
+        <!--                    <field name="product_key_number"/>-->
+        <!--                    <field name="product_vessel_no"/>-->
+        <!--                    <field name="product_card_no"/>-->
+        <!--                    <field name="product_alj_suffix"/>-->
+        <!--                    <field name="product_vehicle_model"/>-->
+        <!--                </xpath>-->
 
-<!--            </field>-->
-<!--        </record>-->
+        <!--            </field>-->
+        <!--        </record>-->
     </data>
 </odoo>

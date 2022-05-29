@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class ResPartnerInherit(models.Model):
@@ -21,3 +21,16 @@ class ResPartnerInherit(models.Model):
 
     national_address = fields.Binary(string='National Address')
     national_address_filename = fields.Char()
+
+    @api.onchange('company_type')
+    def onchange_company_type(self):
+        self.id_card_iqama = False
+        self.id_card_iqama_filename = False
+        self.license_driving = False
+        self.license_driving_filename = False
+        self.cr = False
+        self.cr_filename = False
+        self.tax_certificate = False
+        self.tax_certificate_filename = False
+        self.national_address = False
+        self.national_address_filename = False

@@ -9,7 +9,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//header/button[@name='action_cancel']" position="after">
                     <button name="btn_open_wizard_create_new_license_plate"
-                            type="object" string="Create New License Plate"/>
+                            type="object" string="Create New License Plate"
+                            attrs="{'invisible': [('state', '=', 'sales_order')]}"/>
                 </xpath>
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="License_plate" string="License Plate">

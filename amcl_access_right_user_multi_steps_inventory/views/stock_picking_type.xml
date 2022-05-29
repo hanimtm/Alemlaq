@@ -20,11 +20,11 @@
         </record>
 
 
-        <record id="stock.stock_picking_action_picking_type" model="ir.actions.act_window">
-            <field name="domain">
-                [('picking_type_id.user_ids', 'in', [uid])]
-            </field>
-        </record>
+<!--        <record id="stock.stock_picking_action_picking_type" model="ir.actions.act_window">-->
+<!--            <field name="domain">-->
+<!--                [('picking_type_id.user_ids', 'in', [uid])]-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="stock.action_picking_tree_all" model="ir.actions.act_window">
             <field name="domain">

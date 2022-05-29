@@ -1,7 +1,18 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import ValidationError
 import logging
+
 _logger = logging.getLogger(__name__)
+
+
+class PaymentRegister(models.Model):
+    _inherit = 'account.payment.register'
+
+    transfer_no = fields.Char(string='Transfer Number')
+    transfer_permit = fields.Binary(string='Transfer Permit')
+    transfer_permit_filename = fields.Char(string='Transfer Permit')
+    # bank_name = fields.Many2one(comodel_name='account.journal', string='Bank',
+    #                             domain="[('type', '=', 'bank')]")
 
 
 class AccountMove(models.Model):
@@ -60,7 +71,6 @@ class AccountMove(models.Model):
             rec.tax_certificate_filename = quotation.tax_certificate_filename
             rec.national_address = quotation.national_address
             rec.national_address_filename = quotation.national_address_filename
-
 
     # def action_post(self):
     #     res = super(AccountMove, self).action_post()
