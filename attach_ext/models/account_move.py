@@ -5,14 +5,14 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class PaymentRegister(models.Model):
-    _inherit = 'account.payment.register'
-
-    transfer_no = fields.Char(string='Transfer Number')
-    transfer_permit = fields.Binary(string='Transfer Permit')
-    transfer_permit_filename = fields.Char(string='Transfer Permit')
-    # bank_name = fields.Many2one(comodel_name='account.journal', string='Bank',
-    #                             domain="[('type', '=', 'bank')]")
+# class PaymentRegister(models.Model):
+#     _inherit = 'account.payment.register'
+#
+#     transfer_no = fields.Char(string='Transfer Number')
+#     transfer_permit = fields.Binary(string='Transfer Permit')
+#     transfer_permit_filename = fields.Char(string='Transfer Permit')
+#     # bank_name = fields.Many2one(comodel_name='account.journal', string='Bank',
+#     #                             domain="[('type', '=', 'bank')]")
 
 
 class AccountMove(models.Model):
