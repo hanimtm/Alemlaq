@@ -67,5 +67,21 @@
             </field>
         </record>
 
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_form_register_payment_wizard" model="ir.ui.view">
+            <field name="name">view_form_register_payment_wizard</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="transfer_no"/>
+                    <field name="transfer_permit" filename="transfer_permit_filename"/>
+                    <field name="transfer_permit_filename" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
     </data>
 </odoo>
