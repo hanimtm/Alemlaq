@@ -29,8 +29,8 @@
                     <field name="sale_type_ext_id" readonly="1" invisible="1"/>
                     <field name="customer_gender"
                            attrs="{'invisible': [('sale_type_ext_id', '!=', 1)]}"/>
-                    <field name="car_user_id" attrs="{'required': [('sale_type_ext_id', '=', '3')],
-                    'invisible': [('sale_type_ext_id', '!=', '3')]}"/>
+                    <field name="car_user_id" attrs="{'required': [('sale_type_ext_id', '=', 3)],
+                    'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
 
                 </xpath>
 
