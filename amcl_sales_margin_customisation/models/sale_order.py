@@ -37,8 +37,8 @@ class ProductTemplate(models.Model):
         for product in self:
             if not product.property_global_margin:
                 property_global_margin = \
-                self.env['global.margin'].sudo().search([('company_id', '=', self.env.company.id)],
-                                                        order='id ASC')[0]
+                    self.env['global.margin'].sudo().search([('company_id', '=', self.env.company.id)],
+                                                            order='id ASC')[0]
             elif product.property_global_margin:
                 property_global_margin = product.property_global_margin
             else:
@@ -51,43 +51,49 @@ class ProductTemplate(models.Model):
                 brand = property_global_margin.brand.filtered(lambda l: l.name == str(product.brand).lower())
                 if brand:
                     price = self.calculate_margin(brand, price, product)
+                    print('brand :: ', price)
 
                 # --product_vc-- #
                 product_vc = property_global_margin.product_vc.filtered(
                     lambda l: l.name == str(product.product_vc).lower())
                 if product_vc:
                     price = self.calculate_margin(product_vc, price, product)
+                    print('product_vc :: ', price)
 
                 # --year-- #
                 year = property_global_margin.year.filtered(
                     lambda l: l.name == str(product.model_year).lower())
                 if year:
                     price = self.calculate_margin(year, price, product)
+                    print('year :: ', price)
 
                 # --grade-- #
                 grade = property_global_margin.grade.filtered(
                     lambda l: l.name == str(product.grade).lower())
                 if grade:
                     price = self.calculate_margin(grade, price, product)
+                    print('grade :: ', price)
 
                 # --exterior_color-- #
                 exterior_color = property_global_margin.exterior_color.filtered(
                     lambda l: l.name == str(product.exterior_color).lower())
                 if exterior_color:
                     price = self.calculate_margin(exterior_color, price, product)
+                    print('exterior_color :: ', price)
 
                 # --interior_color-- #
                 interior_color = property_global_margin.interior_color.filtered(
                     lambda l: l.name == str(product.interior_color).lower())
                 if interior_color:
                     price = self.calculate_margin(interior_color, price, product)
-
+                    print('interior_color :: ', price)
 
                 # --transmission_type-- #
                 transmission_type = property_global_margin.transmission_type.filtered(
                     lambda l: l.name == product.transmission_type)
                 if transmission_type:
                     price = self.calculate_margin(transmission_type, price, product)
+                    print('transmission_type :: ', price)
 
                 product.list_price = price
                 product.margin_price = price
@@ -119,29 +125,13 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.onchange('product_id', 'order_id.sales_type_id')
-    def product_id_change(self):
-        res = super(SaleOrderLine, self).product_id_change()
-        if self.product_id and (not self.product_id.property_global_margin or self.product_id.margin_price <= 0):
-            raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
-        if self.order_id.sales_type_id:
-            if not self.product_id.property_global_margin:
-                property_global_margin = self.env['global.margin'].sudo().search([('company_id', '=', self.env.company.id)], order='id ASC')[0]
-            elif self.product_id.property_global_margin:
-                property_global_margin = self.product_id.property_global_margin
-            else:
-                raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
+    sales_type_id = fields.Many2one(related='order_id.sales_type_id', string='Sales Type')
 
-            sales_type = property_global_margin.sales_type.filtered(
-                lambda l: l.id == self.order_id.sales_type_id.id)
-            if sales_type:
-                if sales_type.type == 'percentage':
-                    self.price_unit = self.product_id.list_price + ((self.product_id.standard_price * sales_type.amount) / 100)
-                else:
-                    self.price_unit = self.product_id.list_price + sales_type.amount
-        else:
-            self.price_unit = self.product_id.margin_price
-        return res
+    # @api.onchange('product_id', 'sales_type_id')
+    # def product_id_change(self):
+    #     res = super(SaleOrderLine, self).product_id_change()
+    #     self.order_id._onchange_sales_type_id()
+    #     return res
 
     @api.onchange('price_unit')
     def onchange_unit_price_change(self):
@@ -155,3 +145,24 @@ class SaleOrderLine(models.Model):
                 self.write({'price_unit': margin})
                 raise UserError(
                     _('You can not enter a Unit Price, which is less than marginal amount or less than the cost.'))
+
+    def _get_display_price(self, product):
+        res = super(SaleOrderLine, self)._get_display_price(product)
+        if self.product_id.property_global_margin:
+            property_global_margin = self.product_id.property_global_margin
+
+        elif not self.product_id.property_global_margin:
+            property_global_margin = \
+                self.env['global.margin'].sudo().search([('company_id', '=', self.env.company.id)], order='id ASC')[
+                    0]
+        else:
+            raise ValidationError(_('Please configure the Global Margin and assign to Product.'))
+
+        sales_type = property_global_margin.sales_type.filtered(
+             lambda l: l.name.id == self.sales_type_id.id)
+        if sales_type:
+            if sales_type.type == 'percentage':
+                res = res + ((res * sales_type.amount) / 100)
+            else:
+                res = res + sales_type.amount
+        return res
