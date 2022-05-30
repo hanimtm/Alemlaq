@@ -95,7 +95,8 @@ class ImportPoWizard(models.TransientModel):
                                     else:
                                         type = 'manual'
 
-                                    move.sudo().write({'complete_engine_number': sheet.cell(row, 3).value or "",
+                                    move.sudo().write({
+                                                'complete_engine_number': str(sheet.cell(row, 3).value).split('.')[0] or "",
                                                 'transmission_type':type,
                                                 'billing_document': str(sheet.cell(row, 5).value).split('.')[0] or "",
                                                 'bill_date': datetime.datetime.strptime(str(int(sheet.cell(row, 6).value)), '%Y%m%d').date() or False,
