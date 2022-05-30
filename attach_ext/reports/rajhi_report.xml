@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="col-xs-8"/>
                             </div>
-                            <div style="text-align:centerك font-family: Droid Arabic Kufi;">
+                            <div style="text-align:center font-family: Droid Arabic Kufi;">
                                 <p>عرض سعر</p>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th style="direction: rtl; text-align:right;" colspan="3">رسوم أصدار اللوحة والاستمارة</th>
+                                    <th style="direction: rtl; text-align:right; font-family: Droid Arabic Kufi;" colspan="3">رسوم أصدار اللوحة والاستمارة</th>
                                     <th style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <t t-foreach="doc.license_plate_ids" t-as="license">
                                             <t t-if="license['order_line_id']['id'] == line['id']">
