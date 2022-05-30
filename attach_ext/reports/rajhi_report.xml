@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="col-xs-8"/>
                             </div>
-                            <div style="text-align:center font-family: Droid Arabic Kufi;">
+                            <div style="text-align:center; font-family: Droid Arabic Kufi;">
                                 <p>عرض سعر</p>
                             </div>
                         </div>
