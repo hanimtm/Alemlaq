@@ -45,8 +45,10 @@
                 </field>
 
                 <xpath expr="//field[@name='sales_type_id']" position="after">
-                    <field name="insurance_text" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
-                    <field name="price_inc_license" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
+                    <field name="insurance_text" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)],
+                    'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
+                    <field name="price_inc_license" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)],
+                    'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                 </xpath>
 
                 <xpath expr="//notebook/page[last()]" position="after">
