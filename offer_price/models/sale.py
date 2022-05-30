@@ -1,18 +1,34 @@
-# -*- coding: utf-8 -*-
-
-# Part of Probuse Consulting Service Pvt Ltd. See LICENSE file for full copyright and licensing details.
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
 import logging
-
 _logger = logging.getLogger(__name__)
+
+
+class AbstractBankReport(models.AbstractModel):
+    _name = 'report.offer_price.report_sale_order_rajhi_bank_view'
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        doc_id = data['id']
+        model = data['model']
+        doc = self.env[data['model']].browse(doc_id)
+        docargs = {
+            'doc_ids': [doc_id],
+            'doc_model': model,
+            'data': data,
+            'docs': [doc],
+        }
+        return docargs
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     license_plate_ids = fields.One2many('license.plate', 'sale_order_id', string='License Plate')
+
+    insurance_text = fields.Char('الضمان بإسم')
+    price_inc_license = fields.Char('السعر يشمل')
 
     def btn_open_wizard_create_new_license_plate(self):
         self.ensure_one()
@@ -31,6 +47,16 @@ class SaleOrder(models.Model):
         }
         return res
 
+    def btn_print_bank_report(self):
+        self.ensure_one()
+        data = {'id': self.id,
+                'model': 'sale.order'}
+
+        report_name = 'offer_price.report_sale_order_rajhi_bank_view'
+
+        return self.env['ir.actions.report'].search(
+            [('report_name', '=', report_name), ('report_type', '=', 'qweb-pdf')],
+            limit=1).report_action(self, data=data, config=False)
 
 # class SaleOrderLine(models.Model):
 #     _inherit = 'sale.order.line'
