@@ -11,16 +11,8 @@
                     <button name="btn_open_wizard_create_new_license_plate"
                             type="object" string="Create New License Plate"
                             attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
-
-                    <button name="btn_print_bank_report"
-                            type="object" string="Print Bank Report"
-                            />
                 </xpath>
 
-                <xpath expr="//field[@name='sales_type_id']" position="after">
-                    <field name="insurance_text"/>
-                    <field name="price_inc_license"/>
-                </xpath>
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="License_plate" string="License Plate">
                         <field name="license_plate_ids" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])]}">

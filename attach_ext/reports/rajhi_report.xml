@@ -6,7 +6,7 @@
                 id="report_sale_order_rajhi_bank"
                 model="sale.order"
                 string="Rajhi Template"
-                name="offer_price.report_sale_order_rajhi_bank_view"
+                name="attach_ext.report_sale_order_rajhi_bank_view"
                 file="report_sale_order_rajhi_bank"
                 report_type="qweb-pdf"/>
 
@@ -25,13 +25,21 @@
                                 <p>عرض سعر</p>
                             </div>
                         </div>
-                        <div class="row" style="direction: rtl;">
-                            <div class="col-xs-3">السادة /</div>
-                            <div class="col-xs-3">
-                                <span t-field="doc.partner_id.arabic"/>
-                            </div>
-                            <div class="col-xs-6">المحترمين</div>
-                        </div>
+<!--                        <div class="row" style="direction: rtl;">-->
+<!--                            <div class="col-xs-3"> /</div>-->
+<!--                            <div class="col-xs-3">-->
+<!--                                -->
+<!--                            </div>-->
+<!--                            <div class="col-xs-6"></div>-->
+<!--                        </div>-->
+
+                        <table class="table" style="direction: rtl;">
+                            <tr>
+                                <th>السادة</th>
+                                <th><span t-field="doc.partner_id.arabic"/></th>
+                                <th>المحترمين</th>
+                            </tr>
+                        </table>
 
                         <div style="direction: rtl;">
                             تقدم لكم مؤسسة العملاق التجارية بالشكر الجزيل لإتاحتكم هذه الفرصة لتقديم عرض أسعارنا الآتي

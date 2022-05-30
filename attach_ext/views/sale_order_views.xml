@@ -12,7 +12,7 @@
                 <xpath expr="//field[@name='company_id']" position="after">
                     <!-- Add your fields or attributes here -->
                     <field name="ext_id"/>
-<!--                    <field name="auto_reservation"/>-->
+                    <!--                    <field name="auto_reservation"/>-->
                 </xpath>
 
             </field>
@@ -25,18 +25,30 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
+
                 <xpath expr="//field[@name='sales_type_id']" position="after">
                     <field name="sale_type_ext_id" readonly="1" invisible="1"/>
                     <field name="customer_gender"
                            attrs="{'invisible': [('sale_type_ext_id', '!=', 1)]}"/>
                     <field name="car_user_id" attrs="{'required': [('sale_type_ext_id', '=', 3)],
                     'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
+                </xpath>
 
+                <xpath expr="//header/button[@name='action_cancel']" position="after">
+                    <button name="btn_print_bank_report"
+                            type="object" string="Print Bank Report"
+                            attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
                 </xpath>
 
                 <field name="sales_type_id" position="attributes">
                     <attribute name="attrs">{'readonly': [('state', 'not in', ['draft', 'sent'])]}</attribute>
                 </field>
+
+                <xpath expr="//field[@name='sales_type_id']" position="after">
+                    <field name="insurance_text" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
+                    <field name="price_inc_license" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
+                </xpath>
+
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="attachments" string="Attachments"
                           attrs="{'invisible': [('sale_type_ext_id', 'not in', [1, 2, 3, 4])]}">
