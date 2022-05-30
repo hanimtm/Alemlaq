@@ -22,6 +22,7 @@
     'data': [
         'security/ir.model.access.csv',
         'reports/offer_price.xml',
+        'reports/rajhi_report.xml',
         'views/sale_order_view.xml',
         'wizard/license_plate_wizard.xml',
 
