@@ -150,3 +150,5 @@ class ImportPoWizard(models.TransientModel):
                     res = self.show_success_msg(completed_records, skipped_line_no)
                     picking.write({'product_imported': True})
                     return res
+
+
