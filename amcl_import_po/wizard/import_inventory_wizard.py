@@ -99,11 +99,11 @@ class ImportPoWizard(models.TransientModel):
 
                                     move.sudo().write({'complete_engine_number': sheet.cell(row, 3).value or "",
                                                 'transmission_type':type,
-                                                'billing_document': sheet.cell(row, 5).value or "",
+                                                'billing_document': str(sheet.cell(row, 5).value).split('.')[0] or "",
                                                 'bill_date': datetime.datetime.strptime(str(int(sheet.cell(row, 6).value)), '%Y%m%d').date() or False,
-                                                'key_number': sheet.cell(row, 7).value or "",
-                                                'vessel_no': sheet.cell(row, 8).value or "",
-                                                'card_no': sheet.cell(row, 9).value or "",
+                                                'key_number': str(sheet.cell(row, 7).value).split('.')[0] or "",
+                                                'vessel_no': str(sheet.cell(row, 8).value).split('.')[0] or "",
+                                                'card_no': str(sheet.cell(row, 9).value).split('.')[0] or "",
                                                 })
                                     move.product_id.product_tmpl_id.sudo().write({
                                         'product_vc': sheet.cell(row, 0).value or "",
