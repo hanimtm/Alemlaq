@@ -14,73 +14,74 @@
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
                     <t t-call="web.external_layout">
-                        <div class="page" style="direction: rtl;">
+                        <div class="page" style="direction: rtl; font-family: Droid Arabic Kufi;" >
                             <div class="row">
                                 <div class="col-xs-4" style="direction: rtl;">
                                     <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>
                                 </div>
                                 <div class="col-xs-8"/>
                             </div>
-                            <div style="text-align:center">
+                            <div style="text-align:center; font-family: Droid Arabic Kufi;">
                                 <p>عرض سعر</p>
                             </div>
                         </div>
-<!--                        <div class="row" style="direction: rtl;">-->
-<!--                            <div class="col-xs-3"> /</div>-->
-<!--                            <div class="col-xs-3">-->
-<!--                                -->
-<!--                            </div>-->
-<!--                            <div class="col-xs-6"></div>-->
-<!--                        </div>-->
-
-                        <table class="table" style="direction: rtl;">
-                            <tr>
-                                <th>السادة</th>
-                                <th><span t-field="doc.partner_id.arabic"/></th>
-                                <th>المحترمين</th>
-                            </tr>
-                        </table>
-
-                        <div style="direction: rtl;">
-                            تقدم لكم مؤسسة العملاق التجارية بالشكر الجزيل لإتاحتكم هذه الفرصة لتقديم عرض أسعارنا الآتي
+                        <br/>
+                        <div class="row" style="direction: rtl; text-align:center">
+                            <div style="direction: rtl; text-align:center; font-family: Droid Arabic Kufi;" class="col-3">السادة </div>
+                            <div style="direction: rtl; text-align: center; font-family: Droid Arabic Kufi;" class="col-6">
+                                <span t-field="doc.partner_id.arabic"/>
+                            </div>
+                            <div style="direction: rtl; text-align:center; font-family: Droid Arabic Kufi;" class="col-3"> المحترمين</div>
                         </div>
 
+<!--                        <table class="table" style="direction: rtl;">-->
+<!--                            <tr>-->
+<!--                                <th></th>-->
+<!--                                <th><span t-field="doc.partner_id.arabic"/></th>-->
+<!--                                <th></th>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+                        <br/>
+                        <div style="direction: rtl; text-align:center; font-family: Droid Arabic Kufi;">
+                            تقدم لكم مؤسسة العملاق التجارية بالشكر الجزيل لإتاحتكم هذه الفرصة لتقديم عرض أسعارنا الآتي
+                        </div>
+                        <br/>
                         <table class="table table-bordered" style="direction: rtl;">
                             <tr>
-                                <th style="width:40%">نوع السيارة</th>
-                                <th style="width:20%">اللون</th>
-                                <th style="width:20%">الموديل</th>
-                                <th style="width:20%">السعر</th>
+                                <th style="width:40%; font-family: Droid Arabic Kufi; text-align:right; direction: rtl;" >نوع السيارة</th>
+                                <th style="width:20%; font-family: Droid Arabic Kufi; text-align:right; direction: rtl;" >اللون</th>
+                                <th style="width:20%; font-family: Droid Arabic Kufi; text-align:right; direction: rtl;" >الموديل</th>
+                                <th style="width:20%; font-family: Droid Arabic Kufi; text-align:right; direction: rtl;" >السعر</th>
                             </tr>
 
                             <t t-foreach="doc.order_line" t-as="line">
                                 <tr>
-                                    <td>
+                                    <td style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <span t-raw="line['product_id']['name']"/>
                                     </td>
-                                    <td>
+                                    <td style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <span t-raw="line['exterior_color']"/>
                                     </td>
-                                    <td>
+                                    <td style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <span t-raw="line['brand']"/>
                                     </td>
-                                    <td>
+                                    <td style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <span t-raw="line['price_unit']"/>
                                     </td>
                                 </tr>
 
                                 <t t-set="total" t-value="line['price_unit']"/>
                                 <tr>
-                                    <th colspan="3">رسوم الضريبة المضافة</th>
-                                    <th>
+                                    <th style="direction: rtl; font-family: Droid Arabic Kufi; text-align:right;" colspan="3">رسوم الضريبة المضافة</th>
+                                    <th style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <span t-raw="line['price_unit'] * 0.15"/>
                                     </th>
                                     <t t-set="total" t-value="total + (line['price_unit'] * 0.15)"/>
                                 </tr>
 
                                 <tr>
-                                    <th colspan="3">رسوم أصدار اللوحة والاستمارة</th>
-                                    <th>
+                                    <th style="direction: rtl; text-align:right; font-family: Droid Arabic Kufi;" colspan="3">رسوم أصدار اللوحة والاستمارة</th>
+                                    <th style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <t t-foreach="doc.license_plate_ids" t-as="license">
                                             <t t-if="license['order_line_id']['id'] == line['id']">
                                                 <span t-raw="license['price']"/>
@@ -92,15 +93,15 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th colspan="3">الاجمالي</th>
-                                    <th>
+                                    <th style="direction: rtl; text-align:right; font-family: Droid Arabic Kufi;" colspan="3">الاجمالي</th>
+                                    <th style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <!--                           <span t-raw="line['price_unit'] + (line['price_unit'] * 0.15) + index"/>-->
                                         <t t-raw="total"/>
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">رقم الهيكل</th>
-                                    <th colspan="2">
+                                    <th style="direction: rtl; text-align:right; font-family: Droid Arabic Kufi;" colspan="2">رقم الهيكل</th>
+                                    <th colspan="2" style="text-align: right; font-family: Droid Arabic Kufi;">
                                         <b><span t-raw="line['product_id']['default_code']"/></b>
                                     </th>
                                 </tr>
@@ -108,69 +109,68 @@
                             </t>
                         </table>
 
-                        <div style="direction: rtl;">
+                        <div style="direction: rtl; margin:25px;">
                             <div class="row">
-                                <div class="col-xs-3">*اسم العميل </div>
-                                <div class="col-xs-9">
+                                <div class="col-3" style="text-align:right; font-family: Droid Arabic Kufi;">*اسم العميل </div>
+                                <div class="col-9" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     <span t-field="doc.car_user_id.arabic"/>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-12"> *مدة العرض حتى تاريخ حتى تاريخ <span t-field="doc.validity_date"/>
-
+                            <div class="row" style="text-align:right; font-family: Droid Arabic Kufi;">
+                                <div style="text-align:right; font-family: Droid Arabic Kufi;" class="col-12"> *مدة العرض حتى تاريخ حتى تاريخ <span t-field="doc.validity_date"/>
                                 </div>
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-12">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-12" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     * <span t-field="doc.price_inc_license"/>
                                 </div>
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-12">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-12" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     * <span t-field="doc.insurance_text"/>
                                 </div>
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-3">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-3" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     *الشيك يإسم
                                 </div>
-                                <div class="col-xs-9">
+                                <div class="col-9" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     <span t-field="doc.company_id.name"/>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-3">*استشاري مبيعات /</div>
-                                <div class="col-xs-9">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-3" style="text-align:right; font-family: Droid Arabic Kufi;">*استشاري مبيعات </div>
+                                <div class="col-9" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     <span t-field="doc.user_id.name"/>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-3">*الجوال /</div>
-                                <div class="col-xs-9">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-3" style="text-align:right; font-family: Droid Arabic Kufi;">*الجوال </div>
+                                <div class="col-9" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     <span t-field="doc.user_id.mobile"/>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-xs-3">*الرقم الضريبي</div>
-                                <div class="col-xs-9">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-3" style="text-align:right; font-family: Droid Arabic Kufi;">*الرقم الضريبي</div>
+                                <div class="col-9" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     <span t-field="doc.company_id.vat"/>
                                 </div>
                             </div>
                             <br/>
                             <br/>
-                            <div class="row">
-                                <div class="col-xs-8"/>
-                                <div class="col-xs-4">
+                            <div class="row" style="text-align:right;">
+                                <div class="col-8" style="text-align:right;"/>
+                                <div class="col-4" style="text-align:right; font-family: Droid Arabic Kufi;">
                                     <span t-field="doc.company_id.name"/>
                                 </div>
                             </div>

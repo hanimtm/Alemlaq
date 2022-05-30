@@ -35,8 +35,8 @@
                 </xpath>
 
                 <xpath expr="//header/button[@name='action_cancel']" position="after">
-                    <button name="btn_print_bank_report"
-                            type="object" string="Print Bank Report"
+                    <button name="btn_print_bank_report" class="btn btn-primary"
+                            type="object" string="Print Bank Quotation"
                             attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
                 </xpath>
 
@@ -45,8 +45,10 @@
                 </field>
 
                 <xpath expr="//field[@name='sales_type_id']" position="after">
-                    <field name="insurance_text" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
-                    <field name="price_inc_license" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
+                    <field name="insurance_text" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)],
+                    'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
+                    <field name="price_inc_license" attrs="{'invisible': [('sale_type_ext_id', '!=', 3)],
+                    'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
                 </xpath>
 
                 <xpath expr="//notebook/page[last()]" position="after">
