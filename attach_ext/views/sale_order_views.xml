@@ -35,8 +35,8 @@
                 </xpath>
 
                 <xpath expr="//header/button[@name='action_cancel']" position="after">
-                    <button name="btn_print_bank_report"
-                            type="object" string="Print Bank Report"
+                    <button name="btn_print_bank_report" class="btn btn-primary"
+                            type="object" string="Print Bank Quotation"
                             attrs="{'invisible': [('sale_type_ext_id', '!=', 3)]}"/>
                 </xpath>
 
