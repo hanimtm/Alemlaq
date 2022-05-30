@@ -75,12 +75,10 @@ class ImportPoWizard(models.TransientModel):
                                 skip_header = False
                                 counter = counter + 1
                                 continue
-                            print('Picking :: ', picking)
                             if picking.move_lines:
 
                                 move = picking.move_lines.sudo().filtered(
                                     lambda p: p.product_id.default_code == sheet.cell(row, 2).value)
-                                print('Picking :: ', move)
                                 if not move:
                                     not_found_records.append(sheet.cell(row, 2).value)
                                     continue
@@ -106,7 +104,7 @@ class ImportPoWizard(models.TransientModel):
                                                 'card_no': str(sheet.cell(row, 9).value).split('.')[0] or "",
                                                 })
                                     move.product_id.product_tmpl_id.sudo().write({
-                                        'product_vc': sheet.cell(row, 0).value or "",
+                                        'product_vc': sheet.cell(row, 0).value.split('.')[0] or "",
                                         'key_number': move.key_number,
                                         'vessel_no': move.vessel_no,
                                         'card_no': move.card_no,

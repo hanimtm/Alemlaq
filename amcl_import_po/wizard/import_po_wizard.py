@@ -127,83 +127,82 @@ class ImportPoWizard(models.TransientModel):
                             [('default_code', '=', sheet.cell(row, 0).value or " ")])
                         if search_product:
                             existing_product_list.append(search_product.default_code or "")
-                    if existing_product_list:
+                    # if existing_product_list:
+                    #     counter = -1
+                    #     break
+                    # else:
+                    skip_header = True
+                    partner = self.env.company.default_vendor
+                    if not partner:
+                        no_partner = False
                         counter = -1
                         break
-                    else:
-                        skip_header = True
-                        partner = self.env.company.default_vendor
-                        if not partner:
-                            no_partner = False
-                            counter = -1
-                            break
 
-                        for row in range(sheet.nrows):
-                            try:
-                                if skip_header:
-                                    skip_header = False
-                                    counter = counter + 1
-                                    continue
-                                vals = {}
-                                search_product = product_product_obj.search(
-                                    [('default_code', '=', sheet.cell(row, 0).value or " ")])
-
-                                if not search_product:
-                                    search_product = self.env['product.product'].sudo().create({
-                                        'name': sheet.cell(row, 2).value,
-                                        'type': 'product',
-                                        'model_year': sheet.cell(row, 13).value,
-                                        'grade': sheet.cell(row, 12).value,
-                                        'default_code': str(sheet.cell(row, 0).value),
-                                        'exterior_color_code': str(sheet.cell(row, 8).value),
-                                        'exterior_color': str(sheet.cell(row, 9).value),
-                                        'interior_color_code': str(sheet.cell(row, 10).value),
-                                        'item': str(sheet.cell(row, 4).value),
-                                        'interior_color': str(sheet.cell(row, 11).value),
-                                        'alj_suffix': str(sheet.cell(row, 6).value),
-                                        'vehicle_model': str(sheet.cell(row, 1).value),
-                                        'brand': str(sheet.cell(row, 7).value),
-                                        'standard_price': float(sheet.cell(row, 5).value),
-                                        'sales_document': str(sheet.cell(row, 3).value),
-                                        'company_id': self.company_id.id,
-                                        'branch_id': self.branch_id.id,
-                                        'categ_id': self.product_categ_id.id,
-                                    })
-
-                                if search_product:
-                                    search_product.sudo().branch_id = self.branch_id.id
-                                    print('Product :: ', str(sheet.cell(row, 3).value))
-                                    search_product.sudo().barcode = str(sheet.cell(row, 0).value)
-                                    lines.append((0, 0, {
-                                        'product_id': search_product.id,
-                                        'name': str(search_product.name),
-                                        'product_qty': 1.0,
-                                        'product_uom': search_product.uom_po_id.id,
-                                        'price_unit': float(sheet.cell(row, 5).value),
-                                        'date_planned': datetime.now(),
-                                        'model_year': str(sheet.cell(row, 13).value).split('.')[0],
-                                        'grade': str(sheet.cell(row, 12).value),
-                                        'exterior_color_code': str(sheet.cell(row, 8).value),
-                                        'exterior_color': str(sheet.cell(row, 9).value),
-                                        'interior_color_code': str(sheet.cell(row, 10).value),
-                                        'interior_color': str(sheet.cell(row, 11).value),
-                                        'alj_suffix': str(sheet.cell(row, 6).value).split('.')[0],
-                                        'vehicle_model': str(sheet.cell(row, 1).value).split('.')[0],
-                                        'brand': str(sheet.cell(row, 7).value),
-                                        'sales_document': str(sheet.cell(row, 3).value).split('.')[0],
-                                        'item': str(sheet.cell(row, 4).value),
-                                        # 'order_id': created_po.id,
-                                        'company_id': self.company_id.id,
-                                        'branch_id': self.branch_id.id
-                                    }))
-
-                                    # created_pol = pol_obj.create(vals)
-                                    counter = counter + 1
-
-                            except Exception as e:
-                                skipped_line_no[str(counter)] = " - Value is not valid " + ustr(e)
+                    for row in range(sheet.nrows):
+                        try:
+                            if skip_header:
+                                skip_header = False
                                 counter = counter + 1
-                                break
+                                continue
+                            vals = {}
+                            search_product = product_product_obj.search(
+                                [('default_code', '=', sheet.cell(row, 0).value or " ")])
+
+                            if not search_product:
+                                search_product = self.env['product.product'].sudo().create({
+                                    'name': sheet.cell(row, 2).value,
+                                    'type': 'product',
+                                    'model_year': sheet.cell(row, 13).value,
+                                    'grade': sheet.cell(row, 12).value,
+                                    'default_code': str(sheet.cell(row, 0).value).split('.')[0],
+                                    'exterior_color_code': str(sheet.cell(row, 8).value).split('.')[0],
+                                    'exterior_color': str(sheet.cell(row, 9).value).split('.')[0],
+                                    'interior_color_code': str(sheet.cell(row, 10).value).split('.')[0],
+                                    'item': str(sheet.cell(row, 4).value).split('.')[0],
+                                    'interior_color': str(sheet.cell(row, 11).value).split('.')[0],
+                                    'alj_suffix': str(sheet.cell(row, 6).value).split('.')[0],
+                                    'vehicle_model': str(sheet.cell(row, 1).value).split('.')[0],
+                                    'brand': str(sheet.cell(row, 7).value),
+                                    'standard_price': float(sheet.cell(row, 5).value),
+                                    'sales_document': str(sheet.cell(row, 3).value).split('.')[0],
+                                    'company_id': self.company_id.id,
+                                    'branch_id': self.branch_id.id,
+                                    'categ_id': self.product_categ_id.id,
+                                })
+
+                            if search_product:
+                                search_product.sudo().branch_id = self.branch_id.id
+                                search_product.sudo().barcode = str(sheet.cell(row, 0).value)
+                                lines.append((0, 0, {
+                                    'product_id': search_product.id,
+                                    'name': str(search_product.name),
+                                    'product_qty': 1.0,
+                                    'product_uom': search_product.uom_po_id.id,
+                                    'price_unit': float(sheet.cell(row, 5).value),
+                                    'date_planned': datetime.now(),
+                                    'model_year': str(sheet.cell(row, 13).value).split('.')[0],
+                                    'grade': str(sheet.cell(row, 12).value),
+                                    'exterior_color_code': str(sheet.cell(row, 8).value).split('.')[0],
+                                    'exterior_color': str(sheet.cell(row, 9).value).split('.')[0],
+                                    'interior_color_code': str(sheet.cell(row, 10).value).split('.')[0],
+                                    'interior_color': str(sheet.cell(row, 11).value).split('.')[0],
+                                    'alj_suffix': str(sheet.cell(row, 6).value).split('.')[0],
+                                    'vehicle_model': str(sheet.cell(row, 1).value).split('.')[0],
+                                    'brand': str(sheet.cell(row, 7).value),
+                                    'sales_document': str(sheet.cell(row, 3).value).split('.')[0],
+                                    'item': str(sheet.cell(row, 4).value).split('.')[0],
+                                    # 'order_id': created_po.id,
+                                    'company_id': self.company_id.id,
+                                    'branch_id': self.branch_id.id
+                                }))
+
+                                # created_pol = pol_obj.create(vals)
+                                counter = counter + 1
+
+                        except Exception as e:
+                            skipped_line_no[str(counter)] = " - Value is not valid " + ustr(e)
+                            counter = counter + 1
+                            break
                 except Exception as e:
                     raise UserError(_("Sorry, Your excel file does not match with our format " + ustr(e)))
 
@@ -226,7 +225,6 @@ class ImportPoWizard(models.TransientModel):
             po_vals.update({})
             already = self.env['purchase.order'].sudo().search(
                 [('import_wizard_id', '=', self.sequence_id)])
-            print('Already :: ', already)
             created_po = purchase_order_obj.sudo().create(po_vals)
             created_po_list_for_confirm.append(created_po.id)
             created_po_list.append(created_po.id)
@@ -240,9 +238,8 @@ class ImportPoWizard(models.TransientModel):
             completed_records = len(created_po_list)
             confirm_rec = len(created_po_list_for_confirm)
 
-
             res = self.show_success_msg(created_po_list, confirm_rec, skipped_line_no, existing_product_list,
-                                            no_partner,  False)
+                                        no_partner, False)
             return res
         else:
             res = self.show_success_msg(created_po_list, False, skipped_line_no, existing_product_list,
