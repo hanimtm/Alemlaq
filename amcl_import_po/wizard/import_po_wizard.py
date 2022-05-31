@@ -83,6 +83,7 @@ class ImportPoWizard(models.TransientModel):
             for k, v in skipped_line_no.items():
                 dic_msg = dic_msg + "\nRow No " + k + " " + v + " "
         else:
+            print('Counter Here :: ', counter)
             dic_msg = str(counter) + " Records imported successfully \n"
             dic_msg = dic_msg + str(confirm_rec) + " Records Confirm"
             if skipped_line_no:
@@ -105,7 +106,7 @@ class ImportPoWizard(models.TransientModel):
 
     def import_po(self):
         self.ensure_one()
-        counter = 1
+        counter = 0
         no_partner = True
         pol_obj = self.env['purchase.order.line']
         purchase_order_obj = self.env['purchase.order']
@@ -122,11 +123,11 @@ class ImportPoWizard(models.TransientModel):
                 try:
                     wb = xlrd.open_workbook(file_contents=base64.decodestring(self.file))
                     sheet = wb.sheet_by_index(0)
-                    for row in range(sheet.nrows):
-                        search_product = product_product_obj.search(
-                            [('default_code', '=', sheet.cell(row, 0).value or " ")])
-                        if search_product:
-                            existing_product_list.append(search_product.default_code or "")
+                    # for row in range(sheet.nrows):
+                    #     search_product = product_product_obj.search(
+                    #         [('default_code', '=', sheet.cell(row, 0).value or " ")])
+                    #     if search_product:
+                    #         existing_product_list.append(search_product.default_code or "")
                     if existing_product_list:
                         counter = -1
                         break
@@ -142,13 +143,14 @@ class ImportPoWizard(models.TransientModel):
                             try:
                                 if skip_header:
                                     skip_header = False
-                                    counter = counter + 1
+                                    # counter = counter + 1
                                     continue
                                 vals = {}
                                 search_product = product_product_obj.search(
                                     [('default_code', '=', sheet.cell(row, 0).value or " ")])
-
+                                print('Search Product :: ', search_product)
                                 if not search_product:
+                                    print('I am Here')
                                     search_product = self.env['product.product'].sudo().create({
                                         'name': sheet.cell(row, 2).value,
                                         'type': 'product',
@@ -196,17 +198,15 @@ class ImportPoWizard(models.TransientModel):
                                         'company_id': self.company_id.id,
                                         'branch_id': self.branch_id.id
                                     }))
-
                                     # created_pol = pol_obj.create(vals)
                                     counter = counter + 1
-
                             except Exception as e:
                                 skipped_line_no[str(counter)] = " - Value is not valid " + ustr(e)
                                 counter = counter + 1
                                 break
                 except Exception as e:
                     raise UserError(_("Sorry, Your excel file does not match with our format " + ustr(e)))
-
+        print('Counter :: ', counter)
         if counter == -1:
             created_po = self.env['purchase.order'].sudo().search(
                 [('import_wizard_id', '=', self.sequence_id)])
@@ -215,7 +215,7 @@ class ImportPoWizard(models.TransientModel):
                 already = True
             res = self.show_success_msg(counter, False, False, existing_product_list, no_partner, already)
             return res
-        elif counter > 1 and len(skipped_line_no) == 0:
+        elif counter >= 1 and len(skipped_line_no) == 0:
             po_vals.update({'partner_id': partner.id,
                             'date_order': datetime.now(),
                             'date_planned': datetime.now(),
@@ -226,25 +226,26 @@ class ImportPoWizard(models.TransientModel):
             po_vals.update({})
             already = self.env['purchase.order'].sudo().search(
                 [('import_wizard_id', '=', self.sequence_id)])
-            print('Already :: ', already)
-            created_po = purchase_order_obj.sudo().create(po_vals)
-            created_po_list_for_confirm.append(created_po.id)
-            created_po_list.append(created_po.id)
-            if created_po_list_for_confirm and self.is_confirm_order is True:
-                purchase_orders = purchase_order_obj.search([('id', 'in', created_po_list_for_confirm)])
-                if purchase_orders:
-                    for purchase_order in purchase_orders:
-                        purchase_order.button_confirm()
-            else:
-                created_po_list_for_confirm = []
-            completed_records = len(created_po_list)
-            confirm_rec = len(created_po_list_for_confirm)
+            print('Already :: ', len(already))
+            confirm_rec = 0
+            if len(already) == 0:
+                created_po = purchase_order_obj.sudo().create(po_vals)
+                created_po_list_for_confirm.append(created_po.id)
+                created_po_list.append(created_po.id)
+                if created_po_list_for_confirm and self.is_confirm_order is True:
+                    purchase_orders = purchase_order_obj.search([('id', 'in', created_po_list_for_confirm)])
+                    if purchase_orders:
+                        for purchase_order in purchase_orders:
+                            purchase_order.button_confirm()
+                else:
+                    created_po_list_for_confirm = []
+                completed_records = len(created_po_list)
+                confirm_rec = len(created_po_list_for_confirm)
 
-
-            res = self.show_success_msg(created_po_list, confirm_rec, skipped_line_no, existing_product_list,
-                                            no_partner,  False)
+            res = self.show_success_msg(counter, confirm_rec, skipped_line_no, existing_product_list,
+                                                no_partner,  False)
             return res
         else:
-            res = self.show_success_msg(created_po_list, False, skipped_line_no, existing_product_list,
+            res = self.show_success_msg(counter, False, skipped_line_no, existing_product_list,
                                         no_partner, False)
             return res
