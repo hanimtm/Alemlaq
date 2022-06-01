@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Import-PO',
+    'name': 'Import - PO',
     'author': 'AMCL',
     'category': 'Extra Tools',
     'summary': 'Purchase Order - Import',
@@ -13,9 +13,9 @@
     'data': [
         'security/import_po_security.xml',
         'security/ir.model.access.csv',
-        'wizard/import_po_wizard.xml',
+        'wizard/import_po.xml',
         'wizard/import_message_wizard.xml',
-        'wizard/import_inventory_wizard.xml',
+        'wizard/import_inventory.xml',
         'views/product.xml',
         'views/purchase_view.xml',
         'views/stock_picking.xml',

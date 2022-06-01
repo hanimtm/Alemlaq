@@ -34,6 +34,7 @@ class ProductTemplate(models.Model):
     def _compute_sales_price(self):
         property_global_margin = False
         self.list_price = 0
+        price = 0
         for product in self:
             if not product.property_global_margin:
                 property_global_margin = \
@@ -95,6 +96,9 @@ class ProductTemplate(models.Model):
                     price = self.calculate_margin(transmission_type, price, product)
                     print('transmission_type :: ', price)
 
+                product.list_price = price
+                product.margin_price = price
+            else:
                 product.list_price = price
                 product.margin_price = price
 

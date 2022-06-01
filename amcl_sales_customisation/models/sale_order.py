@@ -275,6 +275,7 @@ class SaleOrderLine(models.Model):
     def product_id_change(self):
         res = super(SaleOrderLine, self).product_id_change()
         quant_ids = self.product_id.stock_quant_ids.filtered(lambda quant: quant.quantity > 0)
+        print('Quant :: ', quant_ids)
         if self.product_id:
             self.write({'stock_location_id': quant_ids[0].location_id.id or False,
                         'model_year': self.product_id.model_year or "",
