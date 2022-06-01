@@ -25,6 +25,9 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='validity_date']" position="before">
+                    <field name="partner_tax" invisible="0"/>
+                </xpath>
 
                 <xpath expr="//field[@name='sales_type_id']" position="after">
                     <field name="sale_type_ext_id" readonly="1" invisible="1"/>

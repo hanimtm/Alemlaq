@@ -100,9 +100,12 @@
                                         colspan="3">رسوم أصدار اللوحة والاستمارة
                                     </th>
                                     <th style="text-align: right; font-family: Droid Arabic Kufi;">
+                                        <t t-set="license_money" t-value="0"/>
                                         <t t-foreach="doc.license_plate_ids" t-as="license">
                                             <t t-if="license['order_line_id']['id'] == line['id']">
-                                                <span t-raw="license['price']"/>
+                                                <t t-set="license_money" t-value="license_money + license['price']"/>
+                                                <t t-raw="license_money"/>
+<!--                                                <span t-raw="license['price']"/>-->
                                             </t>
                                             <t t-set="price" t-value="license['price']"/>
                                             <t t-set="total"
@@ -119,17 +122,18 @@
                                         <t t-raw="total"/>
                                     </th>
                                 </tr>
-                                <tr>
-                                    <th style="direction: rtl; text-align:right; font-family: Droid Arabic Kufi;"
-                                        colspan="2">رقم الهيكل
-                                    </th>
-                                    <th colspan="2" style="text-align: right; font-family: Droid Arabic Kufi;">
-                                        <b>
-                                            <span t-raw="line['product_id']['default_code']"/>
-                                        </b>
-                                    </th>
-                                </tr>
-
+                                <t t-if="doc.partner_tax == '300000274300003'">
+                                    <tr>
+                                        <th style="direction: rtl; text-align:right; font-family: Droid Arabic Kufi;"
+                                            colspan="2">رقم الهيكل
+                                        </th>
+                                        <th colspan="2" style="text-align: right; font-family: Droid Arabic Kufi;">
+                                            <b>
+                                                <span t-raw="line['product_id']['default_code']"/>
+                                            </b>
+                                        </th>
+                                    </tr>
+                                </t>
                             </t>
                         </table>
 

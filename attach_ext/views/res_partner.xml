@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="res_partner_view_form_inherit" model="ir.ui.view">
-        <field name="name">Add Attach File...</field>
+    <record id="id_res_partner_view_form_inherit" model="ir.ui.view">
+        <field name="name">id_res_partner_view_form_inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">

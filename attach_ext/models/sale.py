@@ -36,6 +36,9 @@ class SaleType(models.Model):
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    partner_tax = fields.Char(related='partner_id.vat', store=1)
+
     sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id', store=1)
     auto_reservation = fields.Boolean(related='sales_type_id.auto_reservation', store=1)
     customer_gender = fields.Selection(related='partner_id.gender')
