@@ -3,7 +3,25 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import logging
+
 _logger = logging.getLogger(__name__)
+
+
+class AbstractBankReport(models.AbstractModel):
+    _name = 'report.attach_ext.report_sale_order_rajhi_bank_view'
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        doc_id = data['id']
+        model = data['model']
+        doc = self.env[data['model']].browse(doc_id)
+        docargs = {
+            'doc_ids': [doc_id],
+            'doc_model': model,
+            'data': data,
+            'docs': [doc],
+        }
+        return docargs
 
 
 class SaleType(models.Model):
@@ -14,13 +32,16 @@ class SaleType(models.Model):
     ]
 
     ext_id = fields.Integer(string='Ext ID')
-    # auto_reservation = fields.Boolean(default=False)
+    auto_reservation = fields.Boolean(default=False)
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    partner_tax = fields.Char(related='partner_id.vat', store=1)
+
     sale_type_ext_id = fields.Integer(related='sales_type_id.ext_id', store=1)
-    # auto_reservation = fields.Boolean(related='sales_type_id.auto_reservation')
+    auto_reservation = fields.Boolean(related='sales_type_id.auto_reservation', store=1)
     customer_gender = fields.Selection(related='partner_id.gender')
 
     car_user_id = fields.Many2one(comodel_name='res.partner', string='Car User')
@@ -156,4 +177,92 @@ class SaleOrder(models.Model):
                 raise ValidationError(full_message)
         return res
 
+    def btn_print_bank_report(self):
+        self.ensure_one()
+        data = {'id': self.id,
+                'model': 'sale.order'}
 
+        report_name = 'attach_ext.report_sale_order_rajhi_bank_view'
+
+        return self.env['ir.actions.report'].search(
+            [('report_name', '=', report_name), ('report_type', '=', 'qweb-pdf')],
+            limit=1).report_action(self, data=data, config=False)
+
+    def test_reserve_auto(self):
+        custome_reservtion_obj = self.env['stock.move.reservation']
+        location_obj = self.env['stock.location']
+        picking_type_obj = self.env['stock.picking.type']
+        move_id_generated = False
+        mail_context = []
+
+        for line in self.order_line:
+            print(line.product_id.is_reservation)
+            if line.product_uom_qty > 0 and line.product_id.detailed_type != 'service' and not line.product_id.is_reservation:
+
+                order_line_reserve_qty = line.product_uom_qty
+                order_line_reserve_qty += line.product_uom_qty
+
+                if line.product_uom_qty >= 1:
+                    picking_type_id = picking_type_obj.search([
+                        ('warehouse_id', '=', self.warehouse_id.id),
+                        ('code', '=', 'outgoing')],
+                        limit=1
+                    )
+                    location_id = picking_type_id.default_location_src_id
+                    # location_dest_id = self.env.ref("odoo_stock_reservation.stock_dest_location_reservation")
+                    location_dest_id = self.env['stock.location'].search([
+                        ('is_stock_location_reservation', '=', True),
+                        ('company_id', '=', self.company_id.id)], limit=1)
+
+                    reserv_move_id = custome_reservtion_obj.create({
+                        'name': line.name,
+                        'custome_so_line_id': line.id,
+                        'product_id': line.product_id.id,
+                        'product_uom_qty': line.product_uom_qty,
+                        'product_uom': line.product_uom.id,
+                        'location_id': location_id.id,
+                        'location_dest_id': location_dest_id.id,
+                        'custome_sale_order_id': self.id,
+                        'reserv_request_date': fields.Datetime.now(),
+                        'reserv_resquest_user_id': self.env.uid,
+                    })
+
+                    if reserv_move_id:
+                        # line.stock_reserved_qty += line.pro
+                        self.is_stock_reserv_created = True
+                        mail_context.append({
+                            'name': reserv_move_id.reserv_code,
+                            'product_id': reserv_move_id.product_id,
+                            'reserved_qty': reserv_move_id.product_uom_qty,
+                        })
+                        reserv_move_id.move_id._action_confirm()
+                        move_id_generated = True
+                    line.product_id.write({'is_reservation': True, 'reserver_id': self.env.user.id})
+                else:
+                    raise ValidationError("All the quantities are reserved")
+
+    @api.model
+    def create(self, vals):
+        # return super(SaleOrder, self).create(vals).action_create_stock_reservation_direct()
+
+        res = super(SaleOrder, self).create(vals)
+
+        if res.auto_reservation == True:
+            res.test_reserve_auto()
+        # else:
+        return res
+
+    # @api.onchange('order_line')
+    # def onchange_order_line(self):
+    #     if
+
+
+# class OrderLine(models.Model):
+#     _inherit = 'sale.order.line'
+#
+#     @api.onchange('product_id')
+#     def onchange_order_line(self):
+#         if self.stock_location_id.location_sequence == 1 or \
+#                 self.stock_location_id.location_sequence == 2 or \
+#                 self.stock_location_id.location_sequence == 12:
+#             raise ValidationError('This product is not available in location...')
