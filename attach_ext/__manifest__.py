@@ -19,10 +19,10 @@
 
     # always loaded
     'data': [
-        'views/res_partner.xml',
-        'views/sale_order_views.xml',
-        'views/account_move.xml',
-        'reports/rajhi_report.xml',
+        # 'views/res_partner.xml',
+        # 'views/sale_order_views.xml',
+        # 'views/account_move.xml',
+        # 'reports/rajhi_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
