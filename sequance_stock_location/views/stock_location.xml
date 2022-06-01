@@ -13,20 +13,5 @@
             </field>
         </record>
 
-
-        <!-- Inherit Form View to Modify it -->
-        <record id="add_sequence_location_on_stock_location_inherit_view_form" model="ir.ui.view">
-            <field name="name">Sequnce Location Form</field>
-            <field name="model">stock.location</field>
-            <field name="inherit_id" ref="stock.view_location_form"/>
-            <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='usage']" position="before">
-                    <field name="location_sequence"/>
-                </xpath>
-
-            </field>
-        </record>
-
     </data>
 </odoo>

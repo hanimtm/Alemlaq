@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_sale_order_rajhi_bank"
+                model="sale.order"
+                string="Rajhi Template"
+                name="offer_price.report_sale_order_rajhi_bank_view"
+                file="report_sale_order_rajhi_bank"
+                report_type="qweb-pdf"/>
+
+        <template id="report_sale_order_rajhi_bank_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="direction: rtl;">
+                            <div class="row">
+                                <div class="col-xs-4" style="direction: rtl;">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>
+                                </div>
+                                <div class="col-xs-8"/>
+                            </div>
+                            <div style="text-align:center">
+                                <p>عرض سعر</p>
+                            </div>
+                        </div>
+                        <div class="row" style="direction: rtl;">
+                            <div class="col-xs-3">السادة /</div>
+                            <div class="col-xs-3">
+                                <span t-field="doc.partner_id.arabic"/>
+                            </div>
+                            <div class="col-xs-6">المحترمين</div>
+                        </div>
+
+                        <div style="direction: rtl;">
+                            تقدم لكم مؤسسة العملاق التجارية بالشكر الجزيل لإتاحتكم هذه الفرصة لتقديم عرض أسعارنا الآتي
+                        </div>
+
+                        <table class="table table-bordered" style="direction: rtl;">
+                            <tr>
+                                <th style="width:40%">نوع السيارة</th>
+                                <th style="width:20%">اللون</th>
+                                <th style="width:20%">الموديل</th>
+                                <th style="width:20%">السعر</th>
+                            </tr>
+
+                            <t t-foreach="doc.order_line" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-raw="line['product_id']['name']"/>
+                                    </td>
+                                    <td>
+                                        <span t-raw="line['exterior_color']"/>
+                                    </td>
+                                    <td>
+                                        <span t-raw="line['brand']"/>
+                                    </td>
+                                    <td>
+                                        <span t-raw="line['price_unit']"/>
+                                    </td>
+                                </tr>
+
+                                <t t-set="total" t-value="line['price_unit']"/>
+                                <tr>
+                                    <th colspan="3">رسوم الضريبة المضافة</th>
+                                    <th>
+                                        <span t-raw="line['price_unit'] * 0.15"/>
+                                    </th>
+                                    <t t-set="total" t-value="total + (line['price_unit'] * 0.15)"/>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3">رسوم أصدار اللوحة والاستمارة</th>
+                                    <th>
+                                        <t t-foreach="doc.license_plate_ids" t-as="license">
+                                            <t t-if="license['order_line_id']['id'] == line['id']">
+                                                <span t-raw="license['price']"/>
+                                            </t>
+                                            <t t-set="price" t-value="license['price']"/>
+                                            <t t-set="total"
+                                               t-value="total + license['price']"/>
+                                        </t>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">الاجمالي</th>
+                                    <th>
+                                        <!--                           <span t-raw="line['price_unit'] + (line['price_unit'] * 0.15) + index"/>-->
+                                        <t t-raw="total"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">رقم الهيكل</th>
+                                    <th colspan="2">
+                                        <b><span t-raw="line['product_id']['default_code']"/></b>
+                                    </th>
+                                </tr>
+
+                            </t>
+                        </table>
+
+                        <div style="direction: rtl;">
+                            <div class="row">
+                                <div class="col-xs-3">*اسم العميل </div>
+                                <div class="col-xs-9">
+                                    <span t-field="doc.car_user_id.arabic"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12"> *مدة العرض حتى تاريخ حتى تاريخ <span t-field="doc.validity_date"/>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    * <span t-field="doc.price_inc_license"/>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    * <span t-field="doc.insurance_text"/>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    *الشيك يإسم
+                                </div>
+                                <div class="col-xs-9">
+                                    <span t-field="doc.company_id.name"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">*استشاري مبيعات /</div>
+                                <div class="col-xs-9">
+                                    <span t-field="doc.user_id.name"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">*الجوال /</div>
+                                <div class="col-xs-9">
+                                    <span t-field="doc.user_id.mobile"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">*الرقم الضريبي</div>
+                                <div class="col-xs-9">
+                                    <span t-field="doc.company_id.vat"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-xs-8"/>
+                                <div class="col-xs-4">
+                                    <span t-field="doc.company_id.name"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

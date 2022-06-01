@@ -332,7 +332,7 @@ class StockPicking(models.Model):
         for picking in self:
             if picking.picking_type_id.code == 'outgoing':
                 invoices = picking.move_ids_without_package.sale_line_id.invoice_lines.move_id.filtered(
-                    lambda r: r.move_type == 'out_invoice')
+                    lambda r: r.move_type == 'out_invoice' and r.state == 'draft')
             picking.invoice_ids = invoices
 
     def action_view_invoice(self):
@@ -366,8 +366,7 @@ class StockPicking(models.Model):
                     _('There is no Invoices available for this delivery, \n'
                       'Please create and confirm the Invoice to proceed.'))
             if self.invoice_ids and self.picking_type_id.code == 'outgoing':
-                if self.invoice_ids.filtered(lambda inv: inv.state == 'draft'):
-                    raise ValidationError(_('Please validate the corresponding Invoices and proceed.'))
+                raise ValidationError(_('Please validate the corresponding Invoices and proceed.'))
 
             if not picking.move_lines and not picking.move_line_ids:
                 pickings_without_moves |= picking

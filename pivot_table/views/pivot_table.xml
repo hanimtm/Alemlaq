@@ -6,10 +6,6 @@
             <field name="model">stock.quant</field>
             <field name="arch" type="xml">
                 <pivot string="Pipeline Analysis" sample="1" disable_linking="True">
-                    <field name="product_brand" type="row"/>
-                    <field name="product_vc" type="row"/>
-                    <field name="product_grade" type="row"/>
-                    <field name="product_transmission_type" type="row"/>
                     <field name="product_id" type="row"/>
                     <field name="location_id" type="col"/>
                     <field name="quantity" type="measure"/>
@@ -35,8 +31,6 @@
                     <field name="product_card_no"/>
                     <field name="product_alj_suffix"/>
                     <field name="product_vehicle_model"/>
-                    <field name="product_vc"/>
-                    <field name="product_transmission_type"/>
                 </xpath>
                 <xpath expr="//filter[@name='productgroup']" position="after">
                     <filter name="product_brand" string="Brand" context="{'group_by': 'product_brand'}"/>
@@ -54,10 +48,6 @@
                     <filter name="product_alj_suffix" string="Alj Suffix" context="{'group_by': 'product_alj_suffix'}"/>
                     <filter name="product_vehicle_model" string="Vehicle Model"
                             context="{'group_by': 'product_vehicle_model'}"/>
-                    <filter name="product_vc" string="Product VC"
-                            context="{'group_by': 'product_vc'}"/>
-                    <filter name="product_transmission_type" string="Transmission Type"
-                            context="{'group_by': 'product_transmission_type'}"/>
                 </xpath>
             </field>
         </record>
@@ -82,8 +72,6 @@
                     <field name="product_card_no" optional="hide"/>
                     <field name="product_alj_suffix" optional="hide"/>
                     <field name="product_vehicle_model" optional="hide"/>
-                    <field name="product_vc" optional="hide"/>
-                    <field name="product_transmission_type" optional="hide"/>
                 </xpath>
 
             </field>

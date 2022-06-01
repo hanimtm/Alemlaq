@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 # Part of Probuse Consulting Service Pvt Ltd. See LICENSE file for full copyright and licensing details.
-import datetime
-
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
@@ -115,29 +113,13 @@ class SaleOrder(models.Model):
     def schedule_action_cancel_reservation(self):
         # ICPSudo = self.env['ir.config_parameter'].sudo()
         # nb_days = ICPSudo.get_param('odoo_stock_reservation.nb_days')
-        # self.ensure_one()
         nb_days = 0
-        # _logger.critical('********RESERVATIONS*********')
-
         if self.env['number.days.reservation'].search([])[0]:
             nb_days = self.env['number.days.reservation'].search([])[0].nb_days
-        # _logger.critical(nb_days)
-        # _logger.critical(datetime.datetime.now())
-        # _logger.critical('--------------------------------------')
-        # date_obj = fields.Date.today() - relativedelta(days=int(nb_days))
-        date_obj = (fields.datetime.now()) - relativedelta(hours=int(nb_days * 24))
-        # _logger.critical(date_obj)
-        # sales = self.env['sale.order'].search([('validity_date', '=', date_obj)])
-        # reservations = self.env['stock.move.reservation'].search([('reserv_request_date', '=', date_obj),
-        #                                                           ('state', '!=', 'cancel')])
-        reservations = self.env['stock.move.reservation'].search([('reserv_request_date', '<=', date_obj),
-                                                                  ('state', '!=', 'cancel')])
-        # _logger.critical(reservations)
-        for reserve in reservations:
-            # reserve.write({'state': 'cancel'})
-            reserve.custome_sale_order_id.action_cancel_stock_reservation()
-        # for sale in sales:
-        #     sale.action_cancel_stock_reservation()
+        date_obj = fields.Date.today() - relativedelta(days=int(nb_days))
+        sales = self.env['sale.order'].search([('validity_date', '=', date_obj)])
+        for sale in sales:
+            sale.action_cancel_stock_reservation()
 
     def _create_invoices(self, grouped=False, final=False, date=None):
         for line in self.order_line:
