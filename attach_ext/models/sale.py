@@ -3,6 +3,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -245,7 +246,23 @@ class SaleOrder(models.Model):
         # return super(SaleOrder, self).create(vals).action_create_stock_reservation_direct()
 
         res = super(SaleOrder, self).create(vals)
+
         if res.auto_reservation == True:
             res.test_reserve_auto()
         # else:
         return res
+
+    # @api.onchange('order_line')
+    # def onchange_order_line(self):
+    #     if
+
+
+# class OrderLine(models.Model):
+#     _inherit = 'sale.order.line'
+#
+#     @api.onchange('product_id')
+#     def onchange_order_line(self):
+#         if self.stock_location_id.location_sequence == 1 or \
+#                 self.stock_location_id.location_sequence == 2 or \
+#                 self.stock_location_id.location_sequence == 12:
+#             raise ValidationError('This product is not available in location...')

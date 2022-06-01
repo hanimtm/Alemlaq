@@ -6,9 +6,9 @@
                 id="report_sale_order_rajhi_bank"
                 model="sale.order"
                 string="Rajhi Template"
+                report_type="qweb-pdf"
                 name="attach_ext.report_sale_order_rajhi_bank_view"
                 file="report_sale_order_rajhi_bank"
-                report_type="qweb-pdf"
                 menu="False"/>
 
         <template id="report_sale_order_rajhi_bank_view">
@@ -105,7 +105,7 @@
                                             <t t-if="license['order_line_id']['id'] == line['id']">
                                                 <t t-set="license_money" t-value="license_money + license['price']"/>
                                                 <t t-raw="license_money"/>
-<!--                                                <span t-raw="license['price']"/>-->
+                                                <!--                                                <span t-raw="license['price']"/>-->
                                             </t>
                                             <t t-set="price" t-value="license['price']"/>
                                             <t t-set="total"
