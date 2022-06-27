@@ -31,7 +31,11 @@ class ImportPoWizard(models.TransientModel):
     ], default="name", string="Product By", required=True)
     is_create_vendor = fields.Boolean(string="Create Vendor?")
     is_confirm_order = fields.Boolean(string="Auto Confirm Order?")
+<<<<<<< Updated upstream
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
+=======
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
+>>>>>>> Stashed changes
     branch_id = fields.Many2one('company.branch', string="Branch")
     product_categ_id = fields.Many2one('product.category', string='Product Category')
     sequence_id = fields.Char('Sequence', default=lambda self: str(uuid.uuid4()))
@@ -147,10 +151,15 @@ class ImportPoWizard(models.TransientModel):
                                     continue
                                 vals = {}
                                 search_product = product_product_obj.search(
+<<<<<<< Updated upstream
                                     [('default_code', '=', sheet.cell(row, 0).value or " ")])
                                 print('Search Product :: ', search_product)
                                 if not search_product:
                                     print('I am Here')
+=======
+                                    [('default_code', '=', str(sheet.cell(row, 0).value).split('.')[0] or " ")])
+                                if not search_product:
+>>>>>>> Stashed changes
                                     search_product = self.env['product.product'].sudo().create({
                                         'name': sheet.cell(row, 2).value,
                                         'type': 'product',
@@ -167,15 +176,23 @@ class ImportPoWizard(models.TransientModel):
                                         'brand': str(sheet.cell(row, 7).value).split('.')[0],
                                         'standard_price': float(sheet.cell(row, 5).value),
                                         'sales_document': str(sheet.cell(row, 3).value).split('.')[0],
+<<<<<<< Updated upstream
                                         'company_id': self.company_id.id,
+=======
+                                        # 'company_id': self.company_id.id,
+>>>>>>> Stashed changes
                                         'branch_id': self.branch_id.id,
                                         'categ_id': self.product_categ_id.id,
                                     })
 
                                 if search_product:
                                     search_product.sudo().branch_id = self.branch_id.id
+<<<<<<< Updated upstream
                                     print('Product :: ', str(sheet.cell(row, 3).value))
                                     search_product.sudo().barcode = str(sheet.cell(row, 0).value)
+=======
+                                    search_product.sudo().barcode = str(sheet.cell(row, 0).value).split('.')[0]
+>>>>>>> Stashed changes
                                     lines.append((0, 0, {
                                         'product_id': search_product.id,
                                         'name': str(search_product.name),
@@ -194,8 +211,14 @@ class ImportPoWizard(models.TransientModel):
                                         'brand': str(sheet.cell(row, 7).value).split('.')[0],
                                         'sales_document': str(sheet.cell(row, 3).value).split('.')[0],
                                         'item': str(sheet.cell(row, 4).value).split('.')[0],
+<<<<<<< Updated upstream
                                         # 'order_id': created_po.id,
                                         'company_id': self.company_id.id,
+=======
+                                        'barcode': str(sheet.cell(row, 0).value).split('.')[0],
+                                        # 'order_id': created_po.id,
+                                        # 'company_id': self.company_id.id,
+>>>>>>> Stashed changes
                                         'branch_id': self.branch_id.id
                                     }))
                                     # created_pol = pol_obj.create(vals)
